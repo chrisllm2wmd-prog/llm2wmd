@@ -409,9 +409,9 @@ footer{text-align:center;padding:28px 20px 50px;font-family:'Share Tech Mono',mo
   #captcha-box { min-width:260px !important; padding:14px 16px 14px 14px !important; gap:12px !important; }
   #captcha-box span { font-size:12px !important; }
   #captcha-screen2 > div { padding:22px 18px !important; }
-  #twist-text { font-size:11px !important; line-height:1.9 !important; }
-  #twist-final div { font-size:10px !important; }
-  #captcha-enter { font-size:12px !important; padding:9px 24px !important; }
+  #twist-text { font-size:11px !important; line-height:1.25 !important; margin-bottom:10px !important; }
+  #twist-final div { font-size:10px !important; line-height:1.25 !important; }
+  #captcha-enter { font-size:12px !important; padding:10px 18px !important; display:block !important; margin:18px auto 0 auto !important; }
 
   /* Contents entry 07 */
   .contents-entry[onclick*="launchGame"] { transform:scale(0.65) !important; margin:-12px 0 -12px !important; }
@@ -630,6 +630,13 @@ footer{text-align:center;padding:28px 20px 50px;font-family:'Share Tech Mono',mo
 }
 .comment-add-btn:hover { background: rgba(255,85,85,.08); }
 
+@media(min-width:769px){
+  #comments-sidebar{display:flex !important;}
+}
+@media(max-width:768px){
+  #comments-sidebar{display:none !important;}
+}
+
 /* ── COMMENT CARDS ── */
 .comment-card {
   padding: 14px 16px;
@@ -840,10 +847,44 @@ footer{text-align:center;padding:28px 20px 50px;font-family:'Share Tech Mono',mo
 <style>
 @keyframes captcha-spin { to { transform:rotate(360deg); } }
 #captcha-overlay * { box-sizing:border-box; }
+html.captcha-lock,
+body.captcha-lock{
+  overflow:hidden !important;
+  height:100% !important;
+}
+body.captcha-lock{
+  position:fixed;
+  width:100%;
+  left:0;
+  right:0;
+}
 </style>
 
 <script>
 var _captchaClicked = false;
+var captchaScrollY = 0;
+
+function lockPageScroll() {
+  captchaScrollY = window.scrollY || window.pageYOffset || 0;
+  document.documentElement.classList.add('captcha-lock');
+  document.body.classList.add('captcha-lock');
+  document.body.style.top = '-' + captchaScrollY + 'px';
+}
+
+function unlockPageScroll() {
+  document.documentElement.classList.remove('captcha-lock');
+  document.body.classList.remove('captcha-lock');
+  document.body.style.top = '';
+  window.scrollTo(0, captchaScrollY);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var ov = document.getElementById('captcha-overlay');
+  if (ov && getComputedStyle(ov).display !== 'none') {
+    lockPageScroll();
+  }
+});
+
 function captchaClick() {
   if (_captchaClicked) return;
   _captchaClicked = true;
@@ -864,19 +905,13 @@ function captchaClick() {
 function typewriteTwist() {
   var lines = [
     'RESULT: HUMAN (PROBABLY)',
-    '',
     'Look, we really did have to double check.',
-    '',
     'Last thing we need is the robits getting in here.',
-    '',
     'They\'ve already got the nuclear codes,',
     'the drone fleet, and half of Congress.',
-    '',
     'If they get the timeline too',
     'we\'re genuinely finished.',
-    '',
     'You\'re clear. For now.',
-    '',
     'We\'ll be watching.'
   ];
   var el = document.getElementById('twist-text');
@@ -901,7 +936,10 @@ function dismissCaptcha() {
   var ov = document.getElementById('captcha-overlay');
   ov.style.transition = 'opacity 0.5s';
   ov.style.opacity = '0';
-  setTimeout(function() { ov.style.display = 'none'; }, 500);
+  setTimeout(function() {
+    ov.style.display = 'none';
+    unlockPageScroll();
+  }, 500);
 }
 </script>
 <div id="prog" class="brightness-fix" style="width: 0.398427%;"></div>
@@ -5091,7 +5129,6 @@ function doGameOver(reason){
 <!-- COMMENTS SIDEBAR (desktop: fixed right panel) -->
 <div id="comments-sidebar">
   <div class="sidebar-title">LIVE COMMENTS</div>
-  <div style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:.5rem;letter-spacing:3px;color:rgba(255,187,85,.45);padding:6px 16px 8px;border-bottom:1px solid rgba(255,85,85,.08);flex-shrink:0;">⚠ FUTURE UPGRADE COMING SOON</div>
   <div id="sidebar-comment-list"><div class="no-comments-msg">Loading...</div></div>
   <button class="comment-add-btn" onclick="openCommentForm()">+ ADD COMMENT OR REVIEW</button>
 </div>
@@ -5251,7 +5288,7 @@ function renderComments(all) {
   var ml = document.getElementById('mobile-comment-list');
   var rl = document.getElementById('community-reviews-list');
 
-  var noComm = '<div class="no-comments-msg">No comments yet. Be first.</div>';
+  var noComm = '<div class="comment-info-box" style="border:1px solid rgba(255,85,85,.35);background:rgba(255,85,85,.06);padding:18px 20px;font-family:\'Share Tech Mono\',monospace;font-size:.72rem;letter-spacing:1px;line-height:1.8;color:#dde4ec;">COMMENTS ARE NOW SUBMITTED VIA THE COMMENT LINK BUTTON.<br><br>Select the comment button to open the transmission form and send your message to the timeline archive.</div>';
   var noRev  = '<div class="no-reviews-msg">No field reports yet. Be first.</div>';
 
   if(sd) sd.innerHTML = commHtml || noComm;
