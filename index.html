@@ -5297,7 +5297,10 @@ function renderComments(all) {
 }
 
 function openCommentForm() {
-  document.getElementById('comment-form-overlay').style.display='flex';
+  var overlay = document.getElementById('comment-form-overlay');
+  if (!overlay) return;
+  overlay.style.display='flex';
+  var err=document.getElementById('cf-error'); if(err) err.textContent='';
 }
 function closeCF() {
   document.getElementById('comment-form-overlay').style.display='none';
@@ -5324,11 +5327,11 @@ function submitCF() {
   if(!tag)  { err.textContent='TAG IS REQUIRED';        return; }
   if(!affil){ err.textContent='AFFILIATION IS REQUIRED'; return; }
   if(!text) { err.textContent='COMMENT IS REQUIRED';    return; }
-  if(type==='review' && !_cfStars){ err.textContent='RATING IS REQUIRED';  return; }
+  if(type === 'review' && !_cfStars){ err.textContent='RATING IS REQUIRED';  return; }
   if(!_cfDB){ err.textContent='COMMENTS NOT YET CONFIGURED — SEE SOURCE CODE'; return; }
 
   var entry = { tag:tag, affiliation:affil, text:text, type:type, timestamp:Date.now() };
-  if(type==='review') entry.rating = _cfStars;
+  if (type === 'review') entry.rating = _cfStars;
   _cfDB.ref('comments').push(entry)
     .then(function(){ closeCF(); })
     .catch(function(e){ err.textContent='ERROR: '+e.message; });
