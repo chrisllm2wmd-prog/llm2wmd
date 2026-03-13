@@ -97,6 +97,8 @@ nav{position:fixed;top:3px;left:0;right:0;height:130px;z-index:100;background:rg
 @keyframes gm{0%{background-position:0 0;}100%{background-position:0 70px;}}
 .hey{font-family:'Share Tech Mono',monospace;font-size:.66rem;letter-spacing:8px;color:var(--red);margin-bottom:22px;position:relative;animation:blink 5s infinite;}
 @keyframes blink{0%,90%,100%{opacity:1;}95%{opacity:.2;}}
+.cursor{display:inline-block;animation:terminalCursor 1.2s infinite;}
+@keyframes terminalCursor{0%,50%,100%{opacity:1;}25%,75%{opacity:0;}}
 h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,10vw,9rem);line-height:.95;letter-spacing:3px;color:var(--white);position:relative;font-weight:900;}
 h1 em{display:block;color:var(--red);font-style:normal;text-shadow:0 0 50px rgba(255,85,85,.5);}
 .hspan{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.2rem,4vw,2.2rem);font-weight:700;letter-spacing:10px;color:var(--red);margin:8px 0 0;text-shadow:0 0 30px rgba(255,85,85,.4);}
@@ -2438,6 +2440,14 @@ function dismissCaptcha() {
     <div style="margin-top:32px;text-align:center;">
       <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
       <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
+
+      <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin:32px auto 0;text-align:center;background:rgba(255,85,85,0.03);max-width:760px;">
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">DIRECT TRANSMISSION</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.75rem,1.5vw,0.95rem);color:rgba(200,210,220,0.7);line-height:2;margin-bottom:20px;">If you have information, corrections, or something that should be added to the timeline,<br>you can transmit it directly. This channel is private and does not appear in the public feed.</div>
+        <div onclick="openCommentForm('transmission')" style="display:inline-block;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);border:1px solid rgba(255,85,85,0.35);padding:14px 28px;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">
+          <span style="color:rgba(200,210,220,0.5);margin-right:8px;">&gt;</span>initiate_transmission<span class="cursor">_</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2653,8 +2663,14 @@ function dismissCaptcha() {
   <!-- DIRECT CONTACT -->
   <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin:36px 0 0;text-align:center;background:rgba(255,85,85,0.03);">
     <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">DIRECT TRANSMISSION</div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.75rem,1.5vw,0.95rem);color:rgba(200,210,220,0.7);line-height:2;margin-bottom:20px;">Comments. Suggestions. Corrections.<br>Massive praise accepted without reservation.</div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;">▶ <a href="/cdn-cgi/l/email-protection#04676c766d772a68686936736960446369656d682a676b69" style="color:var(--red);text-decoration:none;letter-spacing:2px;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'"><span class="__cf_email__" data-cfemail="82e1eaf0ebf1aceeeeefb0f5efe6c2e5efe3ebeeace1edef">[email&#160;protected]</span></a></div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.75rem,1.5vw,0.95rem);color:rgba(200,210,220,0.7);line-height:2;margin-bottom:20px;">Comments. Suggestions. Corrections.<br>This channel is private and does not post to the public feed.</div>
+    <div onclick="openCommentForm('transmission')" style="display:inline-block;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);border:1px solid rgba(255,85,85,0.35);padding:14px 28px;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">
+      <span style="color:rgba(200,210,220,0.5);margin-right:8px;">&gt;</span>initiate_transmission<span class="cursor">_</span>
+    </div>
+    <div style="margin-top:28px;">
+      <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
+      <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
+    </div>
   </div>
 
   <!-- COMMUNITY REVIEWS -->
@@ -5136,8 +5152,8 @@ function doGameOver(reason){
 <!-- COMMENT / REVIEW SUBMISSION FORM -->
 <div id="comment-form-overlay" style="display:none;">
   <div class="comment-form-box">
-    <div class="cf-title">SUBMIT COMMENT OR REVIEW</div>
-    <div class="cf-subtitle">ALL FIELDS REQUIRED TO SUBMIT</div>
+    <div class="cf-title" id="cf-title">SUBMIT COMMENT OR REVIEW</div>
+    <div class="cf-subtitle" id="cf-subtitle">STAR RATING REQUIRED FOR REVIEWS ONLY</div>
     <input id="cf-tag" class="cf-input" placeholder="YOUR TAG / HANDLE" maxlength="40">
     <select id="cf-affiliation" class="cf-input">
       <option value="">— AI AFFILIATION —</option>
@@ -5149,12 +5165,12 @@ function doGameOver(reason){
       <option value="PRESS">PRESS / MEDIA</option>
       <option value="OTHER">OTHER</option>
     </select>
-    <div class="cf-type-row">
+    <div class="cf-type-row" id="cf-type-row">
       <label class="cf-type-label"><input type="radio" name="cftype" value="comment" id="cf-type-comment" checked=""> POST AS COMMENT</label>
       <label class="cf-type-label"><input type="radio" name="cftype" value="review" id="cf-type-review"> POST AS REVIEW</label>
     </div>
     <textarea id="cf-text" class="cf-input cf-textarea" placeholder="YOUR COMMENT OR REVIEW (max 152 chars)" maxlength="152"></textarea>
-    <div class="cf-stars-row">
+    <div class="cf-stars-row" id="cf-stars-row">
       <span class="cf-star" onclick="setCFStar(1)">★</span>
       <span class="cf-star" onclick="setCFStar(2)">★</span>
       <span class="cf-star" onclick="setCFStar(3)">★</span>
@@ -5181,13 +5197,13 @@ function doGameOver(reason){
 //  6. In Database rules, set: ".read": true, ".write": true
 // ══════════════════════════════════════════════════════════════
 var FIREBASE_CONFIG = {
-  apiKey:            "PASTE_API_KEY",
-  authDomain:        "PASTE_PROJECT.firebaseapp.com",
-  databaseURL:       "https://PASTE_PROJECT-default-rtdb.firebaseio.com",
-  projectId:         "PASTE_PROJECT_ID",
-  storageBucket:     "PASTE_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId:             "PASTE_APP_ID"
+  apiKey: "AIzaSyCR_dAV429ftI-wACh_7U03ZTrKFpKZ1k8",
+  authDomain: "llm2wmd.firebaseapp.com",
+  databaseURL: "https://llm2wmd-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "llm2wmd",
+  storageBucket: "llm2wmd.firebasestorage.app",
+  messagingSenderId: "769701166055",
+  appId: "1:769701166055:web:c439678accbf7bdf5fdb42"
 };
 
 var _cfDB = null;
@@ -5296,8 +5312,32 @@ function renderComments(all) {
   if(rl) rl.innerHTML = revHtml  || noRev;
 }
 
-function openCommentForm() {
+var _cfMode = 'public';
+function openCommentForm(mode) {
+  _cfMode = mode === 'transmission' ? 'transmission' : 'public';
   document.getElementById('comment-form-overlay').style.display='flex';
+
+  var title = document.getElementById('cf-title');
+  var subtitle = document.getElementById('cf-subtitle');
+  var typeRow = document.getElementById('cf-type-row');
+  var starsRow = document.getElementById('cf-stars-row');
+  var text = document.getElementById('cf-text');
+  var commentRadio = document.getElementById('cf-type-comment');
+
+  if(_cfMode === 'transmission') {
+    if(title) title.textContent = 'DIRECT TRANSMISSION';
+    if(subtitle) subtitle.textContent = 'PRIVATE MESSAGE. NOT POSTED TO PUBLIC FEED.';
+    if(typeRow) typeRow.style.display = 'none';
+    if(starsRow) starsRow.style.display = 'none';
+    if(text) text.placeholder = 'YOUR PRIVATE MESSAGE (max 152 chars)';
+    if(commentRadio) commentRadio.checked = true;
+  } else {
+    if(title) title.textContent = 'SUBMIT COMMENT OR REVIEW';
+    if(subtitle) subtitle.textContent = 'STAR RATING REQUIRED FOR REVIEWS ONLY';
+    if(typeRow) typeRow.style.display = 'flex';
+    if(starsRow) starsRow.style.display = 'flex';
+    if(text) text.placeholder = 'YOUR COMMENT OR REVIEW (max 152 chars)';
+  }
 }
 function closeCF() {
   document.getElementById('comment-form-overlay').style.display='none';
@@ -5305,6 +5345,12 @@ function closeCF() {
   var sel=document.getElementById('cf-affiliation'); if(sel)sel.value='';
   var rc=document.getElementById('cf-type-comment'); if(rc)rc.checked=true;
   _cfStars=0; updateCFStars();
+  _cfMode='public';
+  var title = document.getElementById('cf-title'); if(title) title.textContent='SUBMIT COMMENT OR REVIEW';
+  var subtitle = document.getElementById('cf-subtitle'); if(subtitle) subtitle.textContent='STAR RATING REQUIRED FOR REVIEWS ONLY';
+  var typeRow = document.getElementById('cf-type-row'); if(typeRow) typeRow.style.display='flex';
+  var starsRow = document.getElementById('cf-stars-row'); if(starsRow) starsRow.style.display='flex';
+  var text = document.getElementById('cf-text'); if(text) text.placeholder='YOUR COMMENT OR REVIEW (max 152 chars)';
   var err=document.getElementById('cf-error'); if(err)err.textContent='';
 }
 function setCFStar(n) { _cfStars=n; updateCFStars(); }
@@ -5321,13 +5367,23 @@ function submitCF() {
   var type  = document.querySelector('input[name="cftype"]:checked').value;
   var err   = document.getElementById('cf-error');
 
-  if(!tag)  { err.textContent='TAG IS REQUIRED';        return; }
+  if(!tag)  { err.textContent='TAG IS REQUIRED'; return; }
   if(!affil){ err.textContent='AFFILIATION IS REQUIRED'; return; }
-  if(!text) { err.textContent='COMMENT IS REQUIRED';    return; }
-  if(!_cfStars){ err.textContent='RATING IS REQUIRED';  return; }
+  if(!text) { err.textContent='MESSAGE IS REQUIRED'; return; }
   if(!_cfDB){ err.textContent='COMMENTS NOT YET CONFIGURED — SEE SOURCE CODE'; return; }
 
-  var entry = { tag:tag, affiliation:affil, text:text, rating:_cfStars, type:type, timestamp:Date.now() };
+  if(_cfMode === 'transmission') {
+    var transmission = { tag:tag, affiliation:affil, text:text, type:'transmission', timestamp:Date.now() };
+    _cfDB.ref('transmissions').push(transmission)
+      .then(function(){ closeCF(); })
+      .catch(function(e){ err.textContent='ERROR: '+e.message; });
+    return;
+  }
+
+  if(type === 'review' && !_cfStars){ err.textContent='RATING IS REQUIRED'; return; }
+
+  var entry = { tag:tag, affiliation:affil, text:text, type:type, timestamp:Date.now() };
+  if(type === 'review') entry.rating = _cfStars;
   _cfDB.ref('comments').push(entry)
     .then(function(){ closeCF(); })
     .catch(function(e){ err.textContent='ERROR: '+e.message; });
