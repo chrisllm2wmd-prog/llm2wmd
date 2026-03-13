@@ -586,6 +586,22 @@ footer{text-align:center;padding:28px 20px 50px;font-family:'Share Tech Mono',mo
 }
 #race-btn:hover{border-color:rgba(255,85,85,1)!important;color:#ff5555!important;animation:none!important;}
 
+
+.phase-block{margin:28px 0;border:1px solid rgba(255,85,85,.16);background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));position:relative;overflow:visible;scroll-margin-top:calc(var(--phase-sticky-top,145px) + 24px);overflow-anchor:none;}
+.phase-header{width:100%;background:rgba(10,10,15,.97);backdrop-filter:blur(6px);border:none;color:inherit;display:flex;align-items:center;gap:18px;padding:22px 24px;cursor:pointer;text-align:left;border-left:3px solid rgba(255,85,85,.35);position:-webkit-sticky;position:sticky;top:var(--phase-sticky-top,145px);z-index:30;box-shadow:0 6px 18px rgba(0,0,0,.24);pointer-events:auto;}
+.phase-header:hover{background:rgba(255,85,85,.04);border-left-color:rgba(255,85,85,.75);}
+.phase-kicker{font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:4px;color:rgba(255,85,85,.7);min-width:42px;}
+.phase-copy{flex:1;min-width:0;}
+.phase-title{font-family:'Barlow Condensed',sans-serif;font-size:2.1rem;letter-spacing:2px;color:var(--white);line-height:1;}
+.phase-sub{margin-top:6px;font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--dim);text-transform:uppercase;line-height:1.6;}
+.phase-toggle{font-family:'Share Tech Mono',monospace;font-size:1.4rem;color:var(--red);width:24px;text-align:center;flex-shrink:0;}
+.phase-body{display:none;padding:8px 18px 22px;border-top:1px solid rgba(255,85,85,.08);}
+.phase-block.open .phase-body{display:block;}
+.phase-body > .date-group:first-child .date-group-yr{font-size:.4875rem !important;}
+.phase-body > .date-group:first-child .date-group-title-preview{font-size:.42rem !important;}
+.phase-body > .date-group:first-child .date-group-tick{font-size:.9rem !important;}
+@media(max-width:480px){.phase-header{padding:16px 14px;gap:12px;top:var(--phase-sticky-top-mobile,122px);}.phase-title{font-size:1.3rem;}.phase-sub{font-size:.48rem;letter-spacing:1.5px;}.phase-kicker{font-size:.56rem;min-width:30px;}.phase-body{padding:4px 6px 14px;}.phase-body > .date-group:first-child .date-group-yr{font-size:.4125rem !important;}.phase-body > .date-group:first-child .date-group-title-preview{font-size:.375rem !important;}.phase-body > .date-group:first-child .date-group-tick{font-size:.75rem !important;}}
+
 /* ── COMMENTS SIDEBAR (desktop fixed right) ── */
 #comments-sidebar {
   display: none;
@@ -1100,9 +1116,17 @@ function dismissCaptcha() {
 
 <div class="tl" id="tl">
 
-<div class="era"><span>THE FOUNDING</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2015</div><div class="date-group-title-preview">OpenAI Is Founded</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+<div class="phase-block">
+  <button class="phase-header" type="button" aria-expanded="false">
+    <div class="phase-kicker">01</div>
+    <div class="phase-copy">
+      <div class="phase-title">EMERGENCE</div>
+      <div class="phase-sub">Foundations, breakthroughs, and the first visible warning signs.</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </button>
+  <div class="phase-body">
+<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2015</div><div class="date-group-title-preview">OpenAI Is Founded</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">DEC 2015</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1111,9 +1135,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Founded Dec 11, 2015. The "open" in OpenAI was literal — all research to be published freely. Within two years, key research was restricted. Within seven years, converted to for-profit. The mission statement remains unchanged on their website. Musk's co-founding of the company he would later sue is the foundational irony of the AI era.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2015</div><div class="date-group-title-preview">Musk: "This Is Not About Money"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2015</div><div class="date-group-title-preview">Musk: "This Is Not About Money"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">DEC 2015</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE → CONTRADICTED</span>
@@ -1122,9 +1144,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det"><span class="cx">CONTRADICTED 2024:</span> Musk sues OpenAI for $97.4 billion, alleging they abandoned their nonprofit mission for profit. He simultaneously builds xAI — his own for-profit AI company — and bids to acquire OpenAI to control it. Money turns out to be very much involved on every side.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2018</div><div class="date-group-title-preview">Musk Leaves OpenAI Board</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2018</div><div class="date-group-title-preview">Musk Leaves OpenAI Board</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 2018</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1133,9 +1153,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Musk proposed taking over as CEO during a board meeting about OpenAI's direction. The board — including Altman — declined. He left. Both cited Tesla conflicts publicly. Both accounts are partially true. The departure planted the seed for the 2024 lawsuit, the $97.4B acquisition bid, and the broader power struggle over who controls the path to AGI.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2018–2019</div><div class="date-group-title-preview">Musk Starts Firing Shots Publicly</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2018–2019</div><div class="date-group-title-preview">Musk Starts Firing Shots Publicly</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">2018–2019</div></div>
   <div class="card cq">
     <span class="tag tq">THE BACK AND FORTH BEGINS</span>
@@ -1144,9 +1162,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Musk's post-departure behaviour was unusually public for a board resignation. He continued promoting OpenAI while criticising it — a pattern that continued for years. His nickname "OpenClosed AI" stuck. Altman largely ignored these comments publicly at this stage, describing the relationship as "complicated but respectful." That characterisation would not last.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2023</div><div class="date-group-title-preview">Musk vs. Altman: The Gloves Come Off</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2023</div><div class="date-group-title-preview">Musk vs. Altman: The Gloves Come Off</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">2023</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTES — ESCALATING</span>
@@ -1155,11 +1171,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The exchange happened over multiple Twitter/X posts across 2023. Musk escalated consistently; Altman mostly declined to engage, which appeared to frustrate Musk further. Altman told Lex Fridman in 2023: "I think Elon is wrong about a lot of the AI stuff, but I understand why he believes what he believes." He did not specify which parts Musk was wrong about.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="era"><span>LANGUAGE MODELS ARRIVE</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUN 2018</div><div class="date-group-title-preview">GPT-1: The Blueprint (117M Parameters)</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUN 2018</div><div class="date-group-title-preview">GPT-1: The Blueprint (117M Parameters)</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">JUN 2018</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1168,9 +1180,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">117 million parameters. GPT-4 is estimated at ~1 trillion. GPT-1 demonstrated that a single objective — predict the next word — could generalise to many tasks without specific training. Every model that followed, including Claude, Gemini, and Grok, is a descendant of this architecture and this idea.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2019</div><div class="date-group-title-preview">GPT-2: "Too Dangerous to Release" (1.5B Parameters)</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2019</div><div class="date-group-title-preview">GPT-2: "Too Dangerous to Release" (1.5B Parameters)</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 2019</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1179,9 +1189,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">1.5B parameters. GPT-2 wrote convincing news articles, fiction, and persuasive content. OpenAI released it in four stages — a first in AI. The full model landed quietly. Its legacy: the word "AI safety" entered mainstream tech discourse for the first time. Three years later, the conversation would become desperately urgent.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="microsoft" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2019</div><div class="date-group-title-preview">Microsoft Invests $1 Billion: The Partnership Begins</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="microsoft">
+</div></div></div><div class="date-group" data-t="e" data-co="microsoft" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2019</div><div class="date-group-title-preview">Microsoft Invests $1 Billion: The Partnership Begins</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="microsoft">
   <div class="ecol"><div class="dot de"></div><div class="yr">JUL 2019</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1190,9 +1198,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The Microsoft-OpenAI partnership proved mutually transformative. Microsoft integrated GPT into Bing, Office, Windows, and Azure. OpenAI got the computing resources it couldn't afford alone. When the board tried to fire Altman in 2023, Microsoft held enormous leverage and used it. Without Microsoft, OpenAI as it exists today does not exist.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUN 2020</div><div class="date-group-title-preview">GPT-3: 175 Billion Parameters. Everything Changes.</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUN 2020</div><div class="date-group-title-preview">GPT-3: 175 Billion Parameters. Everything Changes.</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">JUN 2020</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1201,9 +1207,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">GPT-3's API spawned hundreds of applications within weeks. The New York Times: "A Machine That Writes Anything." GPT-3 was the first model that made "AI replacing jobs" feel plausible rather than theoretical. It was GPT-3 that changed the question from "can AI write?" to "why are we still hiring humans to write?"</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2021</div><div class="date-group-title-preview">DALL-E: AI Learns to Create Images</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2021</div><div class="date-group-title-preview">DALL-E: AI Learns to Create Images</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">JAN 2021</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1212,9 +1216,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">DALL-E 2 (April 2022), DALL-E 3 (October 2023). Midjourney v5 (March 2023) produced photorealistic images indistinguishable from photographs. The AI art controversy crystallised a question the industry continues to avoid: who owns the output of a model trained on billions of images taken without permission?</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR 2021</div><div class="date-group-title-preview">Anthropic Founded: The Safety Schism</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR 2021</div><div class="date-group-title-preview">Anthropic Founded: The Safety Schism</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="anthropic">
   <div class="ecol"><div class="dot de"></div><div class="yr">APR 2021</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1223,11 +1225,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Dario was VP of Research at OpenAI. Daniela was VP of Operations. Google invested $300M immediately; Amazon committed $4B. Anthropic's "constitutional AI" became the industry's safety standard — right up until Pete Hegseth issued his ultimatum in February 2026 and demanded they remove it.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="era"><span>THE ACCELERATION</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">NOV 2022</div><div class="date-group-title-preview">ChatGPT: 100 Million Users in 60 Days</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">NOV 2022</div><div class="date-group-title-preview">ChatGPT: 100 Million Users in 60 Days</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">NOV 2022</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1236,9 +1234,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">TikTok took 9 months to reach 100M users. Instagram: 2.5 years. The internet: 7 years. ChatGPT: 60 days. ChatGPT did not just change what AI could do — it changed what the public believed was possible. The 18 months that followed were the most consequential in the history of technology.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2022</div><div class="date-group-title-preview">OpenAI: "We Will Not Work With the Military"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">2022</div><div class="date-group-title-preview">OpenAI: "We Will Not Work With the Military"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">2022</div></div>
   <div class="card cq">
     <span class="tag tq">POLICY → REVERSED</span>
@@ -1247,9 +1243,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det"><span class="cx">REVERSED JAN 2024:</span> OpenAI quietly removes "military and warfare" from its prohibited use list. The change is not announced. Journalists at The Intercept discover it. By December 2024 they are building weapons AI for Anduril's drone systems. By February 2026 they sign a classified Pentagon weapons contract — replacing Anthropic, who refused. The original policy was still on the Wayback Machine.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="c" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">2023</div><div class="date-group-title-preview">The Creator: What If We're the Villain?</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="c" data-co="independent">
+</div></div></div><div class="date-group" data-t="c" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">2023</div><div class="date-group-title-preview">The Creator: What If We're the Villain?</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="c" data-co="independent">
   <div class="ecol"><div class="dot dc"></div><div class="yr">2023</div></div>
   <div class="card cc">
     <span class="tag tc">POP CULTURE</span>
@@ -1258,9 +1252,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Critics noted the film's timing made it uniquely resonant. Several AI researchers cited it as the first mainstream blockbuster to seriously engage with AI's perspective. Released the same year as Oppenheimer — another film about what happens when humanity builds something it cannot un-build. Both films did well. Both warnings were largely ignored.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2023</div><div class="date-group-title-preview">GPT-4: Human-Level Benchmarks Collapse</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2023</div><div class="date-group-title-preview">GPT-4: Human-Level Benchmarks Collapse</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 2023</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1269,9 +1261,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">GPT-4 was multimodal (text + images) with an estimated 1 trillion parameters. Its technical details were kept confidential — a pivot from the "open" mission cited in Musk's lawsuit. GPT-4 also demonstrated alarming emergent capabilities not present in GPT-3: planning, step-by-step reasoning, and theory of mind. These were not explicitly trained for. They appeared at scale.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2023</div><div class="date-group-title-preview">Claude 1: Anthropic Enters the Race</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2023</div><div class="date-group-title-preview">Claude 1: Anthropic Enters the Race</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="anthropic">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 2023</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1280,9 +1270,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Claude 1's constitutional AI published its methods transparently. The "constitution" involves the model critiquing its own outputs against a set of principles. Anthropic published their approach; GPT-4's technical details were kept secret. This openness about method positioned Anthropic as the safety-first alternative — a reputation that would become both its greatest asset and its greatest vulnerability.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="google" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAY 2023</div><div class="date-group-title-preview">The Godfather Quits Google to Warn You</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="google">
+</div></div></div><div class="date-group" data-t="e" data-co="google" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAY 2023</div><div class="date-group-title-preview">The Godfather Quits Google to Warn You</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="google">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAY 2023</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1291,9 +1279,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">"I console myself with the normal excuse: if I hadn't done it, someone else would have." Hinton joined Yoshua Bengio and others in calling for development pauses. The industry largely ignored these calls. Sam Altman testified to Congress and said he was "a little bit worried." Then returned to work and accelerated development. Hinton later called Altman's congressional testimony "disingenuous."</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2023</div><div class="date-group-title-preview">Meta Llama 2: Free AI for Everyone</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="meta">
+</div></div></div><div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2023</div><div class="date-group-title-preview">Meta Llama 2: Free AI for Everyone</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="meta">
   <div class="ecol"><div class="dot de"></div><div class="yr">JUL 2023</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1302,9 +1288,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Llama 2 (7B, 13B, 70B) spawned hundreds of community fine-tunes including uncensored models with no safety restrictions. This "open source AI" movement now produces models competitive with the closed frontier. It means there is AI that no lab can patch, restrict, or shut down. The implications for safety research are not reassuring.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FRI NOV 17 2023</div><div class="date-group-title-preview">The Board Fires Sam Altman</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FRI NOV 17 2023</div><div class="date-group-title-preview">The Board Fires Sam Altman</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">FRI NOV 17 2023</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1313,9 +1297,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Board vote: 4-2. Voting to remove: Ilya Sutskever (co-founder), Adam D'Angelo, Tasha McCauley, Helen Toner. Reports suggest the board feared rapid capability advances — possibly a project called Q* — and believed Altman was moving without adequate safety oversight. Sutskever would later say he regretted his vote. The board had no replacement CEO ready. They announced it to most staff simultaneously with the public.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">SAT–MON NOV 18–20 2023</div><div class="date-group-title-preview">700 Employees Sign a Letter: "Rehire Him or We All Quit"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">SAT–MON NOV 18–20 2023</div><div class="date-group-title-preview">700 Employees Sign a Letter: "Rehire Him or We All Quit"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">SAT–MON NOV 18–20 2023</div></div>
   <div class="card cq">
     <span class="tag tq">THE WALKOUT THAT WASN'T</span>
@@ -1324,9 +1306,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Senior researchers, engineers and safety staff all signed — many hired specifically for the safety mission. The safety board that fired Altman to protect the mission had triggered the event that would end the mission if they didn't reverse. Even Ilya Sutskever — one of the four who voted to fire Altman — signed the letter. He posted: "I deeply regret my participation in the board's actions."</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">TUE NOV 21 2023</div><div class="date-group-title-preview">Altman Returns. The Safety Board Is Gone.</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">TUE NOV 21 2023</div><div class="date-group-title-preview">Altman Returns. The Safety Board Is Gone.</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">TUE NOV 21 2023</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1335,9 +1315,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Altman returned to cheering staff. He posted on X wearing an OpenAI guest badge — the kind given to visitors — captioned "first and last time i wear one of these." The new board included Bret Taylor and Larry Summers. Helen Toner and Tasha McCauley were out. OpenAI never reconstituted an equivalent independent safety oversight body. The company continued as before, faster.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2023</div><div class="date-group-title-preview">Altman: "We Share Anthropic's Exact Red Lines"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2023</div><div class="date-group-title-preview">Altman: "We Share Anthropic's Exact Red Lines"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">DEC 2023</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE → CONTRADICTED</span>
@@ -1346,9 +1324,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det"><span class="cx">CONTRADICTED FEB 2026:</span> When Anthropic refused the Pentagon contract over those exact red lines, they were banned from US government work and designated a national security risk. OpenAI signed the contract within hours. Altman later admitted the deal was "rushed." He did not explain why the rush made the principles optional. The quote was still on the internet.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2023</div><div class="date-group-title-preview">Gemini 1.0 + Grok 1.0: The Race Goes Four-Way</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="multi">
+</div></div></div><div class="date-group" data-t="e" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2023</div><div class="date-group-title-preview">Gemini 1.0 + Grok 1.0: The Race Goes Four-Way</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="multi">
   <div class="ecol"><div class="dot de"></div><div class="yr">DEC 2023</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1358,10 +1334,20 @@ function dismissCaptcha() {
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
 </div></div></div>
+  </div>
+</div>
 
-<div class="era"><span>THE DATA CENTRE ARMS RACE</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="e" data-co="microsoft" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2024</div><div class="date-group-title-preview">Microsoft: $80 Billion in AI Infrastructure</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="microsoft">
+<div class="phase-block">
+  <button class="phase-header" type="button" aria-expanded="false">
+    <div class="phase-kicker">02</div>
+    <div class="phase-copy">
+      <div class="phase-title">ESCALATION</div>
+      <div class="phase-sub">Competition, policy shifts, and the collapse of restraint.</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </button>
+  <div class="phase-body">
+<div class="date-group" data-t="e" data-co="microsoft" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2024</div><div class="date-group-title-preview">Microsoft: $80 Billion in AI Infrastructure</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="microsoft">
   <div class="ecol"><div class="dot de"></div><div class="yr">JAN 2024</div></div>
   <div class="card ce">
     <span class="tag te">DATA CENTRE</span>
@@ -1370,9 +1356,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Microsoft's Fairwater (phase 1) came online early 2026. Phase 2 ($4B additional) announced September 2025. Microsoft's Wisconsin campus is projected to exceed 3 gigawatts by 2028 — nearly half the output of the world's largest nuclear power plant. In 2025, Amazon, Google, Microsoft and Meta collectively invested $320 billion in AI infrastructure — up from $230B the prior year.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2024</div><div class="date-group-title-preview">Musk Sues OpenAI: "You Betrayed Humanity"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 2024</div><div class="date-group-title-preview">Musk Sues OpenAI: "You Betrayed Humanity"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 2024</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1381,9 +1365,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The complaint cited founding documents, internal emails, and OpenAI's capped-profit structure. Musk's $97.4B acquisition bid was rejected. The lawsuit continued into 2026. Meanwhile, xAI's Grok was approved for classified Pentagon use in February 2026 — the same week Musk was publicly criticising the OpenAI-DoD deal. His alternative to OpenAI's military contract was his own military contract.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2024</div><div class="date-group-title-preview">OpenAI Quietly Removes Its Military Ban</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2024</div><div class="date-group-title-preview">OpenAI Quietly Removes Its Military Ban</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">JAN 2024</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1392,9 +1374,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The word "military" was simply deleted from the prohibited use list. This small edit opened the door to everything that followed. The change went unannounced. The original policy was documented on the Wayback Machine. If a company quietly removes its most important ethical boundary without telling anyone, that tells you something about how the company views that boundary.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2024</div><div class="date-group-title-preview">Claude 3: Anthropic Becomes a Capability Rival</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2024</div><div class="date-group-title-preview">Claude 3: Anthropic Becomes a Capability Rival</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="anthropic">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 2024</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1403,9 +1383,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Claude 3.5 Sonnet (June 2024) became the world's top-ranked coding model. By July 2025, the DoD deployed Claude via Palantir and Amazon's classified cloud under a $200M contract. Pentagon CTO: Claude was used for intelligence synthesis, logistics efficiency, and target analysis. By February 2026, removing it would take "open-heart surgery."</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAY 2024</div><div class="date-group-title-preview">GPT-4o: Real-Time Voice, Vision, Emotion</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAY 2024</div><div class="date-group-title-preview">GPT-4o: Real-Time Voice, Vision, Emotion</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAY 2024</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1414,9 +1392,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Johansson had been approached to voice GPT-4o and declined. The "Sky" voice launched with a nearly identical tone. She threatened legal action. OpenAI pulled the voice. Altman's "her" post was then quietly deleted. The entire episode lasted one afternoon and perfectly summarised every cultural ambivalence around AI: the desire for intimacy, the blurred consent, the commercial logic, the cover-up.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR 2024</div><div class="date-group-title-preview">Meta Llama 3: Open Source Catches the Frontier</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="meta">
+</div></div></div><div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR 2024</div><div class="date-group-title-preview">Meta Llama 3: Open Source Catches the Frontier</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="meta">
   <div class="ecol"><div class="dot de"></div><div class="yr">APR 2024</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1425,9 +1401,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Zuckerberg: "We're building toward general intelligence. This is the decade we solve it." Meta projected spending $600B on US AI infrastructure through 2028. Data centres named Prometheus (Ohio) and Hyperion were planned as the largest private infrastructure buildout in corporate history outside the Stargate consortium. The race had no ceiling.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="xai"><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2024</div><div class="date-group-title-preview">xAI Colossus: World's Largest AI Cluster in 122 Days</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="xai">
+</div></div></div><div class="date-group" data-t="e" data-co="xai"><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2024</div><div class="date-group-title-preview">xAI Colossus: World's Largest AI Cluster in 122 Days</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="xai">
   <div class="ecol"><div class="dot de"></div><div class="yr">SEP 2024</div></div>
   <div class="card ce open">
     <span class="tag te">DATA CENTRE</span>
@@ -1436,9 +1410,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Built on a former industrial site in Memphis, Tennessee. The construction speed required circumventing environmental review — drawing EPA scrutiny and community protests over air quality. Colossus 2 was announced late 2024 for further scale-up. xAI needed this compute to train Grok 3 and Grok 4 — which by 2025 were competitive with GPT-4 and Claude 3.</div></div>
     <div class="hint">CLICK TO COLLAPSE <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2024</div><div class="date-group-title-preview">OpenAI o1: The Model That Reasons</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2024</div><div class="date-group-title-preview">OpenAI o1: The Model That Reasons</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">SEP 2024</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1447,9 +1419,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">o1 introduced scaled thinking time — compute spent reasoning before output. ARC-AGI was created specifically to resist AI pattern matching. Its designer, François Chollet, had called it "safe" from AI for years. o3 shattered that assumption in December 2024. The benchmark designed to measure distance from AGI suddenly looked much less safe.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2024</div><div class="date-group-title-preview">OpenAI + Anduril: The Military Pivot Is Complete</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2024</div><div class="date-group-title-preview">OpenAI + Anduril: The Military Pivot Is Complete</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">DEC 2024</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1458,9 +1428,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Anduril was co-founded by Palmer Luckey and is among the most aggressive AI weapons companies in the US defence sector. OpenAI framed the deal as "consistent with our mission." A company founded as a nonprofit to benefit all of humanity had become a classified weapons AI contractor. The journey from "military use prohibited" (2022) to building drone weapons (2024) took exactly 24 months.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="deepseek" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2024 – JAN 2025</div><div class="date-group-title-preview">DeepSeek: China Matches the West for $6 Million</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="deepseek">
+</div></div></div><div class="date-group" data-t="e" data-co="deepseek" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">DEC 2024 – JAN 2025</div><div class="date-group-title-preview">DeepSeek: China Matches the West for $6 Million</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="deepseek">
   <div class="ecol"><div class="dot de"></div><div class="yr">DEC 2024 – JAN 2025</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1469,11 +1437,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">DeepSeek's efficiency innovations (Mixture-of-Experts architecture, knowledge distillation) showed algorithmic progress could offset hardware. This had enormous implications for US chip export controls. Restricting GPU sales to China had not prevented frontier AI development. The geopolitical AI race became more complex than any existing policy framework had anticipated.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="era"><span>STARGATE AND THE $500 BILLION BET</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2025</div><div class="date-group-title-preview">Stargate: $500 Billion Announced at the White House</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2025</div><div class="date-group-title-preview">Stargate: $500 Billion Announced at the White House</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">JAN 2025</div></div>
   <div class="card ce">
     <span class="tag te">DATA CENTRE</span>
@@ -1482,9 +1446,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Partners: OpenAI (models), Oracle (data centres), SoftBank (funding), Nvidia (chips). Flagship site: Abilene, Texas. 6,400 workers. Enough fibre optic cable to wrap the Earth 16 times. By September 2025, Abilene was running training workloads. Five additional sites announced September 2025 across New Mexico, Ohio, Wisconsin (x2), and Texas. Total planned: ~7 gigawatts of compute capacity.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR–JUL 2025</div><div class="date-group-title-preview">Llama 4, Claude 4, Grok 4: The Quarterly Frontier</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="multi">
+</div></div></div><div class="date-group" data-t="e" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">APR–JUL 2025</div><div class="date-group-title-preview">Llama 4, Claude 4, Grok 4: The Quarterly Frontier</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="multi">
   <div class="ecol"><div class="dot de"></div><div class="yr">APR–JUL 2025</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1493,9 +1455,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Claude 4 Opus scored 72.5% on SWE-Bench software engineering (vs GPT-4's 54.6%). Humanity's Last Exam was created specifically to be "too hard for any AI." Grok 4 scored 25.4% on it within months of launch. The exam lasted less than a year as an effective barrier to AI capability measurement. Benchmarks now fail faster than they can be created.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2025</div><div class="date-group-title-preview">DoD Awards $200M Contract: Claude Enters Classified Systems</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JUL 2025</div><div class="date-group-title-preview">DoD Awards $200M Contract: Claude Enters Classified Systems</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">JUL 2025</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1504,9 +1464,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Pentagon CTO Michael described Claude's roles: summarising classified documents, logistics efficiency, operational intelligence. By February 2026, Claude was so deeply embedded that removing it would take "3–6 months minimum — like open-heart surgery." This integration was total and invisible to the public. The scale of AI in military systems was not disclosed. It became visible only when the ban was announced and couldn't be enforced.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">AUG 2025</div><div class="date-group-title-preview">GPT-5: "AGI Is a Few Thousand Days Away"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">AUG 2025</div><div class="date-group-title-preview">GPT-5: "AGI Is a Few Thousand Days Away"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">AUG 2025</div></div>
   <div class="card ce">
     <span class="tag te">MODEL RELEASE</span>
@@ -1515,9 +1473,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">GPT-5 launched on the same day the White House issued its National Security Memorandum on AI — directing the Pentagon to accelerate AI adoption to counter China. The memo explicitly cited the DeepSeek shock as justification. Codex-Max (specialised coding model) launched with GPT-5.1. November 2025 Gemini 3 added multimodal reasoning over code, images, and video in one model.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2025</div><div class="date-group-title-preview">Stargate Abilene Goes Live: World's Largest AI Facility</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">SEP 2025</div><div class="date-group-title-preview">Stargate Abilene Goes Live: World's Largest AI Facility</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">SEP 2025</div></div>
   <div class="card ce">
     <span class="tag te">DATA CENTRE</span>
@@ -1526,11 +1482,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Oracle delivered first Nvidia GB200 racks in June 2025. Abilene phase 2 broke ground March 2025 and is expected online mid-2026. Five additional Stargate campuses announced September 2025 in New Mexico ($165B campus on 1,400 acres), Ohio, Wisconsin (x2, $15B each), and Texas. Total pipeline: nearly 7 gigawatts, over $400 billion in investment over three years.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="era"><span>THE BREAKING POINT</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="q" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2024</div><div class="date-group-title-preview">Amodei: "We Have Red Lines We Will Not Cross"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="q" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">DEC 2024</div><div class="date-group-title-preview">Amodei: "We Have Red Lines We Will Not Cross"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="anthropic">
   <div class="ecol"><div class="dot dq"></div><div class="yr">DEC 2024</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE → COMPLICATED</span>
@@ -1540,8 +1492,20 @@ function dismissCaptcha() {
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
 </div></div></div>
+  </div>
+</div>
 
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2026</div><div class="date-group-title-preview">First Confirmed Military Use: The Maduro Operation</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+<div class="phase-block">
+  <button class="phase-header" type="button" aria-expanded="false">
+    <div class="phase-kicker">03</div>
+    <div class="phase-copy">
+      <div class="phase-title">DEPLOYMENT</div>
+      <div class="phase-sub">AI systems move from laboratories into live state power.</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </button>
+  <div class="phase-body">
+<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">JAN 2026</div><div class="date-group-title-preview">First Confirmed Military Use: The Maduro Operation</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">JAN 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1550,9 +1514,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The Maduro operation used Claude for intelligence synthesis and operational planning — within Anthropic's stated framework of human oversight. Anthropic's silence was noted. Whether the company had advance knowledge is unclear. By February 2026, the same classification of systems would assist in a major joint US-Israeli airstrike. The bridge between "intelligence tool" and "war planning AI" had already been crossed.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">TUE FEB 24 2026</div><div class="date-group-title-preview">The Pentagon Ultimatum: Drop Your Guardrails</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">TUE FEB 24 2026</div><div class="date-group-title-preview">The Pentagon Ultimatum: Drop Your Guardrails</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">TUE FEB 24 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1561,9 +1523,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The deadline: 5pm Friday, February 28. The DoD's final "compromise" proposal included legalese that would allow safeguards to be "disregarded at will" — per Anthropic's own spokesperson. Senators from both parties sent letters urging resolution. OpenAI simultaneously began drafting a contract framework during the same week — making the DoD's hard-line stance toward Anthropic significantly easier to maintain.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28 2026 — 3:47pm</div><div class="date-group-title-preview">Trump Bans Anthropic Before the Deadline</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28 2026 — 3:47pm</div><div class="date-group-title-preview">Trump Bans Anthropic Before the Deadline</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 28 2026 — 3:47pm</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1572,9 +1532,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Trump's Truth Social post called Anthropic "A RADICAL LEFT, WOKE COMPANY." Senator Wyden: "The Defense Department is throwing a fit over Anthropic asking for the bare minimum ethical guardrails." Legal experts immediately noted the designation likely violated procedural requirements: no risk assessment was completed; Congress was not notified. Multiple law professors called it legally vulnerable. It was implemented anyway.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28 2026 — EVENING</div><div class="date-group-title-preview">OpenAI Signs the Deal Anthropic Was Destroyed For Refusing</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28 2026 — EVENING</div><div class="date-group-title-preview">OpenAI Signs the Deal Anthropic Was Destroyed For Refusing</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 28 2026 — EVENING</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1583,9 +1541,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Both contracts ultimately referenced existing US law rather than explicit contractual prohibitions — which was the exact loophole Anthropic refused. The DoD accepted OpenAI's approach but not Anthropic's near-identical approach. The most plausible explanation: the government wanted a compliant partner, not a principled one. OpenAI's national security lead claimed the Pentagon had "no legal authority" for domestic surveillance — a statement multiple legal scholars immediately contradicted, citing documented warrantless DoD data purchases.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28–MAR 1 2026</div><div class="date-group-title-preview">US–Israel Strike Iran: Claude Is the Targeting AI</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">FEB 28–MAR 1 2026</div><div class="date-group-title-preview">US–Israel Strike Iran: Claude Is the Targeting AI</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">FEB 28–MAR 1 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1594,9 +1550,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Confirmed by Wall Street Journal, CBS News, Axios, Washington Post, and multiple intelligence sources. Claude used for target identification, intelligence assessment, and simulated war gaming at US Central Command. Pentagon CTO: removing Claude would take "3–6 months minimum." Claude remained in use despite the ban as of March 5, 2026. The AI safety debate had left the conference rooms. It was now writing target lists in a war zone.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="c" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">MAR 1–3 2026</div><div class="date-group-title-preview">1.5 Million People Say Enough. Claude Goes #1.</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="c" data-co="multi">
+</div></div></div><div class="date-group" data-t="c" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">MAR 1–3 2026</div><div class="date-group-title-preview">1.5 Million People Say Enough. Claude Goes #1.</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="c" data-co="multi">
   <div class="ecol"><div class="dot dc"></div><div class="yr">MAR 1–3 2026</div></div>
   <div class="card cc">
     <span class="tag tc">PUBLIC RESPONSE</span>
@@ -1605,9 +1559,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: Medium (developia), TechCrunch, App Store rankings. A Reddit post urging "Cancel and Delete ChatGPT" pulled 30,000 upvotes before the weekend was over. Claude went from rank 42 to #1 in under a week. The public backlash was not over abstract AI ethics — it was personal. Surveillance. Autonomous weapons. These are things people are genuinely afraid of. The Pentagon did not model this outcome. OpenAI spent the following week renegotiating its deal toward the position of the company they replaced.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 3 2026</div><div class="date-group-title-preview">Altman: "We Rushed. The Optics Don't Look Good."</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 3 2026</div><div class="date-group-title-preview">Altman: "We Rushed. The Optics Don't Look Good."</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">MAR 3 2026</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE — ONGOING</span>
@@ -1616,9 +1568,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Altman argued OpenAI's layered safeguards (cloud-only, OpenAI staff in the loop) made their deal fundamentally safer. Critics observed that Claude — using the same DoD infrastructure and oversight mechanisms Altman cited — was at that moment assisting in an active airstrike in Iran. The circular logic was visible to most observers. The memo did not address it.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 4 2026</div><div class="date-group-title-preview">Amodei Calls Altman's Pentagon Deal "Straight Up Lies"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="q" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 4 2026</div><div class="date-group-title-preview">Amodei Calls Altman's Pentagon Deal "Straight Up Lies"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="anthropic">
   <div class="ecol"><div class="dot dq"></div><div class="yr">MAR 4 2026</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE — INTERNAL MEMO</span>
@@ -1627,9 +1577,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: The Information, TechCrunch. Amodei specifically took issue with OpenAI's claim that their contract covers "all lawful purposes" — noting that what is lawful can change. He wrote that Altman was "presenting himself as a peacemaker and dealmaker" and warned staff: "It is working on some Twitter morons, which doesn't matter, but my main worry is how to make sure it doesn't work on OpenAI employees." The two men who split over safety at OpenAI in 2021 are now in open conflict over the same question — at civilisational scale.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 5 2026</div><div class="date-group-title-preview">GPT-5.4 Released — First Model to Outperform Humans at Knowledge Work</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="openai">
+</div></div></div><div class="date-group" data-t="e" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 5 2026</div><div class="date-group-title-preview">GPT-5.4 Released — First Model to Outperform Humans at Knowledge Work</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="openai">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 5 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1638,9 +1586,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: OpenAI official release, TechCrunch, Gizmodo. GPT-5.4 supports up to 1 million tokens of context. It is 33% less likely to produce errors in individual claims than GPT-5.2, and 18% less likely to produce errors overall. It incorporates the coding capabilities of GPT-5.3-Codex into a single general-purpose model. OpenAI internally rates it as "High" capability under its Preparedness Framework for both cybersecurity and biological/chemical domains — meaning maximum safeguards are applied. Whether those safeguards hold under the same political pressure that just failed at Anthropic is not addressed in the release notes.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 7 2026</div><div class="date-group-title-preview">Kalinowski, OpenAI Robotics: "Lines That Deserved More Deliberation"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="openai">
+</div></div></div><div class="date-group" data-t="q" data-co="openai" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 7 2026</div><div class="date-group-title-preview">Kalinowski, OpenAI Robotics: "Lines That Deserved More Deliberation"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="openai">
   <div class="ecol"><div class="dot dq"></div><div class="yr">MAR 7 2026</div></div>
   <div class="card cq">
     <span class="tag tq">RESIGNATION STATEMENT</span>
@@ -1649,9 +1595,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: Fortune, TechCrunch, NPR, Engadget, SF Standard — all confirmed from Kalinowski's verified X account (@kalinowski007). She joined OpenAI in November 2024, previously led AR glasses development at Meta. In a follow-up comment she added: "My issue is that the announcement was rushed without the guardrails defined. It's a governance concern first and foremost. These are too important for deals or announcements to be rushed." OpenAI confirmed her departure. No plans to replace her. She is the most senior person to publicly resign over the deal. She led the robotics division — the team building physical AI systems that could most directly be weaponised.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 7 2026</div><div class="date-group-title-preview">Pentagon Official: "Holy Shit — What If This Software Went Down?"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="us-gov">
+</div></div></div><div class="date-group" data-t="e" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 7 2026</div><div class="date-group-title-preview">Pentagon Official: "Holy Shit — What If This Software Went Down?"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="us-gov">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 7 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1660,9 +1604,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: All-In Podcast, Fortune. Michael confirmed Anthropic had become "deeply embedded" while other AI companies hadn't pursued enterprise defence customers as aggressively. He said he contacted OpenAI, xAI, and Google to get redundancy — giving them all the same terms. He also raised the concern that a rogue developer could "poison the model" to make it hallucinate during operations. The Pentagon's own CTO publicly admitted on a podcast that they had built a war machine dependent on a single company's AI — and then tried to ban that company mid-war. The architecture of the problem is the problem.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 9 2026</div><div class="date-group-title-preview">Anthropic Sues the Pentagon</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="anthropic">
+</div></div></div><div class="date-group" data-t="e" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 9 2026</div><div class="date-group-title-preview">Anthropic Sues the Pentagon</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="anthropic">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 9 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1671,9 +1613,34 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: Insurance Journal, Fortune, TechCrunch, Reuters. Legal experts Michael Endrias and Alan Z. Rozenshtein called the designation "political theater: a show of force that will not stick" — arguing the government cannot credibly claim an emergency threat while simultaneously planning a six-month phaseout. Anthropic said the lawsuit does not preclude re-opening negotiations. Meanwhile, Microsoft confirmed Claude remains available for non-defence AWS customers. The designation is narrower than it sounds — but the signal it sends is not.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">Yann LeCun Leaves Meta, Raises $1B for 12-Person Startup</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="meta">
+</div></div></div><div class="date-group" data-t="p" data-co="us-gov" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">MAR 10 2026</div><div class="date-group-title-preview">AI Enters Battlefield Planning</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="p" data-co="us-gov">
+  <div class="ecol"><div class="dot dp"></div><div class="yr">MAR 10 2026</div></div>
+  <div class="card cp">
+    <span class="tag tp">MILITARY SYSTEM</span>
+    <div class="et">Frontier AI Used For Operational War Planning</div>
+    <div class="eb">Palantir demonstrations reveal large language models being integrated directly into military command software — analysing intelligence feeds and suggesting operational plans for commanders.</div>
+    <div class="more"><div class="det">For years the concern about AI in warfare focused on autonomous weapons. The reality emerging in 2026 is different: decision-support systems embedded inside intelligence pipelines. These systems do not fire missiles themselves, but they shape the speed, structure, and confidence of human decisions. When the analysis pipeline runs through a model, the tempo of war changes with it.<br><br><span class="cx">SOURCES:</span><br>WIRED — “Palantir demos show how the military could use AI chatbots to generate war plans.”</div></div>
+    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
+  </div>
+</div></div></div><div class="date-group" data-t="c" data-co="anthropic" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">MAR 12 2026</div><div class="date-group-title-preview">Pentagon Blacklists AI Supplier</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="c" data-co="anthropic">
+  <div class="ecol"><div class="dot dc"></div><div class="yr">MAR 12 2026</div></div>
+  <div class="card cc">
+    <span class="tag tc">CORPORATE CONFLICT</span>
+    <div class="et">Pentagon Declares Anthropic A Supply-Chain Risk</div>
+    <div class="eb">After the Iran conflict revealed how embedded Claude had become in defence systems, the Pentagon designated Anthropic a supply-chain risk, restricting its use across defence contracts.</div>
+    <div class="more"><div class="det">Anthropic responded by seeking an appeals-court stay after filing suit against the designation. The conflict marks a turning point in the relationship between frontier AI labs and the state: companies that build the models now find themselves negotiating directly with military power structures over how those systems may be used.<br><br><span class="cx">SOURCES:</span><br>Reuters — “Anthropic seeks appeals court stay of Pentagon supply-chain risk designation.”</div></div>
+    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
+  </div>
+</div></div></div><div class="date-group" data-t="q" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 13 2026</div><div class="date-group-title-preview">Data Centres Become War Targets</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="multi">
+  <div class="ecol"><div class="dot dq"></div><div class="yr">MAR 13 2026</div></div>
+  <div class="card cq">
+    <span class="tag tq">STRATEGIC SHIFT</span>
+    <div class="et">Compute Infrastructure Enters The Battlefield</div>
+    <div class="eb">Strikes against datacentres in the Gulf highlight a new strategic reality: AI infrastructure — cloud compute, model training clusters, and data pipelines — is becoming a military-relevant target.</div>
+    <div class="more"><div class="det">Once intelligence analysis, targeting pipelines, and battlefield logistics rely on AI systems, the infrastructure supporting those systems becomes strategically valuable. Destroying compute capacity can degrade an opponent's ability to analyse information and coordinate operations — making datacentres the digital equivalent of fuel depots or communications hubs.<br><br><span class="cx">SOURCES:</span><br>The Guardian — “Datacenters are becoming a target in warfare for the first time.”</div></div>
+    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
+  </div>
+</div></div></div><div class="date-group" data-t="e" data-co="meta" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">Yann LeCun Leaves Meta, Raises $1B for 12-Person Startup</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="meta">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1682,110 +1649,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Sources: Techloy, LLM Stats. AMI Labs' exact focus has not been fully disclosed, but LeCun has been publicly critical of the current LLM paradigm, arguing that autoregressive language models cannot achieve true intelligence. His departure from Meta — where he served as Chief AI Scientist — marks the end of an era. Meta's AI research division, FAIR, which LeCun built, continues without its founder. The pattern is now complete: Hinton (Google), Bengio (academia), LeCun (Meta) — all three men who created modern AI have stepped away from the institutions that deployed it.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<!-- ============================================================
-     TIMELINE UPDATE ZONE
-     ============================================================
-     NEW ENTRIES GO HERE — paste your block above this comment.
-     Entries added here appear BEFORE the "LLM2WMD goes live" card,
-     which is correct. The site, the predictions, and the T-800
-     always stay at the bottom.
-
-     CHRONOLOGICAL ORDER: paste newer entries closer to this line.
-     Earlier entries go higher up in the file.
-
-     ── TYPE GUIDE ──────────────────────────────────────────────
-     e  = MILESTONE   → blue dot   → factual events, model releases, company decisions
-     q  = QUOTE       → green dot  → CEO quotes, contradictions, public statements
-     p  = PREDICTION  → red dot    → forecasts, warnings, projections
-     c  = CULTURE     → orange dot → media, public reaction, cultural moments
-
-     ── COMPANY CODES (data-co) ─────────────────────────────────
-     openai · anthropic · google · microsoft · meta · xai · deepseek
-     us-gov · multi · independent
-
-     ── DATE FORMAT ─────────────────────────────────────────────
-     Use: MMM YYYY  e.g. APR 2026 · MAY 2026
-     Specific dates: APR 15 2026  or  THU APR 15 2026
-     Quarters: Q2 2026 · Q3 2026
-
-     ── DOT COLOUR BY TYPE ──────────────────────────────────────
-     e → border-color:var(--blue);box-shadow:0 0 5px var(--blue);
-     q → border-color:var(--green);box-shadow:0 0 5px var(--green);
-     p → border-color:var(--red);box-shadow:0 0 5px var(--red);
-     c → border-color:var(--orange);box-shadow:0 0 5px var(--orange);
-
-     ── CARD CLASS BY TYPE ──────────────────────────────────────
-     e → card ce  /  dot de  /  tag te  /  data-t="e"
-     q → card cq  /  dot dq  /  tag tq  /  data-t="q"
-     p → card cp  /  dot dp  /  tag tp  /  data-t="p"
-     c → card cc  /  dot dc  /  tag tc  /  data-t="c"
-
-     ================================================================
-     TEMPLATE A — MILESTONE (type e, blue)
-     ================================================================
-
-<div class="date-group" data-t="e" data-co="COMPANY-CODE" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MMM YYYY</div><div class="date-group-title-preview">ENTRY TITLE</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="COMPANY-CODE">
-  <div class="ecol"><div class="dot de"></div><div class="yr">MMM YYYY</div></div>
-  <div class="card ce">
-    <span class="tag te">MILESTONE</span>
-    <div class="et">ENTRY TITLE</div>
-    <div class="eb">MAIN BODY TEXT — 1–3 sentences. What happened. Keep factual and direct.</div>
-    <div class="more"><div class="det">EXPANDED DETAIL — sources, context, contradictions, quotes. Shows on click. Can be longer.</div></div>
-    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
-  </div>
-</div></div></div>
-
-     ================================================================
-     TEMPLATE B — QUOTE (type q, green)
-     ================================================================
-
-<div class="date-group" data-t="q" data-co="COMPANY-CODE" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MMM YYYY</div><div class="date-group-title-preview">ENTRY TITLE</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="COMPANY-CODE">
-  <div class="ecol"><div class="dot dq"></div><div class="yr">MMM YYYY</div></div>
-  <div class="card cq">
-    <span class="tag tq">CEO QUOTE → CONTRADICTED</span>
-    <div class="et">ENTRY TITLE</div>
-    <div class="eb">SPEAKER NAME: <span class="ql">"DIRECT QUOTE HERE."</span> Context sentence if needed.</div>
-    <div class="more"><div class="det"><span class="cx">CONTRADICTED DATE:</span> HOW IT WAS CONTRADICTED. Source and context.</div></div>
-    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
-  </div>
-</div></div></div>
-
-     ================================================================
-     TEMPLATE C — PREDICTION (type p, red)
-     ================================================================
-
-<div class="date-group" data-t="p" data-co="COMPANY-CODE" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">MMM YYYY</div><div class="date-group-title-preview">ENTRY TITLE</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="p" data-co="COMPANY-CODE">
-  <div class="ecol"><div class="dot dp"></div><div class="yr">MMM YYYY</div></div>
-  <div class="card cp">
-    <span class="tag tp">PREDICTION</span>
-    <div class="et">ENTRY TITLE</div>
-    <div class="eb">MAIN BODY TEXT — what was predicted, by whom, when.</div>
-    <div class="more"><div class="det">EXPANDED DETAIL — track record, context, subsequent events.</div></div>
-    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
-  </div>
-</div></div></div>
-
-     ================================================================
-     TEMPLATE D — CULTURE (type c, orange)
-     ================================================================
-
-<div class="date-group" data-t="c" data-co="COMPANY-CODE" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--orange);box-shadow:0 0 5px var(--orange);"></div><div class="date-group-yr">MMM YYYY</div><div class="date-group-title-preview">ENTRY TITLE</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="c" data-co="COMPANY-CODE">
-  <div class="ecol"><div class="dot dc"></div><div class="yr">MMM YYYY</div></div>
-  <div class="card cc">
-    <span class="tag tc">CULTURAL MOMENT</span>
-    <div class="et">ENTRY TITLE</div>
-    <div class="eb">MAIN BODY TEXT — cultural event, public reaction, media moment.</div>
-    <div class="more"><div class="det">EXPANDED DETAIL — context, significance, what it revealed.</div></div>
-    <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
-  </div>
-</div></div></div>
-
-     ↑ PASTE NEW ENTRIES ABOVE THIS LINE ↑
-     ============================================================ -->
-
-<div class="date-group" data-t="e" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">LLM2WMD — The Public Record Goes Live</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="e" data-co="independent">
+</div></div></div><div class="date-group" data-t="e" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--blue);box-shadow:0 0 5px var(--blue);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">LLM2WMD — The Public Record Goes Live</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="e" data-co="independent">
   <div class="ecol"><div class="dot de"></div><div class="yr">MAR 2026</div></div>
   <div class="card ce">
     <span class="tag te">MILESTONE</span>
@@ -1794,9 +1658,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Built as a single HTML file, hosted openly, free to access. No algorithm. No paywall. No institutional backing. The first public record to place the Iran strike AI deployment in direct sequence with the founding promises of the companies involved. Version: LLM2WMDBUILD4_8_0</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="q" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">C.S.Chapman, LLM2WMD: "My Morals Are Completely Fluid"</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="q" data-co="independent">
+</div></div></div><div class="date-group" data-t="q" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--green);box-shadow:0 0 5px var(--green);"></div><div class="date-group-yr">MAR 2026</div><div class="date-group-title-preview">C.S.Chapman, LLM2WMD: "My Morals Are Completely Fluid"</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="q" data-co="independent">
   <div class="ecol"><div class="dot dq"></div><div class="yr">MAR 2026</div></div>
   <div class="card cq">
     <span class="tag tq">CEO QUOTE</span>
@@ -1806,10 +1668,20 @@ function dismissCaptcha() {
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
 </div></div></div>
+  </div>
+</div>
 
-<div class="era"><span>WHAT COMES NEXT</span><div class="ebar"></div></div>
-
-<div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2027–2030</div><div class="date-group-title-preview">The AGI Window</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="p" data-co="multi">
+<div class="phase-block">
+  <button class="phase-header" type="button" aria-expanded="false">
+    <div class="phase-kicker">04</div>
+    <div class="phase-copy">
+      <div class="phase-title">PREDICTIONS</div>
+      <div class="phase-sub">The trajectories now openly forecast by the people building it.</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </button>
+  <div class="phase-body">
+<div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2027–2030</div><div class="date-group-title-preview">The AGI Window</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="p" data-co="multi">
   <div class="ecol"><div class="dot dp"></div><div class="yr">2027–2030</div></div>
   <div class="card cp">
     <span class="tag tp">PREDICTION</span>
@@ -1818,9 +1690,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">Amodei: "Powerful AI — perhaps AGI — by 2026 or 2027." Altman: "A few thousand days away." Hassabis: "This decade." Kurzweil: "2029." The consensus is unprecedented. But the events of February 2026 revealed what happens when AI safety governance encounters political and commercial pressure: it loses. The question is no longer whether AGI arrives. It is who controls it when it does — and what that means for everyone who doesn't.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2030–2035</div><div class="date-group-title-preview">The Intelligence Explosion</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="p" data-co="multi">
+</div></div></div><div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2030–2035</div><div class="date-group-title-preview">The Intelligence Explosion</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="p" data-co="multi">
   <div class="ecol"><div class="dot dp"></div><div class="yr">2030–2035</div></div>
   <div class="card cp">
     <span class="tag tp">PREDICTION</span>
@@ -1829,9 +1699,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">I.J. Good described this in 1965. Bostrom formalised it in 2014. The Iran strikes of 2026 demonstrated that even explicitly "safety-focused" AI will be used in ways its creators opposed — once political pressure is applied. If alignment of AI with a single company's stated values fails under commercial pressure, alignment with all of humanity's values under geopolitical pressure requires extraordinary optimism.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2045</div><div class="date-group-title-preview">The Singularity</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="p" data-co="multi">
+</div></div></div><div class="date-group" data-t="p" data-co="multi" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">2045</div><div class="date-group-title-preview">The Singularity</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="p" data-co="multi">
   <div class="ecol"><div class="dot dp"></div><div class="yr">2045</div></div>
   <div class="card cp">
     <span class="tag tp">PREDICTION</span>
@@ -1840,14 +1708,7 @@ function dismissCaptcha() {
     <div class="more"><div class="det">The Singularity is a point beyond which extrapolation fails. An aligned superintelligence could eliminate disease, poverty, and scarcity. A misaligned one — optimising toward a slightly wrong goal — could end civilisation. The margin for error approaches zero. In February 2026, the most powerful AI systems in existence were used in a war on the same day they were officially banned. We are past the point of choosing whether to proceed. We are choosing, rather, how to survive it.</div></div>
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
-</div></div></div>
-
-<!-- ADD NEW ERA MARKERS HERE IF NEEDED:
-     <div class="era"><span>ERA NAME</span><div class="ebar"></div></div>
-     Era markers are just section dividers. Add one above a new block of entries if they
-     represent a new phase. No other changes needed. -->
-
-<div class="date-group" data-t="p" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">T-800 · MODEL 101</div><div class="date-group-title-preview">Skynet Goes Online — The T-800 Account</div><div class="date-group-tick">+</div></div><div class="date-group-events open"><div class="ev vis" data-t="p" data-co="independent">
+</div></div></div><div class="date-group" data-t="p" data-co="independent" style=""><div class="date-group-header"><div class="date-group-dot" style="border-color:var(--red);box-shadow:0 0 5px var(--red);"></div><div class="date-group-yr">T-800 · MODEL 101</div><div class="date-group-title-preview">Skynet Goes Online — The T-800 Account</div><div class="date-group-tick">+</div></div><div class="date-group-events"><div class="ev vis" data-t="p" data-co="independent">
   <div class="ecol"><div class="dot dp"></div><div class="yr">T-800 · MODEL 101</div></div>
   <div class="card cp" style="border-left:3px solid #ff5555; border-top:1px solid rgba(255,85,85,0.4); border-right:1px solid rgba(255,85,85,0.2); border-bottom:1px solid rgba(255,85,85,0.2);">
     <span class="tag tp">FINAL TRANSMISSION</span>
@@ -1872,6 +1733,8 @@ function dismissCaptcha() {
     <div class="hint">CLICK TO EXPAND <span class="hint-arrow">▼</span></div>
   </div>
 </div></div></div>
+  </div>
+</div>
 
 </div>
 
@@ -2743,9 +2606,26 @@ function buildDateGroups() {
   }
 }
 
+function setPhaseStickyOffset() {
+  var tabsEl = document.querySelector('.tabs');
+  var navEl = document.querySelector('.nav');
+  var top = 145;
+
+  if (tabsEl) {
+    var tabsRect = tabsEl.getBoundingClientRect();
+    top = Math.round(tabsRect.top + tabsEl.offsetHeight + 22);
+  } else if (navEl) {
+    top = Math.round(navEl.offsetHeight + 12);
+  }
+
+  document.documentElement.style.setProperty('--phase-sticky-top', top + 'px');
+  document.documentElement.style.setProperty('--phase-sticky-top-mobile', top + 'px');
+}
+
 function initPage() {
   // ── GROUP TIMELINE EVENTS BY DATE ──
   buildDateGroups();
+  setPhaseStickyOffset();
 
   // Set mission spacer to clear nav + tabs exactly
   var spacer = document.getElementById('mission-spacer');
@@ -5446,6 +5326,52 @@ function submitReply(key) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  setPhaseStickyOffset();
+  window.addEventListener('resize', setPhaseStickyOffset, { passive: true });
+  window.addEventListener('orientationchange', setPhaseStickyOffset, { passive: true });
+
+  document.querySelectorAll('.phase-header').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      var block = btn.closest('.phase-block');
+      if(!block) return;
+
+      var willOpen = !block.classList.contains('open');
+      var stickyTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--phase-sticky-top')) || 145;
+      if(window.innerWidth <= 480){
+        stickyTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--phase-sticky-top-mobile')) || stickyTop;
+      }
+      var desiredTop = stickyTop + 8;
+
+      document.querySelectorAll('.phase-block').forEach(function(other){
+        other.classList.remove('open');
+        var otherBtn = other.querySelector('.phase-header');
+        if(otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        var otherToggle = other.querySelector('.phase-toggle');
+        if(otherToggle) otherToggle.textContent = '+';
+      });
+
+      if(willOpen){
+        block.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        var toggle = block.querySelector('.phase-toggle');
+        if(toggle) toggle.textContent = '−';
+      }
+
+      btn.blur();
+
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          var absoluteHeaderTop = btn.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+          var targetTop = Math.max(0, absoluteHeaderTop - desiredTop);
+          window.scrollTo(0, targetTop);
+        });
+      });
+    });
+  });
+
   ['cf-type-comment','cf-type-review'].forEach(function(id){
     var el = document.getElementById(id);
     if (el) el.addEventListener('change', syncCFMode);
