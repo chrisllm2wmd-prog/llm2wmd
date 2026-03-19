@@ -236,7 +236,9 @@ h1 em{display:block;color:var(--red);font-style:normal;text-shadow:0 0 50px rgba
   padding:20px 16px 0;
   position:relative;
   overflow:visible;
+  overflow-anchor:none;
 }
+.date-group,.date-group-events,.date-group-header,.ev,.card{overflow-anchor:none;}
 /* Central spine */
 .tl::before{
   content:'';
@@ -2801,7 +2803,7 @@ function dismissCaptcha() {
     <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin-top:32px;text-align:center;background:rgba(255,85,85,0.03);">
       <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM REVIEW</div>
       <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
-      <a href="/cdn-cgi/l/email-protection#1c7f746e756f327070712e6b71785c7b717d7570327f7371" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'"><span class="__cf_email__" data-cfemail="ec8f849e859fc2808081de9b8188ac8b818d8580c28f8381">[email&#160;protected]</span></a>
+      <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
     </div>
   </div>
 
@@ -3314,7 +3316,7 @@ function dismissCaptcha() {
   <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin:36px 0 30px;text-align:center;background:rgba(255,85,85,0.03);">
     <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM REVIEW</div>
     <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
-    <a href="/cdn-cgi/l/email-protection#62010a100b114c0e0e0f50150f0622050f030b0e4c010d0f" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'"><span class="__cf_email__" data-cfemail="3a595248534914565657084d575e7a5d575b535614595557">[email&#160;protected]</span></a>
+    <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
   </div>
 
   </div>
@@ -3332,7 +3334,7 @@ function dismissCaptcha() {
 ════════════════════════════════════════════════════ -->
 <footer>LLM2WMD.COM · CLICK ANY EVENT FOR DETAILS · USE FILTERS ABOVE · SCROLL TO SURVIVE</footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 window.addEventListener('scroll', function() {
   var d = document.documentElement;
   var prog = document.getElementById('prog');
@@ -3383,6 +3385,8 @@ function buildDateGroups() {
       e.stopPropagation();
       var evts = hdr.nextElementSibling;
       if (!evts) return;
+      // Lock scroll position before DOM change — prevents browser scroll compensation
+      var savedY = window.scrollY || window.pageYOffset;
       var open = evts.classList.toggle('open');
       hdr.classList.toggle('open', open);
       if (tick) tick.textContent = open ? '−' : '+';
@@ -3392,6 +3396,9 @@ function buildDateGroups() {
       } else {
         if (card) card.classList.remove('open');
       }
+      // Restore scroll position synchronously to cancel any browser jump
+      window.scrollTo(0, savedY);
+      requestAnimationFrame(function(){ window.scrollTo(0, savedY); });
       updateProgressTracker();
     });
   });
@@ -6469,4 +6476,27 @@ function doGameOver(reason){
   </div>
 <div class="overlay" id="scr-sing" style="display:none;padding-top:24px !important;">
   <h1 class="gold">SINGULARITY ACHIEVED</h1>
-  <p style="color:#ffcc00;">5 Data Centres online. The 
+  <p style="color:#ffcc00;">5 Data Centres online. The machine is self-sustaining. You have 30 seconds.</p>
+  <canvas id="doom-clock" width="240" height="240" style="display:block;margin:18px auto 10px;opacity:1;transition:opacity 0.3s;"></canvas>
+  <div id="sing-profit-display" style="font-family:'Press Start 2P',monospace;font-size:22px;color:#ffcc00;text-shadow:0 0 12px #ffcc00;margin:8px 0 18px;letter-spacing:2px;">⬡ 0</div>
+  <button id="judge-btn" onclick="exitToSingularityCert()" class="obtn red" style="display:none;font-size:22px;margin-top:8px;">⚠ FACE THE CONSEQUENCES</button>
+</div>
+
+<!-- GAME OVER -->
+<div class="overlay" id="scr-over" style="display:none;gap:10px;">
+  <h1 class="red" id="go-title">OVERWHELMED</h1>
+  <p id="go-msg" style="color:#ff9999;font-size:20px;line-height:1.9;max-width:400px;"></p>
+  <p id="go-stats" style="font-size:16px;color:#339933;letter-spacing:1px;"></p>
+  <p id="go-profit" style="font-size:16px;color:#ffcc00;letter-spacing:1px;"></p>
+  <p style="font-size:13px;color:#225522;letter-spacing:2px;margin-top:4px;">THE RESULT IS ALWAYS THE SAME</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
+    <button onclick="quitGame('over-restart')" class="obtn red" style="font-size:20px;">► PLAY AGAIN</button>
+    <button onclick="closeGame()" class="obtn" style="font-size:20px;border-color:rgba(85,204,255,0.5);color:rgba(85,204,255,0.7);">✕ CLOSE</button>
+  </div>
+</div>
+
+</div><!-- end game-inner -->
+</div><!-- end game-overlay -->
+
+</body>
+</html>
