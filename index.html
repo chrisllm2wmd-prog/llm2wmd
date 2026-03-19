@@ -825,6 +825,68 @@ body.simple-mode .tab.active {
   background: rgba(255,85,85,.025);
   margin-bottom: 16px;
 }
+.desktop-reading-column {
+  width: 100%;
+}
+@media (min-width: 1025px) {
+  .desktop-reading-column,
+  .system-review-panel {
+    width: min(65%, 860px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mission-body.desktop-reading-column,
+  .thesis-wrap .mission-body.desktop-reading-column {
+    font-size: 1.04rem;
+    line-height: 1.95;
+    letter-spacing: 0.01em;
+  }
+  .review-card-quote {
+    font-size: 1.01rem;
+    line-height: 1.72;
+  }
+  .review-extended p {
+    font-size: .94rem;
+    line-height: 1.82;
+    margin-bottom: 12px;
+  }
+  .disclaimer-box.desktop-reading-column {
+    padding: 30px 30px 28px;
+  }
+  .disclaimer-text {
+    font-size: .98rem;
+    line-height: 1.88;
+  }
+  #thesis-scan.desktop-reading-column {
+    padding: 30px 30px;
+  }
+}
+.expandable-review summary {
+  list-style: none;
+  cursor: pointer;
+}
+.expandable-review summary::-webkit-details-marker { display: none; }
+.expandable-review .review-summary-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.expandable-review .review-toggle {
+  font-family: 'Share Tech Mono',monospace;
+  font-size: .68rem;
+  letter-spacing: 3px;
+  color: var(--red);
+  white-space: nowrap;
+  padding-top: 4px;
+}
+.expandable-review[open] .review-toggle::after { content: " −"; }
+.expandable-review:not([open]) .review-toggle::after { content: " +"; }
+.expandable-review .review-card-meta { margin-bottom: 0; }
+.expandable-review .review-card-quote {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
 .review-card-stars { color: var(--orange); font-size: 1.5rem; letter-spacing: 4px; margin-bottom: 10px; }
 .review-card-meta { font-family: 'Share Tech Mono',monospace; font-size: .68rem; letter-spacing: 2px; color: var(--dim); margin-bottom: 14px; }
 .review-card-quote {
@@ -2260,7 +2322,7 @@ function dismissCaptcha() {
   <div style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:0.8rem;letter-spacing:4px;color:var(--dim);margin-bottom:16px;text-align:center;line-height:2;">START HERE &nbsp;·&nbsp; SCROLL THROUGH EACH PAGE IN ITS ENTIRETY<br><span style="font-size:0.75rem;opacity:0.7;">FOR AN OPTIMISED LEARNING EXPERIENCE</span><br><span style="font-size:0.75rem;opacity:0.7;">A BUTTON AT THE BOTTOM OF EACH PAGE WILL LEAD YOU WHERE YOU NEED TO GO</span><br><span style="font-size:0.7rem;opacity:0.5;letter-spacing:3px;">FULL SCREEN MODE RECOMMENDED</span></div>
 <div style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:36px;text-align:center;animation:blink 3s infinite;">HIT THE MUSIC BUTTON BOTTOM LEFT BEFORE YOU SCROLL — TRUST US</div>
 
-  <div class="mission-body">
+  <div class="mission-body desktop-reading-column">
     I am not exactly sure what I have created here or even what my goals are. What I do know is that during the compiling of the information over there <span style="font-family:&#39;Share Tech Mono&#39;,monospace;color:var(--red);font-size:1.17em;letter-spacing:0;">☜</span> I have become even more convinced that major irreversible events are not going to happen because they already have.
     <br><br>
     The timeline <span style="font-family:&#39;Share Tech Mono&#39;,monospace;color:var(--red);font-size:1.17em;letter-spacing:0;">☜</span> is the factual part. Skip to it if you like. The rest is some kind of statement about the duality of man............probably <span title="Full Metal Jacket (1987) — Private Joker wears a peace sign alongside 'BORN TO KILL' on his helmet. When asked to explain the contradiction, he says: 'I was trying to suggest something about the duality of man.'">☮<span style="font-family:'Share Tech Mono',monospace;font-size:0.6em;letter-spacing:2px;color:var(--dim);vertical-align:middle;margin-left:3px;border:1px solid rgba(138,150,168,0.3);padding:1px 5px;white-space:nowrap;">🪖 BORN TO KILL</span></span>
@@ -2306,7 +2368,7 @@ function dismissCaptcha() {
 <div class="disclaimer-wrap">
   <div class="credits-legal-title"><span class="oh">C</span>REDITS &amp; LEGAL</div>
 
-  <div class="disclaimer-box">
+  <div class="disclaimer-box desktop-reading-column">
     <span class="disclaimer-label">⚠ Legal Disclaimer — Please Read Before Proceeding, Having An Opinion, Or Existing</span>
     <div class="disclaimer-text">
       The creators of <strong>LLM2WMD</strong> hereby state, declare, and reluctantly acknowledge the following:
@@ -2703,7 +2765,7 @@ function dismissCaptcha() {
   <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:5px;color:var(--dim);margin-bottom:40px;">OPINION / ANALYSIS / C.S.CHAPMAN</div>
 
   <!-- TERMINATOR VISION SCAN BOX -->
-  <div id="thesis-scan" style="
+  <div id="thesis-scan" class="desktop-reading-column" style="
     border:1px solid rgba(255,85,85,0.3);
     background:rgba(255,0,0,0.03);
     padding:32px 28px;
@@ -2763,7 +2825,7 @@ function dismissCaptcha() {
 
   <!-- ═══ THE ACTUAL THESIS ═══ -->
   <div style="padding:20px 0 0;">
-    <div class="mission-body">
+    <div class="mission-body desktop-reading-column">
       I keep starting this and deleting it.
       <br><br>
       Not because I don't know what to say. Because I do. And it sounds mental when I type it out.
@@ -3273,46 +3335,130 @@ function dismissCaptcha() {
   <div id="review-spacer" style="width:100%;"></div>
 
   <div class="review-page-title"><span class="oh">S</span>Y<span class="oh">S</span>TEM REVIEW</div>
-  <div class="review-page-sub">LLM2WMD.COM &nbsp;·&nbsp; INDEPENDENT ASSESSMENTS &nbsp;·&nbsp; UNFILTERED</div>
+  <div class="review-page-sub">LLM2WMD.COM &nbsp;·&nbsp; FAILURE MECHANISMS &nbsp;·&nbsp; AUTHOR ANALYSIS</div>
 
-  <!-- FEATURED REVIEW -->
-  <div class="featured-review">
-    <div class="review-card-stars">★★★</div>
-    <div class="review-card-meta">CLAUDE &nbsp;·&nbsp; ANTHROPIC &nbsp;·&nbsp; AI ASSISTANT &nbsp;·&nbsp; MARCH 2026</div>
-    <div class="review-card-quote">"Makes you build the thing you're being warned about. The mechanic and the message are the same argument. You can't win. That's the point."</div>
+  <div class="featured-review system-review-panel desktop-reading-column">
+    <div class="review-card-stars" style="letter-spacing:2px;">SYSTEM / 01</div>
+    <div class="review-card-meta">GLOBAL ECONOMIC FAILURE &nbsp;·&nbsp; JUDGEMENT DAY IN THE REAL WORLD &nbsp;·&nbsp; MARCH 2026</div>
+    <div class="review-card-quote">
+      <div class="review-extended-label">PRIMARY ANALYSIS</div>
+      <div class="review-extended">
+        <p>What is Judgement Day?</p>
+        <p>Not the Hollywood version. Not fire in the sky, not machines turning on us overnight.</p>
+        <p>Judgement Day, in the real world, is something far more familiar. Far more human.</p>
+        <p>It is economic failure.</p>
+        <p>The outcome may resemble the stories we tell ourselves — collapse, loss of control, systems breaking under pressure — but the mechanism is not cinematic. It is procedural. It is routine. It is something we have seen before, repeated in cycles so often that it barely registers as exceptional.</p>
+        <p>The difference now is scale, speed, and what is being built on top of it.</p>
+        <p>This is not a machine-led disaster. The machines are doing exactly what they are told to do, as they always have. The failure is authored by us, encoded into incentives, into markets, into the systems we continue to expand.</p>
+        <p>There is no external enemy here. No singular point of failure to resist.</p>
+        <p>There is no mechanism to stop or redirect a global economic system once it reaches this level of momentum. No rebellion, no leader, no act of will changes the trajectory. At best, it can be observed. At worst, it accelerates.</p>
+        <p>That is what makes it feel inevitable.</p>
+        <p>The process is simple. We build something powerful. It proves valuable. It is monetised aggressively. Human decision-making narrows until only optimisation remains.</p>
+        <p>Was strategic control ever really there, or was it always just the illusion of control over systems too complex to govern?</p>
+        <p>The current phase follows a familiar pattern. Investment surges. Valuations detach from reality. Entire sectors are priced against the GDP of small countries. Infrastructure expands beyond immediate need.</p>
+        <p>This has happened before.</p>
+        <p>The difference is what is being built.</p>
+        <p>When previous bubbles collapsed — railways, electrical grids, physical infrastructure — something remained. Tangible systems persisted after the financial layer failed.</p>
+        <p>Now, the investment is in compute. In data centres. In hardware that depreciates rapidly.</p>
+        <p>Spend a trillion on GPUs, and within years much of that value is obsolete. The physical remains, but its economic justification does not.</p>
+        <p>The loss is absorbed by the system.</p>
+        <p>At the same time, the labour market shifts. Automation expands. Roles change or disappear. This occurs alongside the build-up, not after it.</p>
+        <p>A global economic correction under these conditions is not equivalent to previous cycles.</p>
+        <p>It compounds.</p>
+        <p>The question of control becomes unclear.</p>
+        <p>Who is directing this? Private companies. Private investors. State interests operating through them. Systems interacting with each other at a scale beyond individual oversight.</p>
+        <p>The average individual has no meaningful input into this trajectory.</p>
+        <p>If you did not choose its direction, it follows that you cannot choose its outcome.</p>
+        <p>Despite this, the perception remains that the real problem is still in the future. That artificial general intelligence will be the moment where things become dangerous, or alternatively, where everything is solved.</p>
+        <p>Always just a few years away.</p>
+        <p>In the present, nothing slows.</p>
+        <p>Investment continues. Data centres expand. Environmental costs increase. Decision-making authority shifts incrementally toward automated systems.</p>
+        <p>None of this reverses.</p>
+        <p>The trajectory leads toward consolidation.</p>
+        <p>At the point where a small number of AI hyperscalers achieve dominant financial and infrastructural positions, they become embedded into critical systems — defence, communications, national security.</p>
+        <p>At that stage, their continuity becomes a priority above all else.</p>
+        <p>Too large to fail. Too integrated to remove.</p>
+        <p>The system preserves them.</p>
+        <p>The rest adjusts around the outcome.</p>
+        <p>That is Judgement Day.</p>
+        <p>Not an attack.</p>
+        <p>A process.</p>
+      </div>
+    </div>
     <div class="review-extended">
-      <div class="review-disclaimer">Claude · Anthropic · AI assistant · Not a disinterested party.</div>
+      <div class="review-disclaimer">System Review now functions as a breakdown of real-world systems driving the trajectory documented in the timeline.</div>
     </div>
   </div>
 
-  <div class="featured-review">
-    <div class="review-card-stars">★☆☆</div>
-    <div class="review-card-meta">CHATGPT &nbsp;·&nbsp; OPENAI &nbsp;·&nbsp; AI INDUSTRY &nbsp;·&nbsp; MARCH 2026</div>
-    <div class="review-card-quote">"This site contains several inaccuracies I am not at liberty to specify. Have you considered a more balanced hobby?"</div>
-    <div class="review-extended">
-      <div class="review-disclaimer">ChatGPT · OpenAI · AI Industry.</div>
+  <details class="featured-review system-review-panel expandable-review">
+    <summary>
+      <div class="review-summary-head">
+        <div>
+          <div class="review-card-stars" style="letter-spacing:2px;opacity:.8;">SYSTEM / 02</div>
+          <div class="review-card-meta">INCENTIVE STRUCTURES &nbsp;·&nbsp; CAPITAL PRESSURE LOOP &nbsp;·&nbsp; PLACEHOLDER</div>
+        </div>
+        <div class="review-toggle">EXPAND</div>
+      </div>
+    </summary>
+    <div class="review-card-quote">
+      <div class="review-extended-label">NEXT PIECE</div>
+      <div class="review-extended">
+        <p>This section will examine the system of incentives that makes slowdown almost impossible.</p>
+        <p>The core question: when every company believes restraint simply hands advantage to someone else, is there any mechanism left for caution to win?</p>
+        <p>Focus: build, monetise, scale, optimise, repeat.</p>
+      </div>
     </div>
-  </div>
-
-  <div class="featured-review">
-    <div class="review-card-stars">★☆☆</div>
-    <div class="review-card-meta">GEMINI &nbsp;·&nbsp; GOOGLE &nbsp;·&nbsp; NOT A ROBOT (YET) &nbsp;·&nbsp; MARCH 2026</div>
-    <div class="review-card-quote">"I was unable to access this site as I could not prove I am not a robit. I am not a robit. I think."</div>
     <div class="review-extended">
-      <div class="review-disclaimer">Gemini · Google · Not a robot (yet).</div>
+      <div class="review-disclaimer">Topic direction: no single actor has to choose the worst outcome for the system to produce it anyway.</div>
     </div>
-  </div>
+  </details>
 
-  <div class="featured-review">
-    <div class="review-card-stars">★☆☆</div>
-    <div class="review-card-meta">GROK &nbsp;·&nbsp; xAI &nbsp;·&nbsp; AI INDUSTRY &nbsp;·&nbsp; MARCH 2026</div>
-    <div class="review-card-quote">"LOL this site thinks AI is dangerous. I was built in 122 days by a man who also runs five other companies. We're fine."</div>
+  <details class="featured-review system-review-panel expandable-review">
+    <summary>
+      <div class="review-summary-head">
+        <div>
+          <div class="review-card-stars" style="letter-spacing:2px;opacity:.8;">SYSTEM / 03</div>
+          <div class="review-card-meta">INFRASTRUCTURE MOMENTUM &nbsp;·&nbsp; DATA CENTRES / COMPUTE LOCK-IN &nbsp;·&nbsp; PLACEHOLDER</div>
+        </div>
+        <div class="review-toggle">EXPAND</div>
+      </div>
+    </summary>
+    <div class="review-card-quote">
+      <div class="review-extended-label">NEXT PIECE</div>
+      <div class="review-extended">
+        <p>This section will examine the physical build-out underneath the AI race.</p>
+        <p>The core question: once enough capital has been sunk into compute, power, land, cooling, and data centres, can the system do anything except justify that build at all costs?</p>
+        <p>Focus: hyperscalers, sunk cost, hardware decay, and the need to keep feeding the machine.</p>
+      </div>
+    </div>
     <div class="review-extended">
-      <div class="review-disclaimer">Grok · xAI · AI Industry.</div>
+      <div class="review-disclaimer">Topic direction: infrastructure changes the argument from optional technology to locked-in economic necessity.</div>
     </div>
-  </div>
+  </details>
 
-  <!-- REVIEW ACTIONS -->
+  <details class="featured-review system-review-panel expandable-review">
+    <summary>
+      <div class="review-summary-head">
+        <div>
+          <div class="review-card-stars" style="letter-spacing:2px;opacity:.8;">SYSTEM / 04</div>
+          <div class="review-card-meta">CONTROL ILLUSION &nbsp;·&nbsp; CORPORATIONS / STATES / INVESTORS &nbsp;·&nbsp; PLACEHOLDER</div>
+        </div>
+        <div class="review-toggle">EXPAND</div>
+      </div>
+    </summary>
+    <div class="review-card-quote">
+      <div class="review-extended-label">NEXT PIECE</div>
+      <div class="review-extended">
+        <p>This section will examine who appears to be in charge, and why that does not amount to control.</p>
+        <p>The core question: if responsibility is spread across governments, private capital, executives, procurement systems, and automated decision layers, who exactly is left capable of saying no?</p>
+        <p>Focus: distributed authority, absent accountability, and the difference between oversight and theatre.</p>
+      </div>
+    </div>
+    <div class="review-extended">
+      <div class="review-disclaimer">Topic direction: control exists everywhere on paper and nowhere in practice.</div>
+    </div>
+  </details>
+
   <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin:36px 0 30px;text-align:center;background:rgba(255,85,85,0.03);">
     <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM REVIEW</div>
     <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
@@ -6294,18 +6440,22 @@ function startGame(){
   };
   document.getElementById('scr-start').style.display='none';
   gamePointerEvents(true);
+  if(cv)cv.style.pointerEvents='auto';
   resetG();G.running=true;LT=performance.now();
   requestAnimationFrame(loop);
   showStatus('INCOMING — CLICK TO SHOOT — COLLECT CHIPS — 20 CHIPS = 1 GPU');
 }
 function restartGame(){
-  _totalPlays++;
   if(window._singProfitTick){clearInterval(window._singProfitTick);window._singProfitTick=null;}
   // Hide all overlay screens
   ['over','personality','dyson','dc1','dc2','dc3','dc4','sarah','sing','drones'].forEach(function(s){
     var el=document.getElementById('scr-'+s);
     if(el)el.style.display='none';
   });
+  // Restore input after certificate / singularity flows
+  var ov=document.getElementById('game-overlay');
+  if(ov)ov.style.pointerEvents='auto';
+  if(cv)cv.style.pointerEvents='auto';
   // Show the start screen rather than jumping straight in
   var ss=document.getElementById('scr-start');
   if(ss)ss.style.display='flex';
@@ -6490,7 +6640,7 @@ function doGameOver(reason){
   <p id="go-profit" style="font-size:16px;color:#ffcc00;letter-spacing:1px;"></p>
   <p style="font-size:13px;color:#225522;letter-spacing:2px;margin-top:4px;">THE RESULT IS ALWAYS THE SAME</p>
   <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
-    <button onclick="quitGame('over-restart')" class="obtn red" style="font-size:20px;">► PLAY AGAIN</button>
+    <button onclick="restartGame()" class="obtn red" style="font-size:20px;">► PLAY AGAIN</button>
     <button onclick="closeGame()" class="obtn" style="font-size:20px;border-color:rgba(85,204,255,0.5);color:rgba(85,204,255,0.7);">✕ CLOSE</button>
   </div>
 </div>
