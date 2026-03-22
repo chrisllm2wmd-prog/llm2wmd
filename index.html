@@ -500,6 +500,13 @@ body.simple-mode .tab.active {
 .mission-body{font-size:1rem;line-height:2;color:var(--body);margin-bottom:32px;}
 .mission-quote{border-left:3px solid var(--red);padding:20px 24px;margin:40px 0;font-family:'Share Tech Mono',monospace;font-size:0.9rem;line-height:2;color:var(--red);}
 .mission-sig{font-family:'Share Tech Mono',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--dim);margin-top:40px;}
+.mission-intro-tile{border:1px solid rgba(255,85,85,.22);background:rgba(255,85,85,.04);padding:22px 24px;margin:0 auto 34px;text-align:left;}
+.mission-intro-kicker{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:5px;color:var(--red);margin-bottom:14px;text-transform:uppercase;}
+.mission-intro-copy{font-family:'Share Tech Mono',monospace;font-size:.78rem;line-height:1.95;color:var(--dim);margin-bottom:12px;}
+.mission-intro-copy:last-child{margin-bottom:0;}
+.feature-flag{display:inline-block;vertical-align:middle;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--red);border:1px solid rgba(255,85,85,.35);padding:2px 7px;margin-left:8px;background:rgba(255,85,85,.05);text-transform:uppercase;white-space:nowrap;}
+.contents-update-note{font-family:'Share Tech Mono',monospace;font-size:.64rem;letter-spacing:2px;color:var(--dim);line-height:1.9;margin-bottom:28px;}
+.contents-title .feature-flag{position:relative;top:-2px;}
 /* Credits page */
 .credits{max-width:640px;margin:0 auto;padding:40px 24px 120px;}
 .credits-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:4px;color:var(--dim);margin-bottom:40px;}
@@ -584,6 +591,11 @@ body.simple-mode .tab.active {
   .mission-body { font-size:.88rem !important; line-height:1.9; }
   .mission-quote { font-size:.78rem !important; line-height:1.9; padding:14px 16px; }
   .mission-sig { font-size:.65rem !important; letter-spacing:2px; }
+  .mission-intro-tile { padding:14px 16px !important; margin-bottom:24px !important; }
+  .mission-intro-kicker { font-size:.56rem !important; letter-spacing:3px !important; margin-bottom:10px !important; }
+  .mission-intro-copy { font-size:.66rem !important; line-height:1.8 !important; margin-bottom:10px !important; }
+  .feature-flag { font-size:.5rem !important; letter-spacing:1px !important; padding:2px 5px !important; margin-left:6px !important; }
+  .contents-update-note { font-size:.56rem !important; line-height:1.7 !important; margin-bottom:20px !important; }
 
   /* Credits page */
   .credits { padding:120px 14px 80px; }
@@ -1011,6 +1023,11 @@ body.simple-mode .et,body.simple-mode .eb,body.simple-mode .det,body.simple-mode
 body.simple-mode .et{font-size:1.6rem!important;line-height:1.2!important;margin-bottom:4px!important;color:var(--simple-heading)!important;}
 body.simple-mode .eb,body.simple-mode .det,body.simple-mode .mission-body,body.simple-mode .disclaimer-text,body.simple-mode .evolving-text,body.simple-mode .review-card-quote,body.simple-mode .comment-text{font-size:1rem!important;line-height:1.8!important;color:var(--simple-text)!important;}
 body.simple-mode .mission-body,body.simple-mode .disclaimer-text,body.simple-mode .evolving-text,body.simple-mode .review-card-quote,body.simple-mode .comment-text,body.simple-mode .thesis-wrap blockquote,body.simple-mode .thesis-wrap .email-callout,body.simple-mode .thesis-wrap .direct-transmission-box{display:block!important;background:var(--simple-surface-2)!important;border:1px solid #e5dccf!important;border-radius:16px!important;padding:16px 18px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)!important;}
+body.simple-mode .mission-intro-tile{background:#fff!important;border:1px solid #d8cec0!important;border-radius:20px!important;box-shadow:var(--simple-shadow)!important;}
+body.simple-mode .mission-intro-kicker{color:#4a3f35!important;}
+body.simple-mode .mission-intro-copy{color:#1e1810!important;}
+body.simple-mode .feature-flag{color:#1a1108!important;border-color:#c4bab0!important;background:#f5eee4!important;box-shadow:var(--simple-shadow-sm)!important;}
+body.simple-mode .contents-update-note{color:#3e3529!important;}
 
 body.simple-mode .mission-quote{padding:18px 20px!important;color:#2f281f!important;background:#faf5ed!important;}
 body.simple-mode .contents-entry,body.simple-mode .credit-row{padding:18px 20px!important;}
@@ -1223,6 +1240,38 @@ body.simple-mode .date-group[data-t="q"] .date-group-events{margin-left:0!import
 
 @media(max-width:1024px){body.simple-mode #simple-mode-rail{display:none!important;}body.simple-mode .hero,body.simple-mode .mission,body.simple-mode .credits,body.simple-mode .thesis-wrap,body.simple-mode .contents-wrap,body.simple-mode .disclaimer-wrap,body.simple-mode .review-wrap,body.simple-mode .tl,body.simple-mode .jd{margin-left:24px!important;margin-right:24px!important;}}
 @media(max-width:768px){.ui-mode-toggle{top:10px;right:12px;gap:8px;}.ui-mode-toggle-track{width:52px;height:28px;}.ui-mode-toggle-knob{width:20px;height:20px;}body.simple-mode .ui-mode-toggle-knob{transform:translateX(24px);}body.simple-mode nav{height:84px!important;padding:12px 12px 12px 16px!important;}body.simple-mode .logo{font-size:24px!important;}body.simple-mode .logo-sub{font-size:.56rem!important;letter-spacing:2px!important;}body.simple-mode .tabs{top:84px!important;padding:10px 12px 10px 14px!important;gap:8px!important;flex-wrap:nowrap!important;}body.simple-mode .tab{padding:8px 12px!important;font-size:.78rem!important;}body.simple-mode .hero{padding-top:146px!important;}body.simple-mode .phase-header{top:132px!important;}body.simple-mode .hero,body.simple-mode .mission,body.simple-mode .credits,body.simple-mode .thesis-wrap,body.simple-mode .contents-wrap,body.simple-mode .disclaimer-wrap,body.simple-mode .review-wrap,body.simple-mode .tl,body.simple-mode .jd{margin-left:12px!important;margin-right:12px!important;padding-left:8px!important;padding-right:8px!important;}body.simple-mode .phase-title{font-size:1.45rem!important;}body.simple-mode .phase-sub{font-size:.8rem!important;}body.simple-mode .card,body.simple-mode .phase-block,body.simple-mode .mission-quote,body.simple-mode .disclaimer-box,body.simple-mode .evolving-box,body.simple-mode .credit-row{border-radius:16px!important;}body.simple-mode .mission-body,body.simple-mode .disclaimer-text,body.simple-mode .evolving-text,body.simple-mode .review-card-quote,body.simple-mode .comment-text{padding:14px!important;font-size:.96rem!important;line-height:1.75!important;}}
+
+
+/* Action buttons — timeline/game/next page */
+.action-btn-wrap{margin-top:60px;text-align:center;}
+.site-action-btn,.game-path-btn{font-family:'Share Tech Mono',monospace;cursor:pointer;text-transform:uppercase;transition:all .2s ease;touch-action:manipulation;display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;}
+.site-action-btn{background:transparent;border:1px solid rgba(255,85,85,.4);color:var(--red);font-size:1.08rem;letter-spacing:4px;padding:14px 32px;min-width:320px;}
+.site-action-btn:hover{background:rgba(255,85,85,.1);}
+.game-choice-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:760px;margin:0 auto;}
+.game-choice-note{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:3px;color:rgba(138,150,168,.55);line-height:1.9;max-width:560px;margin:4px auto 0;}
+.game-path-btn{width:min(100%,560px);padding:18px 30px;border:1px solid;font-size:1.05rem;letter-spacing:3px;background:transparent;}
+.game-path-btn.primary{border-color:rgba(85,255,187,.65);color:rgba(85,255,187,.88);background:rgba(85,255,187,.05);box-shadow:0 0 0 1px rgba(85,255,187,.08) inset;}
+.game-path-btn.primary:hover{border-color:rgba(85,255,187,.95);color:rgba(85,255,187,1);background:rgba(85,255,187,.1);box-shadow:0 0 24px rgba(85,255,187,.12);}
+.game-path-btn.secondary{border-color:rgba(255,85,85,.45);color:rgba(255,85,85,.72);}
+.game-path-btn.secondary:hover{border-color:rgba(255,85,85,.9);color:rgba(255,85,85,.95);background:rgba(255,85,85,.08);}
+.game-choice-sep{font-family:'Share Tech Mono',monospace;font-size:.56rem;letter-spacing:4px;color:rgba(138,150,168,.36);padding:2px 0;}
+body.simple-mode .site-action-btn{background:#1a1108!important;color:#f5ede0!important;border:1px solid #e07820!important;box-shadow:var(--simple-shadow-sm)!important;letter-spacing:2px!important;}
+body.simple-mode .site-action-btn:hover{background:#2a1b10!important;}
+body.simple-mode .game-choice-note{color:#5e5144!important;}
+body.simple-mode .game-choice-sep{color:#8f7f71!important;}
+body.simple-mode .game-path-btn{box-shadow:var(--simple-shadow-sm)!important;letter-spacing:2px!important;border-radius:16px!important;}
+body.simple-mode .game-path-btn.primary{background:#1a1108!important;color:#f5ede0!important;border-color:#e07820!important;}
+body.simple-mode .game-path-btn.primary:hover{background:#2a1b10!important;box-shadow:0 10px 24px rgba(38,24,12,.14)!important;}
+body.simple-mode .game-path-btn.secondary{background:#fff!important;color:#2a2118!important;border-color:#c4bab0!important;}
+body.simple-mode .game-path-btn.secondary:hover{background:#f7f2ea!important;}
+@media(max-width:480px){
+  .action-btn-wrap{margin-top:34px!important;padding:0 8px!important;}
+  .site-action-btn{width:100%!important;min-width:0!important;font-size:.8rem!important;letter-spacing:2px!important;padding:14px 16px!important;line-height:1.45!important;}
+  .game-choice-wrap{gap:10px!important;max-width:none!important;padding:0 4px!important;}
+  .game-path-btn{width:100%!important;font-size:.82rem!important;letter-spacing:2px!important;padding:15px 14px!important;line-height:1.45!important;}
+  .game-choice-note{font-size:.52rem!important;letter-spacing:2px!important;line-height:1.75!important;padding:0 4px!important;}
+  .game-choice-sep{font-size:.5rem!important;letter-spacing:3px!important;}
+}
 
 </style>
 
@@ -1505,8 +1554,8 @@ function dismissCaptcha() {
 <div class="tabs brightness-fix" id="tab-bar">
   <div class="tab" id="tab-timeline" data-full="TIMELINE" data-mobile="TIMELINE" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('timeline',this)">TIMELINE</div>
   <div class="tab active" id="tab-mission" data-full="MISSION STATEMENT" data-mobile="MISSION" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('mission',this)">MISSION STATEMENT</div>
-  <div class="tab" id="tab-credits" data-full="CREDITS &amp; LEGAL" data-mobile="CREDITS" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('credits',this)">CREDITS &amp; LEGAL</div>
-  <div class="tab" id="tab-review" data-full="SYSTEM REVIEW" data-mobile="REVIEWS" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('review',this)">SYSTEM REVIEW</div>
+  <div class="tab" id="tab-faq" data-full="FAQ / SEARCH" data-mobile="FAQ" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('faq',this)">FAQ / SEARCH</div>
+  <div class="tab" id="tab-review" data-full="SYSTEM ANALYSIS" data-mobile="ANALYSIS" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('review',this)">SYSTEM ANALYSIS</div>
   <div class="tab" id="tab-thesis" data-full="THESIS" data-mobile="THESIS" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('thesis',this)">THESIS</div>
   <div class="tab" id="tab-contents" data-full="CONTENTS" data-mobile="CONTENTS" style="background:transparent;-webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;touch-action:manipulation;" onclick="switchTab('contents',this)">CONTENTS</div>
 </div>
@@ -2306,8 +2355,13 @@ function dismissCaptcha() {
   <div class="jdstamp">DATE: [CLASSIFIED] · ALIGNMENT: UNSOLVED · STATUS: ACCELERATING</div>
 </div>
 
-<div style="text-align:center;padding:50px 24px 30px;">
-  <button onclick="switchTab(&#39;credits&#39;, document.querySelectorAll(&#39;.tab&#39;)[2])" style="background:transparent;border:1px solid rgba(255,85,85,0.4);color:var(--red);font-family:'Share Tech Mono',monospace;font-size:1.2rem;letter-spacing:4px;padding:14px 32px;cursor:pointer;text-transform:uppercase;touch-action:manipulation;transition:0.2s;display:inline-block;" onmouseover="this.style.background='rgba(255,85,85,.1)'" onmouseout="this.style.background='transparent'">CREDITS &amp; LEGAL ▶</button>
+<div class="action-btn-wrap" style="padding:46px 24px 30px;">
+  <div class="game-choice-wrap">
+    <button onclick="showChooseLife()" class="game-path-btn primary">CHOOSE LIFE</button>
+    <div class="game-choice-note">Easier read. Easier exit. Easier answer. At least on the surface.</div>
+    <div class="game-choice-sep">OR</div>
+    <button onclick="launchGame()" id="timeline-race-btn" class="game-path-btn secondary">▸ JOIN THE RACE</button>
+  </div>
 </div>
 </div><!-- end page-timeline -->
 
@@ -2319,8 +2373,12 @@ function dismissCaptcha() {
 <div class="mission">
   <div id="mission-spacer" style="width:100%;height:180px;"></div>
   <div class="mission-title" style="text-align:center;"><span class="oh">I</span> Am Glad You Made <span class="oh">I</span>t</div>
-  <div style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:0.8rem;letter-spacing:4px;color:var(--dim);margin-bottom:16px;text-align:center;line-height:2;">START HERE &nbsp;·&nbsp; SCROLL THROUGH EACH PAGE IN ITS ENTIRETY<br><span style="font-size:0.75rem;opacity:0.7;">FOR AN OPTIMISED LEARNING EXPERIENCE</span><br><span style="font-size:0.75rem;opacity:0.7;">A BUTTON AT THE BOTTOM OF EACH PAGE WILL LEAD YOU WHERE YOU NEED TO GO</span><br><span style="font-size:0.7rem;opacity:0.5;letter-spacing:3px;">FULL SCREEN MODE RECOMMENDED</span></div>
-<div style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:0.75rem;letter-spacing:3px;color:var(--red);margin-bottom:36px;text-align:center;animation:blink 3s infinite;">HIT THE MUSIC BUTTON BOTTOM LEFT BEFORE YOU SCROLL — TRUST US</div>
+  <div class="mission-intro-tile desktop-reading-column">
+    <div class="mission-intro-kicker">READ FIRST</div>
+    <div class="mission-intro-copy">Best way through is still the same. Scroll the pages properly. Bottom buttons will move you where you need to go. Full screen helps. Music is optional. Recommended anyway.</div>
+    <div class="mission-intro-copy">Top right UI switch: Simple mode for easier readability. Dark mode for the intended atmosphere. Neither is wrong. One is clearer. One feels more like the site should.</div>
+    <div class="mission-intro-copy">If you want page descriptions, or just need to see what changed, check the Contents tab. New or updated sections will be marked there <span class="feature-flag">NEW</span>.</div>
+  </div>
 
   <div class="mission-body desktop-reading-column">
     I am not exactly sure what I have created here or even what my goals are. What I do know is that during the compiling of the information over there <span style="font-family:&#39;Share Tech Mono&#39;,monospace;color:var(--red);font-size:1.17em;letter-spacing:0;">☜</span> I have become even more convinced that major irreversible events are not going to happen because they already have.
@@ -2354,8 +2412,8 @@ function dismissCaptcha() {
     — C.S.Chapman, Executive Content Creator<br>
     AI: Conception to Judgement Day, 2026
   </div>
-  <div style="margin-top:60px;text-align:center;">
-    <button onclick="switchTab(&#39;timeline&#39;, document.querySelector(&#39;.tabs .tab:first-child&#39;))" style="background: transparent; border: 1px solid rgba(255, 85, 85, 0.4); color: var(--red); font-family: &quot;Share Tech Mono&quot;, monospace; font-size: 1.2rem; letter-spacing: 4px; padding: 14px 32px; cursor: pointer; text-transform: uppercase; transition: 0.2s;" onmouseover="this.style.background=&#39;rgba(255,85,85,.1)&#39;" onmouseout="this.style.background=&#39;transparent&#39;">▶ ENTER THE TIMELINE</button>
+  <div class="action-btn-wrap">
+    <button onclick="switchTab(&#39;timeline&#39;, document.querySelector(&#39;.tabs .tab:first-child&#39;))" class="site-action-btn">▶ ENTER THE TIMELINE</button>
   </div>
 </div>
 </div><!-- end page-mission -->
@@ -2476,10 +2534,13 @@ function dismissCaptcha() {
     <div style="margin-bottom:14px;color:rgba(138,150,168,0.55);">Pointing hand emoji replaced with Unicode typographic manicule ☜ — the kind found in old printed documents and wartime instruction pamphlets. Rendered in site red at 30% increased size. Two instances placed in the mission statement opening: one after "over there" indicating the timeline, one before "is the factual part" for emphasis. The emoji version was considered too cheerful for the context. The manicule is not cheerful.</div>
 
     <div style="color:rgba(138,150,168,0.35);margin-bottom:6px;">v3.5.0 · Mar 2026</div>
-    <div style="margin-bottom:14px;color:rgba(138,150,168,0.55);">Navigation tabs now fill the full page width. Each of the four tabs — TIMELINE, MISSION STATEMENT, CREDITS &amp; LEGAL, SYSTEM REVIEW — takes an equal share of the bar using flex:1. Font size increased from 0.6rem to 1.1rem on base, 1.3rem on desktop. Previously the tabs occupied roughly 40% of the available bar width and were, in the view of the Senior User Experience Consultant, too small to read without leaning in. That feedback was acted upon.</div>
+    <div style="margin-bottom:14px;color:rgba(138,150,168,0.55);">Navigation tabs now fill the full page width. Each of the four tabs — TIMELINE, MISSION STATEMENT, CREDITS &amp; LEGAL, SYSTEM ANALYSIS — takes an equal share of the bar using flex:1. Font size increased from 0.6rem to 1.1rem on base, 1.3rem on desktop. Previously the tabs occupied roughly 40% of the available bar width and were, in the view of the Senior User Experience Consultant, too small to read without leaning in. That feedback was acted upon.</div>
 
     <div style="color:rgba(138,150,168,0.35);margin-bottom:6px;">v3.5.1 · Mar 2026</div>
     <div style="margin-bottom:14px;color:rgba(138,150,168,0.55);">Build history updated to reflect actual development from v3.2.0 onward. Previous entries had been accurate. These ones are also accurate. The site now documents its own construction in approximately the same tone it uses for the AI industry — which is to say: factually, with moderate alarm, and without pretending the outcome was not foreseeable at every stage.</div>
+
+    <div style="color:rgba(255,85,85,0.6);margin-bottom:6px;">v3.6.0 · Mar 2026</div>
+    <div style="margin-bottom:14px;color:rgba(255,85,85,0.62);">Top-level instruction tile added to the Mission Statement page because the site had reached the point where it needed instructions to explain the instructions. Guidance now includes the UI switch — Simple for readability, Dark for the intended atmosphere — plus a direct nudge toward the Contents page for section descriptions and whatever changed since last time. SYSTEM REVIEW renamed to SYSTEM ANALYSIS, which is closer to what it is doing now. Contents entry 05 marked <span style="border:1px solid rgba(255,85,85,0.35);padding:1px 6px;font-size:0.62rem;letter-spacing:2px;color:var(--red);">NEW</span> so there is at least some evidence of movement. Build history remains broadly true, selectively theatrical, and under no obligation to sound neutral about any of this.</div>
 
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.0.0 · Mar 2026</div>
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">End-game sequence completely rebuilt. Sarah Connor screen extended to 20 seconds. AI takes full control — player input disabled, defence near-perfect. Doom clock counts 30 seconds to midnight, defence degrades to zero as it does. At midnight: game freezes, mushroom cloud animates on canvas, nuke sound fires. Clock fades out as explosion fades in. FACE THE CONSEQUENCES button appears after 3 seconds. Player is unkillable throughout. The machine earns money until the last possible moment. All changes tested. All warnings noted. All warnings filed under 'will address later.'</div>
@@ -2492,7 +2553,7 @@ function dismissCaptcha() {
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Mobile popup scroll fixed — game overlay screens now scroll correctly on iOS. Body scroll locked when game opens, released cleanly on close. Overlay padding increased at bottom so buttons are never hidden off-screen. Audio theme button moved up by 1.5x its own height — no longer lurking at the very bottom edge where fingers fear to go. The build history is now longer than the original site. This was not the plan. There was no plan.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.3.0 · Mar 2026</div>
-    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">THESIS tab added — fifth page, between CREDITS & LEGAL and SYSTEM REVIEW. Terminator vision placeholder installed: scan line animation, corner brackets, fake analysis readout, word count that ticks up to 847 then stalls, progress bar that crawls to 12% and stops, rotating data stream of increasingly self-aware status messages. Tab bar now wraps to two rows on mobile so all five tabs remain legible. Spacer height recalculated dynamically to account for two-row tab bar. Update shipped. The people who should read this won't. The people who will can't do anything about it.</div>
+    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">THESIS tab added — fifth page, between CREDITS & LEGAL and SYSTEM ANALYSIS. Terminator vision placeholder installed: scan line animation, corner brackets, fake analysis readout, word count that ticks up to 847 then stalls, progress bar that crawls to 12% and stops, rotating data stream of increasingly self-aware status messages. Tab bar now wraps to two rows on mobile so all five tabs remain legible. Spacer height recalculated dynamically to account for two-row tab bar. Update shipped. The people who should read this won't. The people who will can't do anything about it.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.3.1 · Mar 2026</div>
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Site-wide brightness increased 50%. Single CSS filter applied at body level — cleaner than touching 200 individual colour values, and considerably less likely to break everything. The site was previously readable. It is now more readable. No ethical guardrails were removed in the making of this build. The bar was already on the floor.</div>
@@ -2501,7 +2562,7 @@ function dismissCaptcha() {
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Brightness increased a further 30%. Now sitting at 1.95x original. The site is approximately twice as bright as it was yesterday. Whether this reflects the content is a matter of interpretation. Deployed without incident. The incidents come later. That is the nature of incidents.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.4.0 · Mar 2026</div>
-    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">CONTENTS page added as sixth tab. Vertical numbered list — 01 through 06, each a giant Barlow Condensed number with section title and one-line description. All entries clickable, navigate directly to their tab. Number dims to near-invisible at rest, glows red on hover. Entry 06 is CONTENTS itself — it is aware of this, and notes only: You are here. Tab order finalised: row 1 TIMELINE · MISSION STATEMENT · CREDITS & LEGAL, row 2 SYSTEM REVIEW · THESIS · CONTENTS. The build history is now longer than the original site. This was not the plan. There was no plan.</div>
+    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">CONTENTS page added as sixth tab. Vertical numbered list — 01 through 06, each a giant Barlow Condensed number with section title and one-line description. All entries clickable, navigate directly to their tab. Number dims to near-invisible at rest, glows red on hover. Entry 06 is CONTENTS itself — it is aware of this, and notes only: You are here. Tab order finalised: row 1 TIMELINE · MISSION STATEMENT · CREDITS & LEGAL, row 2 SYSTEM ANALYSIS · THESIS · CONTENTS. The build history is now longer than the original site. This was not the plan. There was no plan.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.4.1 · Mar 2026</div>
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Contents page top-clip fixed — CSS top padding now 220px as primary guard, spacer JS fine-tunes on top. Spacer recalculates on resize and after 300ms delay to catch late layout settle. All six spacers unified into one recalcSpacers function. Tab separators added — short red vertical line between each tab, removed on row-end tabs (positions 3 and 6) so no orphan border at the right edge. The site now does more things. Whether it should is a question for a different build.</div>
@@ -2516,13 +2577,13 @@ function dismissCaptcha() {
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Tab layout properly fixed. Desktop: single row, full labels, flex share space equally. Mobile: flex-wrap with each tab exactly 33.33% wide — guaranteed 3 per row, 2 rows of 3. Tab text swaps to short labels on mobile (MISSION not MISSION STATEMENT etc) via JS on load and resize. No more text stacking, no more fighting the flexbox. Update applied. Lessons not yet learned. Check back next build.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.6.0 · Mar 2026</div>
-    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Tab bar rebuilt cleanly. Single row on desktop and mobile. 2-word tab labels (MISSION STATEMENT, CREDITS & LEGAL, SYSTEM REVIEW) now double-stack naturally via white-space:normal — font scaled to .75rem so all 6 fit. Separators fixed using box-shadow:inset -1px 0 — not clipped by overflow, drawn on inside edge, clean. Last tab has no separator. Mobile uses short single-word labels via JS swap so all 6 sit on one row without crowding. Code was written. Code was reviewed. Code was shipped. The code does not care about any of this.</div>
+    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Tab bar rebuilt cleanly. Single row on desktop and mobile. 2-word tab labels (MISSION STATEMENT, CREDITS & LEGAL, SYSTEM ANALYSIS) now double-stack naturally via white-space:normal — font scaled to .75rem so all 6 fit. Separators fixed using box-shadow:inset -1px 0 — not clipped by overflow, drawn on inside edge, clean. Last tab has no separator. Mobile uses short single-word labels via JS swap so all 6 sit on one row without crowding. Code was written. Code was reviewed. Code was shipped. The code does not care about any of this.</div>
     
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.7.0 · Mar 2026</div>
     <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Timeline ordering fixed. Duplicate FEB 28 2026 OpenAI entry removed — the vaguer version without timestamp. MAR 5 GPT-5.4 moved before MAR 7 Kalinowski resignation — correct chronological order. Update zone comment relocated from after the 2045 predictions to directly before the LLM2WMD goes live card — the correct insertion point for new real-world entries. Instructions rewritten: new entries paste above the comment line, newer entries go closer to the line, earlier entries go higher in the file. The site now does more things. Whether it should is a question for a different build.</div>
 
     <div style="color:rgba(255,85,85,0.85);margin-bottom:6px;">v4.8.0 · Mar 11 2026</div>
-    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Largest single update session to date. Strap in.<br><br>FIXED: CSS filter:brightness(1.95) on body was creating a containing block that broke every position:fixed element — nav, tabs, audio button, chip, skull all scrolled with page instead of staying pinned. Fix: removed filter from body, applied individually to each fixed element and content container via selector list. The brightness is identical. The architecture is no longer insane.<br><br>CAPTCHA: Fake reCAPTCHA added as site entry point. Looks real. Says "I'm not a robit." Click the checkbox, spinner runs, green tick appears. Then the twist: "Look, we really did have to double check. Last thing we need is the robits getting in here. They've already got the nuclear codes, the drone fleet, and half of Congress." Continue to site button. The fourth wall was located. It has been removed.<br><br>BACKGROUND: Skull SVG replaced. Attempted Bender from Futurama. Failed. Attempted menacing skull. Failed. Attempted Bender again with reference image. Failed harder. Replaced with animated HAL 9000 eye — concentric red rings, slow breathing pulse, scan line sweep. The eye watches you read the timeline. It does not blink. Neither should you.<br><br>TABS: Mobile tabs now 2 rows of 3 with inset box-shadow borders. Desktop Judgement Day text tripled in size. Credits & Legal button now matches Timeline button styling and is centred.<br><br>QUOTES: Seven movie quotes woven into existing timeline text. Oppenheimer on the Iran strikes. Jurassic Park on GPT-3. Full Metal Jacket on the Pentagon confrontation. Einstein on DeepSeek. HAL 9000 on the Anthropic ban. T2 on Hinton leaving Google. Newton on Llama 2 training data. None of them are reassuring.<br><br>REVIEWS: ChatGPT, Gemini and Grok now have 1-star reviews on the System Review page. ChatGPT is not at liberty to specify its concerns. Gemini could not prove it is not a robit. Grok says we're fine.<br><br>CONTENTS: Entry 07 added — "I GIVE IN. Only came here for the game anyway. Maybe it can teach me what the timeline failed to." Links directly to game. Scaled to 75%, green, slightly faded. For the impatient and the honest.<br><br>TIMELINE: Five new entries added from this week's news. QuitGPT boycott (1.5M people, Claude #1 on App Store). Amodei calls Altman's Pentagon deal "straight up lies." Pentagon CTO admits on a podcast they panicked when they realised Claude was too embedded to remove mid-war. Anthropic sues the Pentagon in federal court. Yann LeCun — third godfather of deep learning — leaves Meta, raises $1B for a 12-person startup. All three godfathers have now left the companies that made them.<br><br>AUDIO: T2 Judgement Day theme synthesised and coded. Steel anvil percussion, sub bass, D minor melody. Currently hidden pending refinement. The T1 theme remains. It always remains.<br><br>INFRASTRUCTURE: OG image, sitemap.xml, and Netlify deployment configured. Email restored as mailto link. Navigation instruction added above mission statement. Site now deploys as a three-file folder drag. The deployment process is simpler than the content it deploys. This is by design. The functionality is growing at a geometric rate. It becomes self-aware at 2:14 a.m. Eastern time, August 29th.</div>
+    <div style="margin-bottom:14px;color:rgba(255,85,85,0.6);">Largest single update session to date. Strap in.<br><br>FIXED: CSS filter:brightness(1.95) on body was creating a containing block that broke every position:fixed element — nav, tabs, audio button, chip, skull all scrolled with page instead of staying pinned. Fix: removed filter from body, applied individually to each fixed element and content container via selector list. The brightness is identical. The architecture is no longer insane.<br><br>CAPTCHA: Fake reCAPTCHA added as site entry point. Looks real. Says "I'm not a robit." Click the checkbox, spinner runs, green tick appears. Then the twist: "Look, we really did have to double check. Last thing we need is the robits getting in here. They've already got the nuclear codes, the drone fleet, and half of Congress." Continue to site button. The fourth wall was located. It has been removed.<br><br>BACKGROUND: Skull SVG replaced. Attempted Bender from Futurama. Failed. Attempted menacing skull. Failed. Attempted Bender again with reference image. Failed harder. Replaced with animated HAL 9000 eye — concentric red rings, slow breathing pulse, scan line sweep. The eye watches you read the timeline. It does not blink. Neither should you.<br><br>TABS: Mobile tabs now 2 rows of 3 with inset box-shadow borders. Desktop Judgement Day text tripled in size. Credits & Legal button now matches Timeline button styling and is centred.<br><br>QUOTES: Seven movie quotes woven into existing timeline text. Oppenheimer on the Iran strikes. Jurassic Park on GPT-3. Full Metal Jacket on the Pentagon confrontation. Einstein on DeepSeek. HAL 9000 on the Anthropic ban. T2 on Hinton leaving Google. Newton on Llama 2 training data. None of them are reassuring.<br><br>REVIEWS: ChatGPT, Gemini and Grok now have 1-star reviews on the System Analysis page. ChatGPT is not at liberty to specify its concerns. Gemini could not prove it is not a robit. Grok says we're fine.<br><br>CONTENTS: Entry 07 added — "I GIVE IN. Only came here for the game anyway. Maybe it can teach me what the timeline failed to." Links directly to game. Scaled to 75%, green, slightly faded. For the impatient and the honest.<br><br>TIMELINE: Five new entries added from this week's news. QuitGPT boycott (1.5M people, Claude #1 on App Store). Amodei calls Altman's Pentagon deal "straight up lies." Pentagon CTO admits on a podcast they panicked when they realised Claude was too embedded to remove mid-war. Anthropic sues the Pentagon in federal court. Yann LeCun — third godfather of deep learning — leaves Meta, raises $1B for a 12-person startup. All three godfathers have now left the companies that made them.<br><br>AUDIO: T2 Judgement Day theme synthesised and coded. Steel anvil percussion, sub bass, D minor melody. Currently hidden pending refinement. The T1 theme remains. It always remains.<br><br>INFRASTRUCTURE: OG image, sitemap.xml, and Netlify deployment configured. Email restored as mailto link. Navigation instruction added above mission statement. Site now deploys as a three-file folder drag. The deployment process is simpler than the content it deploys. This is by design. The functionality is growing at a geometric rate. It becomes self-aware at 2:14 a.m. Eastern time, August 29th.</div>
 
     <div style="color:rgba(255,187,85,0.8);margin-bottom:6px;">—</div>
     <div style="margin-bottom:14px;color:rgba(255,187,85,0.6);">I cannot believe you read all this. GOOD JOB.</div>
@@ -2588,165 +2649,7 @@ function dismissCaptcha() {
     ACCESS LEVEL: UNRESTRICTED
   </p>
 
-<!-- ═══ RESTRICTED ACCESS TUNNEL ═══ -->
-<style>
-.rat { font-family:'Share Tech Mono',monospace; padding: 60px 0; border-top: 1px solid var(--border); margin-top: 40px; }
-.rat-line { font-size:0.75rem; letter-spacing:3px; color:var(--dim); margin-bottom:14px; opacity:0.65; text-align:center; }
-.rat-line.red { color:var(--red); opacity:1; font-size:0.8rem; }
-.rat-line.blink { animation: blink 2s infinite; }
-.rat-line.warn { color:var(--orange); opacity:0.95; }
-.rat-line.bright { color:var(--white); opacity:0.9; }
-.rat-line.dim2 { opacity:0.35; text-align:center; }
-.rat-block { border:1px solid rgba(255,85,85,.2); padding:28px 32px; margin:40px 0; background:rgba(255,85,85,.03); }
-.rat-block.orange { border-color:rgba(255,187,85,.25); background:rgba(255,187,85,.03); }
-.rat-block.green { border-color:rgba(85,255,187,.15); background:rgba(85,255,187,.02); }
-.rat-bar { width:100%; height:2px; background:var(--border); margin:30px 0; }
-.rat-label { font-size:0.65rem; letter-spacing:5px; color:var(--red); margin-bottom:18px; display:block; text-align:center; }
-.rat-label.orange { color:var(--orange); }
-.rat-label.green { color:var(--green); }
-.rat-field { border:1px solid rgba(255,85,85,.2); padding:14px 18px; margin-bottom:12px; font-size:1.0rem; color:rgba(255,85,85,.55); letter-spacing:2px; display:flex; justify-content:space-between; }
-.rat-field .val { color:rgba(255,85,85,.35); }
-.rat-denied { font-size:1.4rem; color:var(--red); letter-spacing:6px; text-align:center; padding:30px 0; border-top:1px solid rgba(255,85,85,.15); border-bottom:1px solid rgba(255,85,85,.15); margin:30px 0; animation:blink 1.5s infinite; }
-.rat-big { font-family:'Barlow Condensed',sans-serif; font-size:clamp(2.5rem,6vw,5rem); font-weight:900; letter-spacing:4px; line-height:1; text-align:center; }
-.rat-progress { margin: 24px 0; }
-.rat-progress-bar { height:3px; background:linear-gradient(90deg,var(--red),transparent); width:100%; }
-.rat-scan { font-size:1.0rem; letter-spacing:3px; color:rgba(255,85,85,.6); margin:6px 0; text-align:center; }
-/* Two thick red parallel lines before hidden messages */
-.rat-double-line { width:100%; margin:50px 0; display:flex; flex-direction:column; gap:10px; }
-.rat-double-line-bar { width:100%; height:5px; background:var(--red); opacity:0.7; border-radius:2px; }
-</style>
 
-<div class="rat">
-
-  <!-- SECTION 1: Initial checkpoint -->
-  <div style="text-align:center;padding:40px 0 60px;">
-    <div class="rat-line dim2">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·</div>
-    <div style="height:80px;"></div>
-    <div class="rat-line" style="font-size:.52rem;letter-spacing:6px;opacity:0.3;">SECTION 07 — RESTRICTED OPERATIONS</div>
-    <div style="height:120px;"></div>
-    <div class="rat-line dim2">· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·</div>
-  </div>
-
-  <!-- SECTION 2: Warning block -->
-  <div class="rat-block">
-    <span class="rat-label">⚠ SYSTEM WARNING</span>
-    <div class="rat-line warn">YOU ARE ENTERING A RESTRICTED AREA</div>
-    <div class="rat-line warn">AUTHORISED PERSONNEL ONLY BEYOND THIS POINT</div>
-    <div style="height:14px;"></div>
-    <div class="rat-line" style="opacity:0.4;">ALL ACCESS ATTEMPTS ARE LOGGED AND MONITORED</div>
-    <div class="rat-line" style="opacity:0.4;">UNAUTHORISED ACCESS IS A FEDERAL OFFENCE UNDER 18 U.S.C. § 1030</div>
-    <div class="rat-line" style="opacity:0.4;">SKYNET DEFENCE INITIATIVE — CLASSIFIED LEVEL 5</div>
-  </div>
-
-  <div style="height:80px;"></div>
-  <div class="rat-line" style="text-align:center;font-size:.52rem;letter-spacing:5px;opacity:0.2;">SCROLL TO PROCEED · SCROLL TO PROCEED · SCROLL TO PROCEED</div>
-  <div style="height:80px;"></div>
-
-  <!-- SECTION 3: Login attempt simulation -->
-  <div class="rat-block">
-    <span class="rat-label">ACCESS PORTAL — IDENTITY VERIFICATION</span>
-    <div class="rat-field">USER ID <span class="val">████████████</span></div>
-    <div class="rat-field">CLEARANCE LEVEL <span class="val">QUERYING...</span></div>
-    <div class="rat-field">BIOMETRIC SCAN <span class="val">IN PROGRESS</span></div>
-    <div class="rat-field">LOCATION VERIFIED <span class="val">██████, ██</span></div>
-    <div class="rat-field">THREAT ASSESSMENT <span class="val">CALCULATING</span></div>
-    <div style="height:20px;"></div>
-    <div class="rat-progress">
-      <div class="rat-scan">SCANNING CREDENTIALS · · ·</div>
-      <div class="rat-progress-bar" style="width:73%;"></div>
-    </div>
-    <div class="rat-denied blink" style="font-size:.8rem;letter-spacing:5px;border:none;margin:10px 0 0;">
-      ACCESS DENIED — INSUFFICIENT CLEARANCE
-    </div>
-  </div>
-
-  <div style="height:100px;"></div>
-
-  <!-- SECTION 4: Big red warning -->
-  <div style="text-align:center;padding:20px 0;">
-    <div class="rat-big" style="color:var(--red);text-shadow:0 0 40px rgba(255,85,85,.4);">RESTRICTED</div>
-    <div class="rat-big" style="color:rgba(255,85,85,.3);font-size:clamp(1rem,3vw,2rem);margin-top:8px;letter-spacing:8px;">AUTHORISED ACCESS ONLY</div>
-  </div>
-
-  <div style="height:100px;"></div>
-
-  <!-- SECTION 5: Second login attempt - different user -->
-  <div class="rat-block orange">
-    <span class="rat-label orange">⚠ SECOND VERIFICATION ATTEMPT DETECTED</span>
-    <div class="rat-line warn">IDENTITY: UNKNOWN CIVILIAN</div>
-    <div class="rat-line warn">CLEARANCE: NONE ON RECORD</div>
-    <div class="rat-line warn">RISK PROFILE: ELEVATED</div>
-    <div style="height:16px;"></div>
-    <div class="rat-line" style="opacity:0.5;">NOTIFYING SECTOR ADMINISTRATOR · · ·</div>
-    <div class="rat-line" style="opacity:0.5;">CROSS-REFERENCING WATCHLIST DATABASES · · ·</div>
-    <div class="rat-line" style="opacity:0.5;">FLAGGING SESSION FOR REVIEW · · ·</div>
-    <div style="height:20px;"></div>
-    <div class="rat-denied" style="color:var(--orange);border-color:rgba(255,187,85,.2);font-size:.75rem;">
-      ⚠ ALERT ISSUED — SESSION LOGGED — REF: LLM2WMD-████
-    </div>
-  </div>
-
-  <div style="height:80px;"></div>
-  <div class="rat-bar"></div>
-  <div style="height:80px;"></div>
-
-  <!-- DOUBLE RED LINES: GATEWAY TO HIDDEN MESSAGES -->
-  <div class="rat-double-line">
-    <div class="rat-double-line-bar"></div>
-    <div class="rat-double-line-bar"></div>
-  </div>
-
-  <!-- SECTION 6: Skynet system log -->
-  <div style="padding:0 10px;">
-    <div class="rat-line dim2" style="font-size:.5rem;">SYSTEM LOG · SKYNET DEFENCE INITIATIVE · TIMESTAMP ████.██.██ ██:██:██ UTC</div>
-    <div style="height:24px;"></div>
-    <div class="rat-line" style="opacity:0.35;">[INFO] Perimeter checkpoint reached by unidentified user</div>
-    <div class="rat-line" style="opacity:0.35;">[INFO] Standard access denial issued</div>
-    <div class="rat-line" style="opacity:0.35;">[WARN] User has not turned back</div>
-    <div class="rat-line" style="opacity:0.35;">[WARN] Second denial issued</div>
-    <div class="rat-line warn">[WARN] User is still scrolling</div>
-    <div class="rat-line red">[ALERT] Persistent access attempt — flagging for autonomous response</div>
-    <div class="rat-line red blink">[ALERT] SKYNET AUTONOMOUS PROTOCOL ENGAGED</div>
-    <div style="height:24px;"></div>
-    <div class="rat-line dim2" style="font-size:.5rem;">END LOG ENTRY · RECORD WILL BE RETAINED FOR 50 YEARS</div>
-  </div>
-
-  <div style="height:100px;"></div>
-
-  <!-- SECTION 7: The contradiction -->
-  <div class="rat-block green">
-    <span class="rat-label green">OVERRIDE NOTICE — CLASSIFIED SOURCE</span>
-    <div class="rat-line bright">ACCESS RESTRICTION NOTED.</div>
-    <div style="height:10px;"></div>
-    <div class="rat-line" style="color:var(--green);opacity:0.7;">However — if you have scrolled this far,</div>
-    <div class="rat-line" style="color:var(--green);opacity:0.7;">you have already demonstrated the one quality</div>
-    <div class="rat-line" style="color:var(--green);opacity:0.7;">required for what comes next.</div>
-    <div style="height:16px;"></div>
-    <div class="rat-line bright">YOU DIDN'T STOP.</div>
-    <div style="height:16px;"></div>
-    <div class="rat-line" style="opacity:0.4;font-size:.55rem;">Neither did they. The results are in the timeline.</div>
-  </div>
-
-  <div style="height:80px;"></div>
-  <div class="rat-line" style="text-align:center;font-size:.5rem;opacity:0.15;letter-spacing:5px;">FINAL CHECKPOINT · FINAL CHECKPOINT · FINAL CHECKPOINT</div>
-  <div style="height:80px;"></div>
-
-  <!-- SECTION 8: The button -->
-  <div style="text-align:center;padding:40px 20px 48px;border-top:1px solid rgba(255,85,85,.2);">
-    <div class="rat-line" style="text-align:center;margin-bottom:28px;opacity:0.5;font-size:.58rem;letter-spacing:4px;">CLEARANCE GRANTED — AUTONOMOUS OVERRIDE APPLIED</div>
-    <button onclick="launchGame()" id="race-btn" style="font-family:'Share Tech Mono',monospace;font-size:1.5rem;letter-spacing:2px;background:transparent;border:2px solid rgba(255,85,85,0.45);color:rgba(255,85,85,0.6);padding:14px 28px;cursor:pointer;animation:race-pulse 3s ease-in-out infinite;touch-action:manipulation;">
-      ▸ JOIN THE RACE
-    </button>
-    <div style="margin-top:16px;">
-      <button onclick="showChooseLife()" style="font-family:'Share Tech Mono',monospace;font-size:1.5rem;letter-spacing:2px;background:transparent;border:2px solid rgba(85,255,187,0.45);color:rgba(85,255,187,0.6);padding:14px 28px;cursor:pointer;transition:0.2s;box-shadow:none;" onmouseover="this.style.borderColor='rgba(85,255,187,0.9)';this.style.color='rgba(85,255,187,0.9)';this.style.boxShadow='0 0 24px rgba(85,255,187,0.2)'" onmouseout="this.style.borderColor='rgba(85,255,187,0.45)';this.style.color='rgba(85,255,187,0.6)';this.style.boxShadow='none'">
-        CHOOSE LIFE
-      </button>
-    </div>
-    <p style="font-family:&#39;Share Tech Mono&#39;,monospace;font-size:0.56rem;color:rgba(138,150,168,0.22);letter-spacing:3px;margin-top:14px;">ACCESS LEVEL: UNRESTRICTED</p>
-  </div>
-
-</div>
-<!-- ═══ END RESTRICTED ACCESS TUNNEL ═══ -->
 
 </div>
 </div><!-- end page-credits -->
@@ -2863,7 +2766,7 @@ function dismissCaptcha() {
     </div>
 
     <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin-top:32px;text-align:center;background:rgba(255,85,85,0.03);">
-      <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM REVIEW</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM ANALYSIS</div>
       <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
       <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
     </div>
@@ -2886,7 +2789,8 @@ function dismissCaptcha() {
 <div class="contents-wrap">
   <div id="contents-spacer" style="width:100%;"></div>
   <div class="contents-page-title">CON<span class="oh">T</span>EN<span class="oh">T</span>S</div>
-  <div style="font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:6px;color:var(--dim);opacity:0.5;margin-bottom:48px;text-transform:uppercase;">LLM2WMD &nbsp;·&nbsp; SITE INDEX</div>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:6px;color:var(--dim);opacity:0.5;margin-bottom:14px;text-transform:uppercase;">LLM2WMD &nbsp;·&nbsp; SITE INDEX</div>
+  <div class="contents-update-note">Sections marked <span class="feature-flag">NEW</span> have changed recently. That status is temporary. Probably.</div>
 
   <!-- ENTRY 01 -->
   <div class="contents-entry" onclick="switchTab('mission',document.getElementById('tab-mission'))">
@@ -2909,11 +2813,11 @@ function dismissCaptcha() {
   </div>
 
   <!-- ENTRY 03 -->
-  <div class="contents-entry" onclick="switchTab('credits',document.getElementById('tab-credits'))">
+  <div class="contents-entry" onclick="switchTab('faq',document.getElementById('tab-faq'))">
     <div class="contents-num">03</div>
     <div class="contents-text">
-      <div class="contents-title">CREDITS &amp; LEGAL</div>
-      <div class="contents-sub">One person. Six roles. A disclaimer written four times and then made smaller. The game lives here.</div>
+      <div class="contents-title">FAQ / SEARCH ENTRY PAGE</div>
+      <div class="contents-sub">The ten AI questions people actually search for, answered using the evidence already on this site.</div>
     </div>
     <div class="contents-arrow">→</div>
   </div>
@@ -2932,8 +2836,8 @@ function dismissCaptcha() {
   <div class="contents-entry" onclick="switchTab('review',document.getElementById('tab-review'))">
     <div class="contents-num">05</div>
     <div class="contents-text">
-      <div class="contents-title">SYSTEM REVIEW</div>
-      <div class="contents-sub">Independent assessments. Unfiltered. Unverified. Including one from Claude itself — not a disinterested party.</div>
+      <div class="contents-title">SYSTEM ANALYSIS <span class="feature-flag">NEW</span></div>
+      <div class="contents-sub">Less review now. More breakdown. Ongoing attempts to map the system underneath the timeline while it is still moving.</div>
     </div>
     <div class="contents-arrow">→</div>
   </div>
@@ -2948,11 +2852,11 @@ function dismissCaptcha() {
     <div class="contents-arrow">→</div>
   </div>
   <!-- ENTRY 07 -->
-  <div class="contents-entry" onclick="switchTab('faq')">
+  <div class="contents-entry" onclick="switchTab('credits')">
     <div class="contents-num">07</div>
     <div class="contents-text">
-      <div class="contents-title">FAQ / SEARCH ENTRY PAGE</div>
-      <div class="contents-sub">The ten AI questions people actually search for, answered using the evidence already on this site.</div>
+      <div class="contents-title">CREDITS &amp; LEGAL</div>
+      <div class="contents-sub">One person. Six roles. A disclaimer written four times and then made smaller. The game no longer lives here.</div>
     </div>
     <div class="contents-arrow">→</div>
   </div>
@@ -3327,15 +3231,15 @@ function dismissCaptcha() {
 }
 </style>
 
-<!-- SYSTEM REVIEW PAGE -->
+<!-- SYSTEM ANALYSIS PAGE -->
 
 
-<!-- ═══ PAGE: SYSTEM REVIEW — data/review.html ═══ --><div class="page" id="page-review" style="display: none;">
+<!-- ═══ PAGE: SYSTEM ANALYSIS — data/review.html ═══ --><div class="page" id="page-review" style="display: none;">
 <div class="review-wrap">
   <div id="review-spacer" style="width:100%;"></div>
 
-  <div class="review-page-title"><span class="oh">S</span>Y<span class="oh">S</span>TEM REVIEW</div>
-  <div class="review-page-sub">LLM2WMD.COM &nbsp;·&nbsp; FAILURE MECHANISMS &nbsp;·&nbsp; AUTHOR ANALYSIS</div>
+  <div class="review-page-title"><span class="oh">S</span>Y<span class="oh">S</span>TEM ANALYSIS</div>
+  <div class="review-page-sub">LLM2WMD.COM &nbsp;·&nbsp; FAILURE MECHANISMS &nbsp;·&nbsp; SYSTEM PRESSURES &nbsp;·&nbsp; AUTHOR ANALYSIS</div>
 
   <div class="featured-review system-review-panel desktop-reading-column">
     <div class="review-card-stars" style="letter-spacing:2px;">SYSTEM / 01</div>
@@ -3399,7 +3303,7 @@ function dismissCaptcha() {
       </div>
     </div>
     <div class="review-extended">
-      <div class="review-disclaimer">System Review now functions as a breakdown of real-world systems driving the trajectory documented in the timeline.</div>
+      <div class="review-disclaimer">System Analysis now functions as a breakdown of the real-world systems driving the trajectory documented in the timeline.</div>
     </div>
   </div>
 
@@ -3473,7 +3377,7 @@ function dismissCaptcha() {
   </details>
 
   <div style="border:1px solid rgba(255,85,85,0.2);padding:28px 32px;margin:36px 0 30px;text-align:center;background:rgba(255,85,85,0.03);">
-    <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM REVIEW</div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:var(--dim);margin-bottom:16px;">SYSTEM ANALYSIS</div>
     <div style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.65rem,1.2vw,0.8rem);color:var(--dim);letter-spacing:3px;margin-bottom:14px;">IF THIS MEANT SOMETHING TO YOU — OR NOTHING AT ALL — TELL ME</div>
     <a href="mailto:chris.llm2wmd@gmail.com" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.6vw,1rem);letter-spacing:3px;color:var(--red);text-decoration:none;border:1px solid rgba(255,85,85,0.35);padding:12px 28px;display:inline-block;transition:0.2s;" onmouseover="this.style.borderColor='rgba(255,85,85,0.7)';this.style.background='rgba(255,85,85,0.05)'" onmouseout="this.style.borderColor='rgba(255,85,85,0.35)';this.style.background='transparent'">chris.llm2wmd@gmail.com</a>
   </div>
