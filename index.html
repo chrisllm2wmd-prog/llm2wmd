@@ -4239,6 +4239,9 @@ body.simple-mode .cart-clear-btn{color:#6b6255}
 body.simple-mode .cart-field label{color:#6b6255}
 body.simple-mode .cart-input{background:#fff;border-color:rgba(26,22,16,.25);color:#1a1610}
 body.simple-mode .cart-address-warn{color:#b23a3a}
+.cart-disabled-notice{margin:2px 0 16px;padding:12px 14px;border:1px solid rgba(255,143,143,.4);border-radius:8px;
+  background:rgba(255,85,85,.08);color:#ff8f8f;font-family:'Exo 2',sans-serif;font-size:.78rem;line-height:1.5;text-align:center}
+body.simple-mode .cart-disabled-notice{border-color:rgba(178,58,58,.35);background:rgba(178,58,58,.07);color:#8a2f2f}
 </style>
 <div id="cart-overlay" role="dialog" aria-modal="true" aria-label="Your cart" aria-hidden="true">
   <div class="cart-card">
@@ -4248,7 +4251,8 @@ body.simple-mode .cart-address-warn{color:#b23a3a}
     <div id="cart-empty">Your cart is empty. Add something before it's too late.</div>
     <div id="cart-items"></div>
     <div id="cart-footer" style="display:none">
-      <div id="cart-address-fields" class="cart-address-fields">
+      <div id="cart-disabled-notice" class="cart-disabled-notice">Ordering is currently disabled due to a technical issue. Email your order to make a purchase inquiry.</div>
+      <div id="cart-address-fields" class="cart-address-fields" style="display:none">
         <div class="cart-field"><label for="cart-name">Name</label><input type="text" id="cart-name" class="cart-input" autocomplete="name"></div>
         <div class="cart-field cart-field-wide"><label for="cart-address1">Address</label><input type="text" id="cart-address1" class="cart-input cart-input-wide" autocomplete="address-line1"></div>
         <div class="cart-field"><label for="cart-city">Town / City</label><input type="text" id="cart-city" class="cart-input" autocomplete="address-level2"></div>
@@ -4454,16 +4458,16 @@ body.simple-mode .cart-address-warn{color:#b23a3a}
         </datalist>
         <div id="cart-address-warn" class="cart-address-warn" style="display:none">Please fill in your name and full delivery address before checking out.</div>
       </div>
-      <div id="cart-summary" class="cart-summary">
+      <div id="cart-summary" class="cart-summary" style="display:none">
         <div class="cart-summary-row"><span>Items</span><span id="cs-subtotal">£0.00</span></div>
         <div class="cart-summary-row"><span>Order fulfilment fee</span><span id="cs-fulfilment">£3.99</span></div>
         <div class="cart-summary-row"><span>Secure checkout fee (est.)</span><span id="cs-stripefee">enter your country</span></div>
         <div class="cart-summary-row"><span>Shipping</span><span id="cs-shipping">confirmed after checkout</span></div>
         <div class="cart-summary-row cart-summary-total"><span>Est. total (before shipping)</span><span id="cs-total">£0.00</span></div>
       </div>
-      <button type="button" class="cart-checkout-btn" onclick="return cartCheckout()">CHECKOUT &mdash; EMAIL ORDER</button>
+      <a class="cart-checkout-btn" id="cart-email-btn" href="#" target="_blank" rel="noopener">EMAIL YOUR ORDER</a>
       <button type="button" class="cart-clear-btn" onclick="cartClear()">EMPTY CART</button>
-      <div class="cart-note">Checking out opens one order email with everything above. You'll get a secure Stripe payment link for the exact total once colour, size and shipping are confirmed.</div>
+      <div class="cart-note">Emailing opens a message with everything above so we can sort payment directly.</div>
     </div>
   </div>
 </div>
@@ -5099,6 +5103,41 @@ body.llm2wmd-cart-has-items #cart-fab{display:flex}
   }else{
     init();
   }
+})();
+</script>
+<script id="cart-checkout-disabled-20260912">
+(function(){
+  /* Ordering temporarily disabled: the cart checkout button/flow (address form, live fee
+     summary, cartCheckout) is hidden via inline display:none on its containers above rather
+     than removed, so this is easy to reverse later. In its place, #cart-email-btn sends a
+     plain purchase-inquiry email listing the cart contents, no address or price breakdown. */
+  function cartBuildInquiryHref(){
+    var cart = (typeof cartLoad === 'function') ? cartLoad() : [];
+    if(!cart.length) return null;
+    var lines = cart.map(function(item, i){
+      var name = (typeof DM_NAMES !== 'undefined' && DM_NAMES[item.productId]) || item.productId;
+      return (i+1) + '. ' + name + ' — Colour: ' + item.color + ', Size: ' + item.size + ', Qty: ' + item.qty;
+    });
+    var totalQty = (typeof cartCount === 'function') ? cartCount() : cart.length;
+    var subject = 'Purchase inquiry: ' + totalQty + ' item' + (totalQty === 1 ? '' : 's') + ' from LLM2WMD';
+    var body = "Hi Chris,\n\nOnline ordering shows it's currently disabled, but I'd like to enquire about buying:\n\n" +
+      lines.join('\n') +
+      "\n\nShipping address: " +
+      "\n\n----------------------------------------\nTERMS OF SALE\nAll orders are fulfilled by Printful. Prices shown are subject to change and don't include shipping, which is calculated per order based on delivery location. Payment is accepted securely via Stripe — a secure payment link for the exact total will be sent to you based on the item, colour, size, and shipping location, and shipping details follow once payment is received. Returns follow Printful's returns policy. Making payment counts as agreement to these terms.\n\nPrices reflect the low-volume, custom nature of these products — margins are kept as low as we can reasonably make them.";
+    return 'mailto:' + DM_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+  function cartUpdateEmailBtn(){
+    var btn = document.getElementById('cart-email-btn');
+    if(!btn) return;
+    var href = cartBuildInquiryHref();
+    btn.href = href || '#';
+  }
+  var origCartRenderForDisabledNotice = window.cartRender;
+  window.cartRender = function(){
+    if(typeof origCartRenderForDisabledNotice === 'function') origCartRenderForDisabledNotice();
+    cartUpdateEmailBtn();
+  };
+  cartUpdateEmailBtn();
 })();
 </script>
 </body></html>
