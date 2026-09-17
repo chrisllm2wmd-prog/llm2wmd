@@ -4261,6 +4261,10 @@ body.simple-mode #landscape-rotate-hint span{color:#ff5555 !important;text-shado
     savedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     if(typeof closeMobileNav==="function"){ try{ closeMobileNav(); }catch(e){} }
     document.body.classList.add("landscape-shop-lock");
+    var chipEl = document.getElementById("dyson-chip-img");
+    if(chipEl) chipEl.style.setProperty("display","none","important");
+    var skullEl = document.getElementById("skull-bg");
+    if(skullEl) skullEl.style.setProperty("display","none","important");
     if(typeof maybeShowTabIntro==="function"){ try{ maybeShowTabIntro("shop"); }catch(e){} }
     try{ history.replaceState(history.state,"","#shop"); }catch(e){}
     window.scrollTo(0,0);
@@ -4268,6 +4272,10 @@ body.simple-mode #landscape-rotate-hint span{color:#ff5555 !important;text-shado
   function exitLock(){
     if(!document.body.classList.contains("landscape-shop-lock"))return;
     document.body.classList.remove("landscape-shop-lock");
+    var chipEl = document.getElementById("dyson-chip-img");
+    if(chipEl) chipEl.style.removeProperty("display");
+    var skullEl = document.getElementById("skull-bg");
+    if(skullEl) skullEl.style.removeProperty("display");
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
         window.scrollTo(0, savedScrollY);
