@@ -2502,7 +2502,7 @@ window.addEventListener('load', sizeReviewSpacer);
       <text x="120" y="112" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="800" font-size="30" fill="#4a3510">100%</text>
       <text x="120" y="140" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-weight="700" font-size="15" fill="#4a3510" letter-spacing="1.5">HUMAN MADE</text>
     </g></svg><span class="dm-guarantee-label">Click to view<br>my guarantee</span></button>
-  <div class="dm-page-title"><span class="lsh-title-mega">WELCOME TO</span><span class="dm-title-big">LLM2WMD</span><span class="dm-title-small">.COM</span></div>
+  <div class="dm-page-title"><span class="dm-title-small" style="margin-bottom:18px">WELCOME TO</span><span class="dm-title-small" style="margin-bottom:0">SHOP</span><span class="lsh-title-mega">LLM2WMD</span><span class="dm-title-small">.COM</span></div>
   <div class="lsh-subheading">Apocalypse apparel to suit any civilisation-ending event. The more you buy, the safer you'll be... maybe.</div>
 </div>
 <div class="dm-page-head survivor-signup" id="survivor-signup-section">
@@ -4242,11 +4242,14 @@ function closeVipInfoOverlay(){
   #landscape-rotate-hint{display:flex !important}
 }
 #landscape-shop-hero{display:none}
-#landscape-shop-hero .lsh-title-mega{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:2px;font-size:clamp(2.8rem,7.2vw,4.4rem);color:#1c1c1c;line-height:1;text-shadow:0 0 10px rgba(254,159,25,1),0 0 26px rgba(254,159,25,1),0 0 58px rgba(254,159,25,.9),0 0 110px rgba(254,159,25,.7)}
+#landscape-shop-hero .lsh-title-mega{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:2px;font-size:clamp(3.2rem,8vw,5rem);color:#1c1c1c;line-height:1;text-shadow:0 0 10px rgba(254,159,25,1),0 0 26px rgba(254,159,25,1),0 0 58px rgba(254,159,25,.9),0 0 110px rgba(254,159,25,.7)}
 #landscape-shop-hero .lsh-subheading{font-family:'Exo 2',sans-serif;color:#ffffff;max-width:520px;margin:14px auto 0;line-height:1.6;font-size:15px}
 #landscape-rotate-hint{display:none;position:fixed;right:14px;bottom:14px;z-index:70;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
 #landscape-rotate-hint svg{width:34px;height:34px;animation:lshRotatePulse 2.2s ease-in-out infinite;transform-origin:50% 50%}
 #landscape-rotate-hint span{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#ffc96a;text-shadow:0 0 6px rgba(255,201,106,.6)}
+body.simple-mode #landscape-rotate-hint rect,body.simple-mode #landscape-rotate-hint line{stroke:#ff5555 !important}
+body.simple-mode #landscape-rotate-hint circle{fill:#ff5555 !important}
+body.simple-mode #landscape-rotate-hint span{color:#ff5555 !important;text-shadow:0 0 6px rgba(255,85,85,.6) !important}
 @keyframes lshRotatePulse{0%,15%{transform:rotate(0deg)}50%,65%{transform:rotate(-90deg)}100%{transform:rotate(0deg)}}
 </style>
 <script id="mobile-landscape-shop-lock-js-20260909">
@@ -4298,6 +4301,7 @@ body.simple-mode .dm-cart-btn.added{color:#0a0a0f;background:#3fae63;border-colo
   padding:12px 18px;font-family:'Share Tech Mono',monospace;font-weight:700;font-size:.72rem;letter-spacing:1.5px;
   cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.45)}
 body.shop-view-active #cart-fab{display:inline-flex}
+body.simple-mode #cart-fab{color:#ff5555 !important}
 #cart-fab:hover{filter:brightness(1.08)}
 #cart-fab-badge{background:#ff5555;color:#fff;border-radius:999px;min-width:20px;height:20px;display:inline-flex;
   align-items:center;justify-content:center;font-size:.65rem;padding:0 5px;line-height:1}
