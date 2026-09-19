@@ -970,8 +970,8 @@ if(id==='sources')buildSourcesIndex();if(typeof maybeShowTabIntro==='function')m
 function switchPage(id,opts){opts=opts||{};saveCurrentPlace();var ov=getOverlay();if(ov&&ov.style.display==='flex')closeMountedGame();document.querySelectorAll('.page').forEach(function(p){p.style.display='none';p.classList.remove('active');});tabs.forEach(function(tid){var t=document.getElementById(tid);if(t)t.classList.remove('active');});var page=document.getElementById('page-'+id);if(page){page.style.display='block';page.classList.add('active');state.currentPage=id;}
 var activeTab=document.getElementById('tab-'+id);if(activeTab)activeTab.classList.add('active');if(!opts.fromPop){try{var current=(history.state&&history.state.page)?history.state.page:null;if(current!==id)history.pushState({page:id},'','#'+id);}catch(e){}}
 applyPageSideEffects(id);if(opts.restoreSavedPlace)restorePlaceForPage(id);else window.scrollTo(0,0);saveCurrentPlace();return true;}
-function initHistory(){window.addEventListener('popstate',function(e){var page=(e.state&&e.state.page)?e.state.page:'mission';switchPage(page,{fromPop:true});});window.addEventListener('scroll',saveCurrentPlace,{passive:true});window.addEventListener('beforeunload',saveCurrentPlace);document.addEventListener('DOMContentLoaded',function(){try{var initial='mission';var resume=readResume();var wantsShop=false;if(location.hash){var hashPage=location.hash.replace('#','');if(hashPage==='shop'||hashPage==='shop-section'){wantsShop=true;if(resume.page&&document.getElementById('page-'+resume.page))initial=resume.page;}else if(document.getElementById('page-'+hashPage))initial=hashPage;}else if(resume.page&&document.getElementById('page-'+resume.page)){initial=resume.page;}
-history.replaceState({page:initial},'','#'+(wantsShop?'shop':initial));window.LLM2WMDApp.router.switchPage(initial,{fromPop:true,restoreSavedPlace:!wantsShop&&!location.hash&&resume.page===initial});if(wantsShop){setTimeout(function(){var shopEl=document.getElementById('shop-section');if(shopEl){shopEl.scrollIntoView({behavior:'auto',block:'start'});history.replaceState({page:initial},'','#shop');}},60);}}catch(e){window.LLM2WMDApp.router.switchPage('mission',{fromPop:true});}});}
+function initHistory(){window.addEventListener('popstate',function(e){var page=(e.state&&e.state.page)?e.state.page:'mission';switchPage(page,{fromPop:true});});window.addEventListener('scroll',saveCurrentPlace,{passive:true});window.addEventListener('beforeunload',saveCurrentPlace);document.addEventListener('DOMContentLoaded',function(){try{var initial='mission';var resume=readResume();var wantsShop=false;var wantsVip=false;if(location.hash){var hashPage=location.hash.replace('#','');if(hashPage==='shop'||hashPage==='shop-section'){wantsShop=true;if(resume.page&&document.getElementById('page-'+resume.page))initial=resume.page;}else if(hashPage==='vip'||hashPage==='vip-signup'||hashPage==='survivor-signup-section'){wantsShop=true;wantsVip=true;if(resume.page&&document.getElementById('page-'+resume.page))initial=resume.page;}else if(document.getElementById('page-'+hashPage))initial=hashPage;}else if(resume.page&&document.getElementById('page-'+resume.page)){initial=resume.page;}
+history.replaceState({page:initial},'','#'+(wantsVip?'vip':(wantsShop?'shop':initial)));window.LLM2WMDApp.router.switchPage(initial,{fromPop:true,restoreSavedPlace:!wantsShop&&!location.hash&&resume.page===initial});if(wantsVip){if(typeof window.llm2wmdGoToVip==='function')window.llm2wmdGoToVip();}else if(wantsShop){setTimeout(function(){var shopEl=document.getElementById('shop-section');if(shopEl){shopEl.scrollIntoView({behavior:'auto',block:'start'});history.replaceState({page:initial},'','#shop');}},60);}}catch(e){window.LLM2WMDApp.router.switchPage('mission',{fromPop:true});}});}
 return{state:state,router:{switchPage:switchPage,initHistory:initHistory},game:{open:function(){if(typeof window.__openTodayGameInternal==='function')return window.__openTodayGameInternal();return false;},close:closeMountedGame},certs:{show:function(certData){window.__llm2wmd_pendingCert=certData;if(typeof showCertPanel==='function')showCertPanel(certData);}}};})();window.openTodayGame=function(){return window.LLM2WMDApp.game.open();};window.launchGame=function(){return window.LLM2WMDApp.game.open();};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initPage);}else{initPage();}
 function switchTab(id,el,opts){return window.LLM2WMDApp.router.switchPage(id,opts);}
 window.LLM2WMDApp.router.initHistory();function showChooseLife(){var el=document.getElementById('choose-life-overlay');if(el){el.style.display='block';window.scrollTo(0,0);}}
@@ -5286,6 +5286,53 @@ body.llm2wmd-cart-has-items #cart-fab{display:flex}
     cartUpdateEmailBtn();
   };
   cartUpdateEmailBtn();
+})();
+</script>
+<script id="vip-direct-link-20260919">
+/* Direct link to the V.I.P List signup: https://llm2wmd.com/#vip
+   (also accepts #vip-signup and #survivor-signup-section).
+   Why this exists: the router treated any hash that was not a page id as "mission" and rewrote it,
+   so a plain #survivor-signup-section link never scrolled. The signup lives in the always-present
+   shop section below the pages, so the router now hands #vip hashes to this function instead. */
+(function(){
+  var VIP_HASHES={'vip':1,'vip-signup':1,'survivor-signup-section':1};
+  var cancelled=false;
+  var events=['wheel','touchstart','mousedown','keydown'];
+  function headerBottom(){
+    var tabsEl=document.querySelector('.tabs');
+    if(tabsEl&&tabsEl.offsetHeight>0&&getComputedStyle(tabsEl).display!=='none')return tabsEl.getBoundingClientRect().bottom;
+    var nav=document.getElementById('site-nav');
+    return nav?nav.getBoundingClientRect().bottom:0;
+  }
+  function scrollToVip(){
+    if(cancelled)return;
+    var el=document.getElementById('survivor-signup-section')||document.getElementById('shop-section');
+    if(!el)return;
+    var y=window.pageYOffset+el.getBoundingClientRect().top-headerBottom()-24;
+    window.scrollTo(0,Math.max(y,0));
+    try{document.body.classList.add('shop-view-active');}catch(e){}
+  }
+  function stop(){
+    cancelled=true;
+    events.forEach(function(ev){window.removeEventListener(ev,stop,true);});
+  }
+  window.llm2wmdGoToVip=function(){
+    cancelled=false;
+    /* Re-align a few times because lazy images and fonts shift the layout after first paint;
+       stop as soon as the visitor scrolls or taps so we never fight them. */
+    events.forEach(function(ev){window.addEventListener(ev,stop,{capture:true,passive:true,once:true});});
+    scrollToVip();
+    setTimeout(scrollToVip,150);
+    setTimeout(scrollToVip,600);
+    if(document.readyState!=='complete')window.addEventListener('load',function(){setTimeout(scrollToVip,50);},{once:true});
+    setTimeout(stop,4000);
+    return false;
+  };
+  /* Same-tab case: visitor is already on the site and pastes/opens the #vip link. */
+  window.addEventListener('hashchange',function(){
+    var h=(location.hash||'').replace('#','');
+    if(VIP_HASHES[h])setTimeout(window.llm2wmdGoToVip,0);
+  });
 })();
 </script>
 </body></html>
