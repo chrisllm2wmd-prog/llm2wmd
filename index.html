@@ -3458,7 +3458,9 @@ body.dm-zoom-lock{overflow:hidden !important;position:fixed !important;width:100
 #dm-zoom-nav-next{right:14px}
 #dm-zoom-nav-prev:hover,#dm-zoom-nav-next:hover{background:rgba(255,255,255,.16)}
 #dm-zoom-nav-prev.dm-zoom-hidden,#dm-zoom-nav-next.dm-zoom-hidden{display:none}
-#dm-zoom-swatches{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);display:none;gap:8px;z-index:100001;flex-wrap:wrap;max-width:88vw;justify-content:center}
+#dm-zoom-swatches{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);display:none;gap:8px;z-index:100001;flex-wrap:nowrap;max-width:92vw;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;scroll-snap-type:x proximity;scrollbar-width:none;padding:4px 6px;box-sizing:border-box;border-radius:12px;background:rgba(10,10,15,.55)}
+#dm-zoom-swatches::-webkit-scrollbar{display:none}
+#dm-zoom-swatches .dm-zoom-swatch{flex:0 0 auto;scroll-snap-align:center}
 #dm-zoom-swatches .dm-zoom-swatch{width:34px;height:34px;border-radius:8px;padding:0;overflow:hidden;cursor:pointer;background:#0a0a0f;border:1.5px solid rgba(255,255,255,.3)}
 #dm-zoom-swatches .dm-zoom-swatch img{width:100%;height:100%;object-fit:cover;display:block}
 #dm-zoom-swatches .dm-zoom-swatch.active{border-color:#ffc96a;box-shadow:0 0 0 2px rgba(255,201,106,.35)}
@@ -3468,7 +3470,7 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
   #dm-zoom-nav-prev,#dm-zoom-nav-next{width:38px;height:38px;font-size:18px}
   #dm-zoom-nav-prev{left:6px}
   #dm-zoom-nav-next{right:6px}
-  #dm-zoom-swatches{bottom:52px}
+  #dm-zoom-swatches{bottom:52px;max-width:94vw}
   #dm-zoom-swatches .dm-zoom-swatch{width:28px;height:28px}
 }
 </style>
@@ -3506,6 +3508,7 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
     resetZoom();
   }
   function updateZoomNav(){
+    var prevScroll=swatchesWrap.scrollLeft;
     swatchesWrap.innerHTML='';
     swatchesWrap.style.display='none';
     navPrev.classList.add('dm-zoom-hidden');
@@ -3539,6 +3542,12 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
         swatchesWrap.appendChild(btn);
       });
       swatchesWrap.style.display='flex';
+      swatchesWrap.scrollLeft=prevScroll;
+      var act=swatchesWrap.querySelector('.dm-zoom-swatch.active');
+      if(act){
+        var l=act.offsetLeft,r=l+act.offsetWidth,vw=swatchesWrap.clientWidth,sl=swatchesWrap.scrollLeft;
+        if(l<sl+8||r>sl+vw-8)swatchesWrap.scrollLeft=Math.max(0,l-(vw-act.offsetWidth)/2);
+      }
     }
   }
   navPrev.addEventListener('click',function(){
