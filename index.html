@@ -3465,6 +3465,13 @@ body.dm-zoom-lock{overflow:hidden !important;position:fixed !important;width:100
 #dm-zoom-swatches .dm-zoom-swatch img{width:100%;height:100%;object-fit:cover;display:block}
 #dm-zoom-swatches .dm-zoom-swatch.active{border-color:#ffc96a;box-shadow:0 0 0 2px rgba(255,201,106,.35)}
 body.simple-mode #dm-zoom-nav-prev,body.simple-mode #dm-zoom-nav-next{background:#fff;border-color:#c4bab0;color:#1a1108}
+/* Tap-to-hide: single tap toggles .dm-clean. Close button, colour swatches and hint always hide; side arrows hide on touch screens only (swipe replaces them), desktop keeps arrows. */
+#dm-zoom-close,#dm-zoom-swatches,#dm-zoom-hint,#dm-zoom-nav-prev,#dm-zoom-nav-next{transition:opacity .2s ease,visibility .2s ease}
+#dm-zoom-overlay.dm-clean #dm-zoom-close,#dm-zoom-overlay.dm-clean #dm-zoom-swatches,#dm-zoom-overlay.dm-clean #dm-zoom-hint{opacity:0;visibility:hidden;pointer-events:none}
+@media (pointer:coarse){#dm-zoom-overlay.dm-clean #dm-zoom-nav-prev,#dm-zoom-overlay.dm-clean #dm-zoom-nav-next{opacity:0;visibility:hidden;pointer-events:none}}
+#dm-zoom-overlay:fullscreen{background:rgba(5,5,8,1)}
+#dm-zoom-img.dm-swap{animation:dmSwap .22s ease}
+@keyframes dmSwap{from{opacity:.25}to{opacity:1}}
 body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:#c4bab0}
 @media (max-width:600px){
   #dm-zoom-nav-prev,#dm-zoom-nav-next{width:38px;height:38px;font-size:18px}
@@ -3498,6 +3505,36 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
   var dragging=false,startX=0,startY=0,startPosX=0,startPosY=0;
   var pinchStartDist=0,pinchStartScale=1;
   var scrollY=0;
+  var hintEl=document.getElementById('dm-zoom-hint');
+  var isTouch=window.matchMedia&&window.matchMedia('(pointer:coarse)').matches;
+  if(hintEl)hintEl.textContent=isTouch?'Tap to hide controls \u00b7 Swipe for next view \u00b7 Pinch to zoom':'Click to hide controls \u00b7 Scroll to zoom \u00b7 Drag to pan';
+
+  function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement||null;}
+  function enterFs(){
+    if(!isTouch||fsEl())return;
+    var rq=overlay.requestFullscreen||overlay.webkitRequestFullscreen;
+    if(!rq)return;
+    try{var p=rq.call(overlay);if(p&&p.catch)p.catch(function(){});}catch(e){}
+  }
+  function exitFs(){
+    if(fsEl()!==overlay)return;
+    var ex=document.exitFullscreen||document.webkitExitFullscreen;
+    try{var p=ex&&ex.call(document);if(p&&p.catch)p.catch(function(){});}catch(e){}
+  }
+  function setClean(on){
+    overlay.classList.toggle('dm-clean',!!on);
+    if(on)enterFs(); else exitFs();
+  }
+  function onFsChange(){ if(!fsEl()&&overlay.classList.contains('dm-clean')&&isTouch)overlay.classList.remove('dm-clean'); }
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
+
+  function swapTo(dir){
+    if(!currentProductId||typeof dmNav!=='function')return;
+    dmNav(currentProductId,dir);
+    syncZoomFromMain();
+    img.classList.remove('dm-swap');void img.offsetWidth;img.classList.add('dm-swap');
+  }
 
   function syncZoomFromMain(){
     if(!currentProductId)return;
@@ -3583,6 +3620,7 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
     resetZoom();
     currentProductId=productId||null;
     updateZoomNav();
+    overlay.classList.remove('dm-clean');
     overlay.classList.add('open');
     scrollY=window.scrollY||document.documentElement.scrollTop||0;
     document.body.classList.add('dm-zoom-lock');
@@ -3590,7 +3628,11 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
     return false;
   };
   function closeZoom(){
+    clearTimeout(tapTimer);
+    overlay.classList.remove('dm-clean');
+    exitFs();
     overlay.classList.remove('open');
+    if(window.__lsFsRearm)setTimeout(window.__lsFsRearm,50);
     document.body.classList.remove('dm-zoom-lock');
     document.body.style.top='';
     var html=document.documentElement;
@@ -3601,7 +3643,33 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
     resetZoom();
   }
   closeBtn.addEventListener('click',closeZoom);
-  overlay.addEventListener('click',function(e){ if(e.target===overlay||e.target===vp)closeZoom(); });
+  var tapTimer=null,swallowClickUntil=0,gStartX=0,gStartY=0,gMoved=false,gMulti=false,gActive=false;
+  vp.addEventListener('click',function(e){
+    if(Date.now()<swallowClickUntil)return;
+    clearTimeout(tapTimer);
+    tapTimer=setTimeout(function(){ setClean(!overlay.classList.contains('dm-clean')); },230);
+  });
+  vp.addEventListener('touchstart',function(e){
+    if(e.touches.length>1){gMulti=true;return;}
+    gMulti=false;gMoved=false;gActive=true;
+    gStartX=e.touches[0].clientX;gStartY=e.touches[0].clientY;
+  },{passive:true});
+  vp.addEventListener('touchmove',function(e){
+    if(!gActive)return;
+    var t=e.touches[0];
+    if(Math.abs(t.clientX-gStartX)>10||Math.abs(t.clientY-gStartY)>10)gMoved=true;
+  },{passive:true});
+  vp.addEventListener('touchend',function(e){
+    if(e.touches.length>0)return;
+    if(!gActive)return;
+    gActive=false;
+    var t=e.changedTouches[0];
+    var dx=t.clientX-gStartX,dy=t.clientY-gStartY;
+    if(gMulti||gMoved)swallowClickUntil=Date.now()+450;
+    if(!gMulti&&scale<=1.001&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(!navPrev.classList.contains('dm-zoom-hidden')) swapTo(dx<0?1:-1);
+    }
+  },{passive:true});
   document.addEventListener('keydown',function(e){
     if(!overlay.classList.contains('open'))return;
     if(e.key==='Escape'){closeZoom();return;}
@@ -3611,6 +3679,7 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
 
   img.addEventListener('dblclick',function(e){
     e.preventDefault();
+    clearTimeout(tapTimer);
     if(scale>1.001){ resetZoom(); } else { scale=2.4; clampPos(); applyTransform(); }
   });
 
@@ -3631,6 +3700,7 @@ body.simple-mode #dm-zoom-swatches .dm-zoom-swatch{background:#fff;border-color:
     if(!dragging)return;
     posX=startPosX+(e.clientX-startX);
     posY=startPosY+(e.clientY-startY);
+    if(Math.abs(e.clientX-startX)>4||Math.abs(e.clientY-startY)>4)swallowClickUntil=Date.now()+300;
     clampPos(); applyTransform();
   });
   window.addEventListener('mouseup',function(){ dragging=false; img.classList.remove('dm-dragging'); });
@@ -4261,6 +4331,66 @@ body.simple-mode #landscape-rotate-hint circle{fill:#ff5555 !important}
 body.simple-mode #landscape-rotate-hint span{color:#ff5555 !important;text-shadow:0 0 6px rgba(255,85,85,.6) !important}
 @keyframes lshRotatePulse{0%,15%{transform:rotate(0deg)}50%,65%{transform:rotate(-90deg)}100%{transform:rotate(0deg)}}
 </style>
+<style id="landscape-fullscreen-20260920">
+#ls-fs-toast{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:99990;pointer-events:none;white-space:nowrap;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffc96a;
+  background:rgba(10,10,15,.88);border:1px solid #252535;border-radius:20px;padding:7px 14px;opacity:0;transition:opacity .3s ease}
+#ls-fs-toast.show{opacity:1}
+</style>
+<script id="landscape-fullscreen-js-20260920">
+(function(){
+  /* Landscape phones/tablets (not iPhone, which has no fullscreen for pages): browsers only allow fullscreen from a tap,
+     so rotating to landscape arms it and the very next tap anywhere on the page switches to fullscreen. */
+  if(/iPhone|iPod/.test(navigator.userAgent||''))return;
+  var root=document.documentElement;
+  var rq=root.requestFullscreen||root.webkitRequestFullscreen;
+  if(!rq||!window.matchMedia)return;
+  var mq=window.matchMedia('(orientation:landscape) and (max-height:500px) and (max-width:1024px) and (pointer:coarse)');
+  var armed=false,weEntered=false,toast=null,toastTimer=null;
+  function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement||null;}
+  function showToast(){
+    if(!toast){toast=document.createElement('div');toast.id='ls-fs-toast';toast.textContent='Tap anywhere for full screen';document.body.appendChild(toast);}
+    toast.classList.add('show');clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){if(toast)toast.classList.remove('show');},5000);
+  }
+  function hideToast(){clearTimeout(toastTimer);if(toast)toast.classList.remove('show');}
+  function onTap(){
+    if(!mq.matches||fsEl()){disarm();return;}
+    var p;
+    try{p=rq.call(root);}catch(e){return;}
+    if(p&&p.then){p.then(function(){weEntered=true;disarm();}).catch(function(){});}
+    else{weEntered=true;disarm();}
+  }
+  function arm(){
+    if(armed||fsEl()||!mq.matches)return;
+    armed=true;
+    document.addEventListener('click',onTap,true);
+    document.addEventListener('touchend',onTap,true);
+    showToast();
+  }
+  function disarm(){
+    if(!armed)return;
+    armed=false;
+    document.removeEventListener('click',onTap,true);
+    document.removeEventListener('touchend',onTap,true);
+    hideToast();
+  }
+  function onChange(){
+    if(mq.matches){arm();}
+    else{
+      disarm();
+      if(weEntered&&fsEl()===root){var ex=document.exitFullscreen||document.webkitExitFullscreen;try{ex.call(document);}catch(e){}}
+      weEntered=false;
+    }
+  }
+  if(mq.addEventListener)mq.addEventListener('change',onChange);else if(mq.addListener)mq.addListener(onChange);
+  function onFs(){ if(fsEl()===root){weEntered=true;disarm();} else if(!fsEl()){weEntered=false;} }
+  document.addEventListener('fullscreenchange',onFs);
+  document.addEventListener('webkitfullscreenchange',onFs);
+  window.__lsFsRearm=function(){ if(mq.matches&&!fsEl())arm(); };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){arm();});else arm();
+})();
+</script>
 <script id="mobile-landscape-shop-lock-js-20260909">
 (function(){
   var mq = window.matchMedia("(orientation:landscape) and (max-height:500px) and (max-width:1024px)");
