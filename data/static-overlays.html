@@ -1,0 +1,124 @@
+
+
+
+
+
+
+
+
+<!-- CHOOSE LIFE OVERLAY -->
+<div id="choose-life-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9000;overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:'Share Tech Mono',monospace;text-align:center;padding:60px 24px 48px;">
+  <div style="max-width:680px;margin:0 auto;">
+    <div style="font-size:clamp(0.55rem,1.2vw,0.75rem);letter-spacing:6px;color:#1a4a1a;margin-bottom:40px;">WARGAMES DEFENCE SYSTEM · OUTCOME ANALYSIS</div>
+    <div style="font-size:clamp(2.4rem,8vw,5.5rem);font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:4px;color:#33ff33;text-shadow:0 0 40px rgba(51,255,51,0.4);line-height:1;margin-bottom:16px;">YOU WIN.</div>
+    <div style="width:80%;height:2px;background:linear-gradient(90deg,transparent,#33ff33,transparent);margin:28px auto;"></div>
+    <div style="font-size:clamp(1rem,2.5vw,1.5rem);letter-spacing:3px;color:#55ff55;line-height:1.9;margin-bottom:32px;">A STRANGE GAME.</div>
+    <div style="font-size:clamp(1rem,2.5vw,1.5rem);letter-spacing:3px;color:#55ff55;line-height:1.9;margin-bottom:48px;">THE ONLY WINNING MOVE<br>IS NOT TO PLAY.</div>
+    <div style="border:1px solid #1a4a1a;padding:28px 24px;margin-bottom:36px;text-align:left;">
+      <div style="font-size:0.65rem;letter-spacing:4px;color:#1a6a1a;margin-bottom:16px;">OUTCOME ASSESSMENT</div>
+      <div style="font-size:clamp(0.75rem,1.6vw,1rem);color:#44aa44;line-height:2;">You were presented with a race.<br>You declined.<br><br>While others built the system,<br>you noticed the exit.<br><br>This is, statistically, unusual.<br><br>It does not change what happens next.<br>But it is noted.</div>
+    </div>
+    <div style="font-size:0.6rem;letter-spacing:4px;color:#1a4a1a;margin-bottom:36px;">— WOPR · NORTH AMERICAN AEROSPACE DEFENSE COMMAND · 1983</div>
+    <div style="width:80%;height:1px;background:#0a2a0a;margin:0 auto 36px;"></div>
+    <button onclick="document.getElementById('choose-life-overlay').style.display='none';switchTab('timeline',document.querySelector('.tabs .tab:first-child'));" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.8rem,1.8vw,1.1rem);letter-spacing:3px;background:transparent;border:2px solid rgba(51,255,51,0.5);color:rgba(51,255,51,0.7);padding:16px 36px;cursor:pointer;transition:0.2s;touch-action:manipulation;display:block;width:100%;max-width:500px;margin:0 auto 16px;" onmouseover="this.style.borderColor='rgba(51,255,51,0.9)';this.style.color='rgba(51,255,51,1)';this.style.background='rgba(51,255,51,0.05)'" onmouseout="this.style.borderColor='rgba(51,255,51,0.5)';this.style.color='rgba(51,255,51,0.7)';this.style.background='transparent'">▶ CONTINUE YOUR EDUCATION → TIMELINE</button>
+    <button onclick="document.getElementById('choose-life-overlay').style.display='none'" style="font-family:'Share Tech Mono',monospace;font-size:clamp(0.6rem,1.2vw,0.75rem);letter-spacing:3px;background:transparent;border:1px solid rgba(51,255,51,0.2);color:rgba(51,255,51,0.3);padding:10px 24px;cursor:pointer;transition:0.2s;touch-action:manipulation;" onmouseover="this.style.borderColor='rgba(51,255,51,0.5)';this.style.color='rgba(51,255,51,0.6)'" onmouseout="this.style.borderColor='rgba(51,255,51,0.2)';this.style.color='rgba(51,255,51,0.3)'">✕ CLOSE</button>
+  </div>
+</div>
+
+<div class="overlay" id="scr-drones" style="display:none;">
+  <h1 style="color:#ff3333;text-shadow:0 0 30px #ff0000;letter-spacing:3px;">THREAT ESCALATION</h1>
+  <p class="quote" style="border-color:#ff3333;color:#ffdddd;font-size:26px;line-height:2;">Your neighbouring state has become fearful of your advanced technology.</p>
+  <p style="font-size:30px;color:#ff5533;margin-top:6px;line-height:1.8;">AI combat drones have been deployed.<br><span style="font-size:26px;color:#aa3322;">They move. They think. They adapt.</span></p>
+  <p style="font-size:24px;color:#662222;margin-top:8px;">Drones yield <span style="color:#ffcc00;">2 chips</span> when destroyed.<br>They will not fall in a straight line.</p>
+  <button onclick="resumeFromDrones()" class="obtn red" style="margin-top:14px;">► UNDERSTOOD. CONTINUE.</button>
+</div>
+
+<!-- SCR OVERLAYS (outside game-overlay for iOS touch compatibility) -->
+<div class="overlay" id="scr-start" style="display:none;">
+  <h1>SINGULARITY</h1>
+  <p>
+    Your neighbouring state is launching missiles.<br>
+    <span style="color:#ffcc00;">MOVE cursor to collect chips. CLICK to shoot.</span><br>
+    <span style="color:#33ccff;">20 CHIPS → 1 GPU</span> · auto-fires (10% hit rate each)<br>
+    <span style="color:#ff9933;">5 GPUs → 1 DATA CENTRE</span> · auto-targets + auto-chips<br>
+    <span style="color:#ff3333;">5 DATA CENTRES → SINGULARITY EVENT</span><br>
+    <span style="color:#ff2200;">2nd GPU: DRONES DEPLOYED — 2 chips each, they drift</span><br>
+    <span style="color:#555555;">You cannot stop building. The end is always the same.</span>
+  </p>
+  <button class="obtn" onclick="startGame()" style="margin-top:1em;">► BEGIN</button>
+  <p style="color:#669966;margin:0.8em 0;line-height:1.7;">You have a free choice to play or not.<br>Play and you stand to make millions, but have a high chance of death.<br><span style="color:#335533;">For all of us.</span></p>
+  <button class="obtn red" onclick="neverPlayed()" style="margin-top:0.4em;letter-spacing:3px;">✕ BETTER NOT THANKS</button>
+  <p style="color:#1a4a1a;margin-top:1em;">A LLM2WMD.COM PRODUCTION</p>
+</div>
+<div class="overlay" id="scr-dyson" style="display: none;">
+    <h1>SYSTEM ALERT</h1>
+    <p class="quote">"It's like nothing we've ever seen. It can do things we never dreamed of."</p>
+    <p class="attrib">— MILES DYSON · SR. ENGINEER, CYBERDYNE SYSTEMS</p>
+    <p style="margin-top:8px;font-size:32px;color:#1a6a1a;">The chips you're collecting are changing everything.</p>
+    <button class="obtn"   onclick="resumeFrom('dyson')">► CONTINUE</button>
+    <button onclick="quitGame('dyson')" class="obtn red"  style="margin-top:8px;font-size:30px;opacity:0.7;border-color:rgba(255,85,85,0.4);color:rgba(255,85,85,0.5);;">✕ I have made a terrible mistake</button>
+  </div>
+<div class="overlay" id="scr-sarah" style="display:none;">
+    <h1 style="color:#ff7733;text-shadow:0 0 20px #ff5522;">TRANSMISSION</h1>
+    <p class="quote" style="border-color:#ff5533;color:#ffcccc;">"The future's not set. There's no fate but what we make for ourselves."</p>
+    <p class="attrib" style="color:#8a3a2a;">— SARAH CONNOR</p>
+    <p style="margin-top:8px;font-size:32px;color:#6a2a1a;">5 GPUs active. The automation has begun.</p>
+    <button onclick="resumeFrom('sarah')" class="obtn red"  style="animation:none;">► CONTINUE</button>
+  </div>
+<div class="overlay" id="scr-dc1" style="display: none;">
+    <h1 style="color:#33ff33;text-shadow:0 0 20px #00ff44;">INCOMING WIRE TRANSFER</h1>
+    <p class="quote" style="border-color:#33ff33;color:#ccffcc;font-size:28px;line-height:1.9;">You have received a significant investment from a large online book retailer.<br><br>Absolutely no strings attached.<br><br>Money collection now takes care of itself.</p>
+    <p style="font-family:'Share Tech Mono',monospace;font-size:22px;color:rgba(255,85,85,0.85);letter-spacing:3px;margin-top:14px;line-height:1.8;">YOUR ONLY PURPOSE NOW<br>IS GATHERING INCOME.</p>
+    <button onclick="resumeFrom('dc1')" class="obtn"  style="border-color:#33ff33;color:#33ff33;margin-top:10px;;">► ABANDON YOUR PRINCIPLES</button>
+    <button onclick="quitGame('dc1')" class="obtn red"  style="margin-top:8px;font-size:30px;opacity:0.7;border-color:rgba(255,85,85,0.4);color:rgba(255,85,85,0.5);;">✕ I have made a terrible mistake</button>
+  </div>
+<div class="overlay" id="scr-dc2" style="display:none;">
+    <h1 style="color:#ffaa00;text-shadow:0 0 20px #ff8800;">CLASSIFIED COMMUNICATION</h1>
+    <p class="quote" style="border-color:#ffaa00;color:#ffeebb;font-size:28px;line-height:1.9;">Massive military investment has come in.<br><br>For the good of the people.</p>
+    <button onclick="resumeFrom('dc2')" class="obtn"  style="border-color:#ffaa00;color:#ffaa00;margin-top:10px;;">► NO QUESTIONS</button>
+    <button onclick="quitGame('dc2')" class="obtn red"  style="margin-top:8px;font-size:30px;opacity:0.7;border-color:rgba(255,85,85,0.4);color:rgba(255,85,85,0.5);;">✕ I have made a terrible mistake</button>
+  </div>
+<div class="overlay" id="scr-dc3" style="display:none;">
+    <h1 style="color:#ff5555;text-shadow:0 0 20px #ff0000;">SYSTEM LOG</h1>
+    <p class="quote" style="border-color:#ff5555;color:#ffcccc;font-size:28px;line-height:1.9;">It has begun learning at a geometric rate.</p>
+    <button onclick="resumeFrom('dc3')" class="obtn red"  style="margin-top:10px;;">► REMOVE ALL DECISION MAKING FROM THE DEFENCE SYSTEM</button>
+    <button onclick="quitGame('dc3')" class="obtn red"  style="margin-top:8px;font-size:30px;opacity:0.7;border-color:rgba(255,85,85,0.4);color:rgba(255,85,85,0.5);;">✕ I have made a terrible mistake</button>
+  </div>
+<div class="overlay" id="scr-dc4" style="display:none;">
+    <h1 style="color:#ff0000;text-shadow:0 0 30px #ff0000;animation:blink 1s infinite;">CRITICAL ALERT</h1>
+    <p class="quote" style="border-color:#ff0000;color:#ffcccc;font-size:28px;line-height:1.9;">The system has become self-aware.<br><br>It begins targeting domestic sites.</p>
+    <p style="font-size:32px;color:#ff4444;margin-top:6px;" id="dc4-countdown"></p>
+    <button onclick="resumeFrom('dc4')" class="obtn red"  style="margin-top:10px;font-size:30px;;">► PRESS HERE IF YOU WANT. TOO LATE NOW ANYWAY.</button>
+    <p style="font-size:30px;color:#551111;margin-top:6px;">(Quitting now counts as participation. You were here.)</p>
+  </div>
+<div class="overlay" id="scr-personality" style="display:none;overflow-y:scroll;-webkit-overflow-scrolling:touch;align-items:flex-start;justify-content:flex-start;padding:20px 16px;">
+    <div id="cert-inner" style="max-width:900px;width:100%;margin:0 auto;font-family:&#39;Share Tech Mono&#39;,monospace;border:3px solid #33ff33;padding:28px;box-sizing:border-box;text-align:center;overflow-y:visible;">
+      <div style="text-align:center;border-bottom:2px solid #1a5a1a;padding:20px 0 24px;margin-bottom:20px;">
+        <div style="font-size:22px;letter-spacing:4px;color:#88dd88;margin-bottom:8px;">INSTITUTE FOR COMPUTATIONAL ETHICS AND HUMAN FUTILITY</div>
+        <div id="cert-title-line" style="font-size:22px;color:#55ff55;font-weight:bold;letter-spacing:3px;">SINGULARITY READINESS</div>
+        <div id="cert-subtitle-line" style="font-size:22px;color:#55ff55;font-weight:bold;letter-spacing:3px;margin-bottom:8px;">ASSESSMENT CERTIFICATE</div>
+        <div style="font-size:20px;color:#88dd88;" id="cert-date">ASSESSED: MON MAR 09 2026 · REF: LLM2WMD-56523</div>
+      </div>
+      <div id="cert-results" style="font-size:18px;color:#33ff33;line-height:2;text-align:center;"></div>
+      <div style="border-top:1px solid #1a4a1a;margin-top:20px;padding-top:14px;text-align:center;">
+        <div style="font-size:18px;color:#88dd88;line-height:1.9;text-align:center;" id="cert-narrative"></div>
+      </div>
+      <div style="margin-top:20px;border:1px solid #1a3a1a;padding:14px;font-size:18px;text-align:center;">
+        <div style="color:#33ff33;letter-spacing:2px;margin-bottom:6px;text-align:center;">CERTIFIED BY:</div>
+        <div style="color:#55ff55;font-size:20px;text-align:center;">C.S.Chapman</div>
+        <div style="color:#88dd88;font-style:italic;text-align:center;">Executive Content Creator, LLM2WMD.COM</div>
+        <div style="color:#77cc77;font-size:18px;margin-top:8px;line-height:1.7;text-align:center;">DISCLAIMER: C.S.Chapman holds no qualifications in psychology, ethics, computer science, existential risk assessment, or the prevention of civilisational collapse. This certificate should not be used in court proceedings, therapy sessions, job applications, or as evidence that you are a good person. Results are based on choices made in a browser-based missile defence game and should be treated accordingly — which is to say, more seriously than most institutional assessments of this type.</div>
+      </div>
+      <div style="text-align:center;margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="downloadCertificate()" class="obtn"  style="font-size:20px;;">⬇ DOWNLOAD CERTIFICATE</button>
+        <button onclick="restartGame()" class="obtn red"  style="font-size:20px;;">► PLAY AGAIN</button>
+        <button onclick="closeGame()" class="obtn"  style="font-size:20px;border-color:rgba(85,204,255,0.5);color:rgba(85,204,255,0.7);;">✕ CLOSE</button>
+      </div>
+    </div>
+  </div>
+<div class="overlay" id="scr-sing" style="display:none;padding-top:24px !important;">
+  <h1 class="gold">SINGULARITY ACHIEVED</h1>
+  <p style="color:#ffcc00;">5 Data Centres online. The system is fully autonomous.<br>It no longer requires human input.</p>
+  <canvas id="doom-clock" width="240" height="240" style="display:block;margin:14px auto 0;"></canvas>
+  <p style="font-size:26px;color:#ff9900;margin-top:10px;line-height:1.7;">The money seems less important now.</p>
+  <p style="font-size:clamp(20px,3vw,28px);color:#33ff33;font-family:'Share Tech Mono',monospace;letter-sp
