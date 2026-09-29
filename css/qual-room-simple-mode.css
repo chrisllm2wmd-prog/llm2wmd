@@ -1,0 +1,11 @@
+
+body.simple-mode #qual-room-entry .qual-room-kicker,
+body.simple-mode #qual-room-entry .qual-room-title,
+body.simple-mode #qual-room-entry .qual-room-chevron{
+  color:#111 !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+body.simple-mode #qual-room-entry .qual-room-sub{
+  color:rgba(17,17,17,.62) !important;
+}

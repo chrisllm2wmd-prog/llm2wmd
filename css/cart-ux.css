@@ -1,0 +1,71 @@
+
+/* One order button per product: hide the legacy static size-button row (kept in the DOM as a
+   functional fallback target for dmSelectSize's own querySelector, just not shown) and let the
+   JS-built dropdown + Add to Cart button take over visually. */
+.dm-size-row-hidden{display:none!important}
+.dm-order-row{display:flex;gap:8px;align-items:flex-end;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.dm-size-group{display:flex;flex-direction:column;align-items:center;gap:4px}
+.dm-size-group .dm-size-label{margin:0;text-align:center}
+.dm-size-warn{display:none;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
+  color:#ff6b6b;text-align:center;margin-top:2px}
+.dm-size-select.dm-size-select-warn{border-color:#ff5555!important;animation:dmSizeWarnPulse 1.4s ease-in-out 2}
+@keyframes dmSizeWarnPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(255,85,85,0)}
+  50%{box-shadow:0 0 0 3px rgba(255,85,85,.35)}
+}
+/* Dropdown sizes to its own content only — it should never stretch to fill the tile. */
+.dm-size-select{flex:0 0 auto;width:auto;height:32px;background:#0a0a0f;color:#f5f8ff;border:1.5px solid #252535;
+  border-radius:8px;padding:0 26px 0 12px;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;
+  cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23ffc96a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;background-size:10px 6px;
+  transition:border-color .15s}
+.dm-size-select:hover,.dm-size-select:focus{border-color:#ffc96a;outline:none}
+/* Add to Cart: a solid gold rectangle, double its previous (too-thin) height, sized to its own
+   content rather than the full tile. */
+.dm-cart-btn{display:inline-flex!important;align-items:center;justify-content:center;width:auto!important;
+  height:32px!important;flex:0 0 auto;white-space:nowrap;margin:0!important;padding:0 20px!important;
+  background:#ffc96a!important;color:#0a0a0f!important;border:none!important;border-radius:8px;font-weight:700}
+.dm-cart-btn:hover{filter:brightness(1.08)}
+.dm-cart-btn.added{background:#5ad17a!important;color:#0a0a0f!important}
+body.simple-mode .dm-size-select{color:#f5f8ff;background-color:#0a0a0f}
+
+/* Cart FAB — mirrors the TRY ROTATING hint exactly: no box/border, an icon that jiggles on a
+   loop, a small glowing label underneath, and a tiny count badge riding the icon's corner.
+   Position is set live via JS — top-right in shop view (incl. locked landscape), just under
+   the header everywhere else. */
+#cart-fab{display:none;position:fixed;z-index:9000;top:14px;right:14px;bottom:auto;left:auto;
+  width:auto!important;text-align:center!important;flex-direction:column;align-items:center;gap:4px;
+  background:transparent;border:0;box-shadow:none;padding:0;margin:0;cursor:pointer;transition:top .25s ease}
+body.llm2wmd-cart-has-items #cart-fab{display:flex}
+.cart-fab-icon-wrap{position:relative;display:inline-flex}
+.cart-fab-icon{width:34px;height:34px;color:#ffc96a;animation:cartFabJiggle 3.4s ease-in-out infinite;transform-origin:50% 85%}
+#cart-fab-badge{position:absolute;top:-5px;right:-8px;background:#ff5555;color:#fff;border-radius:999px;
+  min-width:15px;width:auto;height:15px;padding:0 3px;display:flex;align-items:center;justify-content:center;
+  font-family:'Share Tech Mono',monospace;font-size:8.5px;line-height:1;box-shadow:0 0 0 2px #0a0a0f}
+.cart-fab-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#ffc96a;
+  text-shadow:0 0 6px rgba(255,201,106,.6);white-space:nowrap}
+@keyframes cartFabJiggle{
+  0%,12%,100%{transform:rotate(0deg)}
+  2%{transform:rotate(-11deg)}
+  4%{transform:rotate(10deg)}
+  6%{transform:rotate(-7deg)}
+  8%{transform:rotate(5deg)}
+  10%{transform:rotate(-2deg)}
+}
+@keyframes cartFabPop{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.16)}
+  60%{transform:scale(.94)}
+  100%{transform:scale(1)}
+}
+#cart-fab.cart-fab-pop{animation:cartFabPop .55s ease}
+
+/* Hamburger: the three shop ranges get bold, larger labels to stand out; VIEW CART reads gold. */
+.mnd-subitem-bold{font-weight:700;font-size:.82rem}
+.mnd-subitem-gold{color:#ffc96a}
+@keyframes mndCartFlash{
+  0%,100%{color:#ffc96a;background:transparent}
+  40%{color:#0a0a0f;background:#ffc96a}
+}
+.mnd-subitem.mnd-cart-flash{animation:mndCartFlash .9s ease}

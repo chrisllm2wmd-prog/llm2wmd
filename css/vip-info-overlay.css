@@ -1,0 +1,40 @@
+
+.ss-more-link{display:block;width:auto;margin:16px auto 0;background:none;border:none;padding:0;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:1.5px;color:#ffc96a;text-decoration:underline;text-underline-offset:3px;text-align:center}
+.ss-more-link:hover{color:#fff2cf}
+
+#vip-info-overlay{position:fixed;inset:0;z-index:100050;display:none;align-items:flex-start;justify-content:center;padding:12px;background:rgba(5,5,8,.94);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#vip-info-overlay.is-open{display:flex}
+body.vip-info-overlay-open{overflow:hidden}
+#vip-info-overlay .vip-info-card{position:relative;width:100%;max-width:560px;box-sizing:border-box;margin:0 auto;padding:30px 20px 24px;text-align:center;background:linear-gradient(180deg,#111318,#0a0b0d);border:1px solid rgba(255,201,106,.32);border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+@media(min-width:640px){
+  #vip-info-overlay{align-items:center;padding:30px 16px}
+  #vip-info-overlay .vip-info-card{padding:48px 44px 42px;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+}
+#vip-info-overlay .vip-info-close{position:absolute;top:8px;right:8px;width:34px;height:34px;border:none;background:transparent;color:#8a96a8;font-family:'Share Tech Mono',monospace;font-size:1rem;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+#vip-info-overlay .vip-info-close:hover,#vip-info-overlay .vip-info-close:focus-visible{color:#ffd97a}
+#vip-info-overlay .vip-info-logos{display:flex;align-items:center;justify-content:center;gap:22px;margin:4px auto 16px;flex-wrap:wrap}
+#vip-info-overlay .vip-info-logo{width:min(30vw,88px);height:min(30vw,88px);object-fit:contain;display:block;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5))}
+#vip-info-overlay .vip-info-viplogo{width:min(39vw,114px);height:min(39vw,114px);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+#vip-info-overlay .vil-small{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.81rem;letter-spacing:5px;color:#ffc96a}
+#vip-info-overlay .vil-small:first-child{margin-bottom:-3px}
+#vip-info-overlay .vil-small:last-child{margin-top:-5px}
+#vip-info-overlay .vil-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.95rem;letter-spacing:1px;color:#1c1c1c;text-shadow:0 0 8px rgba(254,159,25,1),0 0 18px rgba(254,159,25,1),0 0 39px rgba(254,159,25,.85),0 0 73px rgba(254,159,25,.6)}
+@media(min-width:640px){
+  #vip-info-overlay .vip-info-logo{width:100px;height:100px}
+  #vip-info-overlay .vip-info-viplogo{width:130px;height:130px}
+  #vip-info-overlay .vil-big{font-size:2.4rem}
+  #vip-info-overlay .vil-small{font-size:.91rem;letter-spacing:6.5px}
+}
+#vip-info-overlay .vip-info-kicker{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:3px;color:#8a96a8;text-transform:uppercase;margin-bottom:14px}
+#vip-info-overlay .vip-info-body{font-family:Georgia,'Times New Roman',serif;font-size:.9rem;line-height:1.5;color:#dde4ec;max-width:420px;margin:0 auto;text-align:left}
+#vip-info-overlay .vip-info-body p{margin:0 0 14px}
+#vip-info-overlay .vip-info-body p:last-child{margin-bottom:0}
+@media(min-width:640px){#vip-info-overlay .vip-info-body{font-size:1rem;line-height:1.6}}
+#vip-info-overlay .vip-info-perks{list-style:none;margin:0 0 14px;padding:0}
+#vip-info-overlay .vip-info-perks li{position:relative;padding-left:20px;margin-bottom:7px;font-size:.88rem}
+#vip-info-overlay .vip-info-perks li::before{content:'\2713';position:absolute;left:0;top:0;color:#ffc96a;font-weight:700}
+#vip-info-overlay .vip-info-sign-wrap{margin-top:18px}
+@media(min-width:640px){#vip-info-overlay .vip-info-sign-wrap{margin-top:26px}}
+#vip-info-overlay .vip-info-sign{font-family:'Mrs Saint Delafield',cursive;font-size:2.1rem;color:#ffd97a;line-height:1;display:inline-block}
+@media(min-width:640px){#vip-info-overlay .vip-info-sign{font-size:2.7rem}}
+#vip-info-overlay .vip-info-sign-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:#5c5346;text-transform:uppercase;margin-top:5px}

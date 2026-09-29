@@ -1,0 +1,1 @@
+(function(){try{if(localStorage.getItem('llm2wmd_captcha_solved')==='1'){document.write('<style>#captcha-overlay{display:none !important}html.captcha-lock,body.captcha-lock{overflow:visible !important;height:auto !important}body.captcha-lock{position:static !important}</style>');}}catch(e){}})();

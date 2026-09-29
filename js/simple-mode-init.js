@@ -1,0 +1,1 @@
+(function(){try{var e=true;var p=new URLSearchParams(location.search);if(p.get('simple')==='1')e=true;else if(p.get('simple')==='0')e=false;else{var s=localStorage.getItem('llm2wmd_simple_mode');e=(s===null)?true:(s==='1');}if(e)document.body.className='simple-mode';}catch(err){document.body.className='simple-mode';}})();

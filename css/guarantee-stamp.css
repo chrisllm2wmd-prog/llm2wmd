@@ -1,0 +1,31 @@
+
+.dm-guarantee-badge{position:absolute;top:0;right:0;width:64px;background:none;border:none;padding:0;margin:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;-webkit-tap-highlight-color:transparent}
+@media(min-width:1025px){.dm-guarantee-badge{right:200px}}
+@media(max-width:480px){.dm-guarantee-badge{width:48px}}
+.dm-guarantee-badge svg{width:100%;height:auto;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));transition:transform .2s ease,filter .2s ease}
+.dm-guarantee-badge:hover svg,.dm-guarantee-badge:focus-visible svg{transform:scale(1.06);filter:drop-shadow(0 4px 12px rgba(255,201,106,.4))}
+.dm-guarantee-badge .dm-guarantee-label{font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:1.1px;line-height:1.35;color:#c9962f;text-transform:uppercase;text-align:center;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:480px){.dm-guarantee-badge .dm-guarantee-label{font-size:.44rem}}
+.dm-guarantee-badge:hover .dm-guarantee-label,.dm-guarantee-badge:focus-visible .dm-guarantee-label{color:#ffd97a}
+.dm-guarantee-badge:focus-visible{outline:1px solid rgba(255,201,106,.6);outline-offset:3px}
+
+#guarantee-overlay{position:fixed;inset:0;z-index:100050;display:none;align-items:flex-start;justify-content:center;padding:12px;background:rgba(5,5,8,.94);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#guarantee-overlay.is-open{display:flex}
+body.guarantee-overlay-open{overflow:hidden}
+#guarantee-overlay .guarantee-card{position:relative;width:100%;max-width:560px;box-sizing:border-box;margin:0 auto;padding:26px 18px 20px;text-align:center;background:linear-gradient(180deg,#111318,#0a0b0d);border:1px solid rgba(255,201,106,.32);border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+@media(min-width:640px){
+  #guarantee-overlay{align-items:center;padding:30px 16px}
+  #guarantee-overlay .guarantee-card{padding:48px 44px 42px;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+}
+#guarantee-overlay .guarantee-close{position:absolute;top:8px;right:8px;width:34px;height:34px;border:none;background:transparent;color:#8a96a8;font-family:'Share Tech Mono',monospace;font-size:1rem;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+#guarantee-overlay .guarantee-close:hover,#guarantee-overlay .guarantee-close:focus-visible{color:#ffd97a}
+#guarantee-overlay .guarantee-stamp-big{width:min(56vw,200px);height:auto;display:block;margin:4px auto 12px;filter:drop-shadow(0 12px 28px rgba(0,0,0,.6))}
+@media(min-width:640px){#guarantee-overlay .guarantee-stamp-big{width:210px;margin:0 auto 22px}}
+#guarantee-overlay .guarantee-kicker{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:3px;color:#8a96a8;text-transform:uppercase;margin-bottom:10px}
+#guarantee-overlay .guarantee-body{font-family:Georgia,'Times New Roman',serif;font-size:.9rem;line-height:1.42;color:#dde4ec;max-width:400px;margin:0 auto;text-align:left}
+@media(min-width:640px){#guarantee-overlay .guarantee-body{font-size:1.05rem;line-height:1.6;text-align:center}}
+#guarantee-overlay .guarantee-sign-wrap{margin-top:14px}
+@media(min-width:640px){#guarantee-overlay .guarantee-sign-wrap{margin-top:26px}}
+#guarantee-overlay .guarantee-sign{font-family:'Mrs Saint Delafield',cursive;font-size:2.1rem;color:#ffd97a;line-height:1;display:inline-block}
+@media(min-width:640px){#guarantee-overlay .guarantee-sign{font-size:2.7rem}}
+#guarantee-overlay .guarantee-sign-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:2px;color:#5c5346;text-transform:uppercase;margin-top:5px}

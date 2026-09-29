@@ -1,0 +1,9 @@
+
+.contents-entry-shop .contents-num{color:rgba(255,201,106,.26)}
+.contents-entry-shop .contents-title{color:rgba(255,201,106,.9)}
+.contents-entry-shop .contents-sub{color:rgba(255,220,160,.62)}
+.contents-entry-shop .contents-arrow{color:rgba(255,201,106,.55);opacity:.6}
+.contents-entry-shop:hover{background:rgba(255,201,106,.06)}
+.contents-entry-shop:hover .contents-num{color:rgba(255,201,106,.95);text-shadow:0 0 40px rgba(255,201,106,.3)}
+.contents-entry-shop:hover .contents-title{color:#fff6e6}
+.contents-entry-shop:hover .contents-arrow{color:rgba(255,201,106,1);opacity:1}

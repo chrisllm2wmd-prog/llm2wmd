@@ -1,0 +1,8 @@
+
+.mnd-item-new{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mnd-badge-new{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;padding:2px 8px;border:1px solid rgba(255,85,85,.55);border-radius:999px;font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:1.4px;line-height:1;color:#ff8f8f;background:rgba(255,85,85,.12);box-shadow:0 0 10px rgba(255,85,85,.18)}
+.tab.tab-has-new{position:relative !important}
+.tab.tab-has-new::after{content:'NEW';position:absolute;top:1px;right:3px;padding:1px 5px;border:1px solid rgba(255,85,85,.6);border-radius:999px;font-family:'Share Tech Mono',monospace;font-size:.48rem;letter-spacing:1px;line-height:1.4;color:#ff8f8f;background:rgba(255,85,85,.16);box-shadow:0 0 6px rgba(255,85,85,.4);pointer-events:none}
+body.simple-mode .tab.tab-has-new::after{color:#9b1b00;border-color:rgba(160,32,0,.35);background:rgba(255,128,64,.14);box-shadow:none}
+.dm-card{position:relative}
+.dm-card-badge-new{position:absolute;top:14px;left:14px;padding:3px 9px;border:1px solid rgba(255,85,85,.55);border-radius:999px;font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:1.6px;line-height:1;color:#ff8f8f;background:rgba(255,85,85,.14);box-shadow:0 0 10px rgba(255,85,85,.25);z-index:3;pointer-events:none}

@@ -1,0 +1,6 @@
+
+/* Chris wants the reading progress bar (and the side arrows/sticky bar it lives in) to disappear once the shop is actually in view, on both mobile and desktop. Restored 2026-09-06 after an earlier pass removed it entirely while chasing a separate swipe bug (see the touchmove rewrite below) -- that bug was not actually caused by this CSS, only the JS shop-view-active guards on the touch/keyboard handlers were, and those stay removed. */
+body.shop-view-active .ha-sticky-bar,
+body.shop-view-active .ha-side-btn,
+body.shop-view-active .rv-sticky-bar,
+body.shop-view-active .rv-side-btn{display:none !important}

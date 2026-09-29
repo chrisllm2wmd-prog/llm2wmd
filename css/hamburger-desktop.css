@@ -1,0 +1,9 @@
+
+/* On desktop, the hamburger used to sit centered in the logo banner. Chris wants it dropped
+   straight down to sit level with the tab bar instead. Positioned via JS (see script below)
+   because #tab-bar's top offset varies by theme/breakpoint (84-133px), matching this file's
+   own established pattern of measuring nav/tabs chrome live via getBoundingClientRect()
+   rather than hardcoding an offset per breakpoint. */
+@media(min-width:769px){
+#site-nav .mobile-menu-btn{top:var(--hamburger-desktop-top,50%)!important}
+}

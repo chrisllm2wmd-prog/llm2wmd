@@ -1,0 +1,83 @@
+
+#llm2wmd-shop-widget{display:none}
+@media(min-width:1300px){
+  #llm2wmd-shop-widget.lsw-page-ok{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    width:112px;
+    z-index:50;
+  }
+  body.shop-view-active #llm2wmd-shop-widget.lsw-page-ok{display:none}
+}
+#llm2wmd-shop-widget .lsw-banner{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.56rem;
+  letter-spacing:3px;
+  text-align:center;
+  white-space:nowrap;
+  color:#0c0c10;
+  background:var(--orange);
+  border-radius:6px;
+  padding:6px 8px;
+  box-shadow:0 3px 14px rgba(0,0,0,.4);
+}
+body.simple-mode #llm2wmd-shop-widget .lsw-banner{
+  color:#1a1610;
+  box-shadow:0 3px 14px rgba(0,0,0,.18);
+}
+#llm2wmd-shop-widget .lsw-kicker{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.5rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--dim);
+  text-align:center;
+  margin-bottom:2px;
+}
+#llm2wmd-shop-widget .lsw-item{
+  display:block;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:8px;
+  overflow:hidden;
+  background:rgba(20,20,28,.85);
+  text-decoration:none;
+  transition:transform .15s ease,border-color .15s ease;
+}
+#llm2wmd-shop-widget .lsw-item:hover{
+  transform:translateY(-2px);
+  border-color:var(--red);
+}
+#llm2wmd-shop-widget .lsw-item img{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  background:#111;
+}
+#llm2wmd-shop-widget .lsw-name{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.5rem;
+  line-height:1.25;
+  padding:4px 5px 5px;
+  color:#fff;
+  text-align:center;
+}
+body.simple-mode #llm2wmd-shop-widget .lsw-item{
+  background:var(--simple-surface);
+  border-color:var(--simple-border-strong);
+}
+body.simple-mode #llm2wmd-shop-widget .lsw-name{
+  color:var(--simple-text);
+}
+.dm-card-flash{
+  animation:dmCardFlash20260906 1.6s ease;
+}
+@keyframes dmCardFlash20260906{
+  0%{box-shadow:0 0 0 3px rgba(255,85,85,.9);}
+  100%{box-shadow:0 0 0 3px rgba(255,85,85,0);}
+}

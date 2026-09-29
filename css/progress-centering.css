@@ -1,0 +1,14 @@
+
+/* The progress dots (.ha-progress, shared by #ha-progress on Headline Mode and #rv-progress on
+   System Analysis) had margin-left:340px/margin-right:100px applied directly to them while their
+   parent bar (.ha-sticky-bar / .rv-sticky-bar) stayed a full-width (left:0;right:0) flex container
+   with align-items:center. Centering a margin-boxed child within the full viewport, when that child
+   already carries big asymmetric margins, does not put the child over the article tile, it shoves it
+   right of true center (measured: dots centered at x=840 in a 1440px viewport instead of over the
+   article's 340-1060 tile, centered at x=700). Fix: narrow the bar itself to the exact same 340/720
+   tile the article uses, and let its own centering do the work; the margins on the dots/swipe-hint
+   are no longer needed once the bar itself is the right width, so they're reset to 0 here. */
+@media(min-width:1025px){
+  #ha-sticky-bar, #rv-sticky-bar{left:340px !important;right:auto !important;width:720px !important}
+  .ha-progress, .ha-swipe-hint{margin-left:0 !important;margin-right:0 !important}
+}

@@ -1,0 +1,5 @@
+
+#ls-fs-toast{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:99990;pointer-events:none;white-space:nowrap;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffc96a;
+  background:rgba(10,10,15,.88);border:1px solid #252535;border-radius:20px;padding:7px 14px;opacity:0;transition:opacity .3s ease}
+#ls-fs-toast.show{opacity:1}

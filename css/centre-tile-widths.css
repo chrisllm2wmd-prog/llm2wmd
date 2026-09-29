@@ -1,0 +1,23 @@
+
+/* Match every reading sub-page to the same narrow centre tile that Headline Mode and System Analysis already use (.headline-article: left 340px, right 100px, max-width 720px), desktop only. Appended last so it wins over the older wide catch-all rules. */
+@media(min-width:1025px){
+  body:not(.simple-mode) .faq-wrap,
+  body.simple-mode .faq-wrap,
+  body:not(.simple-mode) .mission,
+  body.simple-mode .mission,
+  body:not(.simple-mode) .thesis-wrap,
+  body.simple-mode .thesis-wrap,
+  body:not(.simple-mode) .contents-wrap,
+  body.simple-mode .contents-wrap,
+  body:not(.simple-mode) .tl,
+  body.simple-mode .tl,
+  body:not(.simple-mode) .timeline-filter-drawer,
+  body.simple-mode .timeline-filter-drawer,
+  #page-timeline .hero{
+    margin-left:340px !important;
+    margin-right:100px !important;
+    max-width:720px !important;
+    width:auto !important;
+    box-sizing:border-box !important;
+  }
+}

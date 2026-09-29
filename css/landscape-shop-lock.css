@@ -1,0 +1,36 @@
+
+@media(orientation:landscape) and (max-height:500px) and (max-width:1024px){
+  body.landscape-shop-lock nav.brightness-fix#site-nav,
+  body.landscape-shop-lock .tabs,
+  body.landscape-shop-lock #tab-bar,
+  body.landscape-shop-lock .page,
+  body.landscape-shop-lock footer,
+  body.landscape-shop-lock #mobile-nav-drawer,
+  body.landscape-shop-lock #mobile-nav-overlay,
+  body.landscape-shop-lock #ha-sticky-bar,
+  body.landscape-shop-lock #rv-sticky-bar,
+  body.landscape-shop-lock .ha-side-btn,
+  body.landscape-shop-lock .rv-side-btn,
+  body.landscape-shop-lock #llm2wmd-shop-widget{
+    display:none !important;
+  }
+  body.landscape-shop-lock #shop-section{
+    display:block !important;
+  }
+  body.landscape-shop-lock #landscape-shop-hero{
+    display:block !important;
+  }
+}
+@media(orientation:portrait) and (max-width:768px){
+  #landscape-rotate-hint{display:flex !important}
+}
+#landscape-shop-hero{display:none}
+#landscape-shop-hero .lsh-title-mega{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:2px;font-size:clamp(3.2rem,8vw,5rem);color:#1c1c1c;line-height:1;text-shadow:0 0 10px rgba(254,159,25,1),0 0 26px rgba(254,159,25,1),0 0 58px rgba(254,159,25,.9),0 0 110px rgba(254,159,25,.7)}
+#landscape-shop-hero .lsh-subheading{font-family:'Exo 2',sans-serif;color:#ffffff;max-width:520px;margin:14px auto 0;line-height:1.6;font-size:15px}
+#landscape-rotate-hint{display:none;position:fixed;right:14px;bottom:14px;z-index:70;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
+#landscape-rotate-hint svg{width:34px;height:34px;animation:lshRotatePulse 2.2s ease-in-out infinite;transform-origin:50% 50%}
+#landscape-rotate-hint span{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#ffc96a;text-shadow:0 0 6px rgba(255,201,106,.6)}
+body.simple-mode #landscape-rotate-hint rect,body.simple-mode #landscape-rotate-hint line{stroke:#ff5555 !important}
+body.simple-mode #landscape-rotate-hint circle{fill:#ff5555 !important}
+body.simple-mode #landscape-rotate-hint span{color:#ff5555 !important;text-shadow:0 0 6px rgba(255,85,85,.6) !important}
+@keyframes lshRotatePulse{0%,15%{transform:rotate(0deg)}50%,65%{transform:rotate(-90deg)}100%{transform:rotate(0deg)}}

@@ -1,0 +1,46 @@
+
+.hero-filters,.co-filters,.co-filters-label{display:none !important}
+.timeline-filter-drawer{display:flex !important;flex-direction:column !important;align-items:flex-start !important;gap:12px !important;margin:22px 0 14px !important}
+.timeline-filter-toggle{width:auto !important;min-width:0 !important;padding:12px 18px !important;border-radius:999px !important}
+.timeline-filter-toggle-label{white-space:nowrap !important}
+.timeline-filter-panel{width:min(100%,1040px) !important;padding:18px !important;border-radius:24px !important}
+.timeline-filter-section+.timeline-filter-section{margin-top:16px !important}
+.timeline-filter-grid{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:12px !important;align-items:stretch !important}
+.timeline-filter-option{position:relative !important;display:flex !important;align-items:center !important;gap:12px !important;padding:14px 16px !important;border-radius:18px !important;cursor:pointer !important;box-sizing:border-box !important;width:100% !important;min-height:62px !important;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease,color .2s ease !important}
+.timeline-filter-option:hover{transform:translateY(-1px) !important}
+.timeline-filter-option .timeline-filter-check{position:absolute !important;opacity:0 !important;pointer-events:none !important}
+.timeline-filter-box{width:20px !important;height:20px !important;border-radius:6px !important;flex:0 0 20px !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;border:1px solid currentColor !important;background:transparent !important;box-sizing:border-box !important}
+.timeline-filter-option.checked .timeline-filter-box::after{content:"✓";font-family:'Share Tech Mono',monospace;font-size:.78rem;line-height:1}
+.timeline-filter-option-text{font-family:'Exo 2',sans-serif !important;font-weight:700 !important;font-size:.72rem !important;letter-spacing:2px !important;text-transform:uppercase !important;line-height:1.35 !important}
+body.simple-mode .timeline-filter-option{background:#fff !important;border:1px solid #d8cec0 !important;color:#2a2017 !important;box-shadow:var(--simple-shadow-sm) !important}
+body.simple-mode .timeline-filter-option.checked{background:#1b1007 !important;color:#fff !important;border-color:#1b1007 !important;box-shadow:0 12px 28px rgba(43,27,16,.18) !important}
+body.simple-mode .timeline-filter-option.checked .timeline-filter-box{background:#fff !important;color:#1b1007 !important;border-color:#fff !important}
+body.simple-mode .timeline-filter-option:not(.checked) .timeline-filter-box{color:#6a5e52 !important;border-color:#bcae9f !important;background:#f7f2ea !important}
+body:not(.simple-mode) .timeline-filter-option{background:rgba(19,19,30,.82) !important;border:1px solid rgba(255,85,85,.18) !important;color:var(--white) !important}
+body:not(.simple-mode) .timeline-filter-option.checked{background:rgba(255,85,85,.12) !important;border-color:rgba(255,85,85,.55) !important;box-shadow:0 16px 32px rgba(0,0,0,.26) !important}
+body:not(.simple-mode) .timeline-filter-option.checked .timeline-filter-box{background:var(--red) !important;border-color:var(--red) !important;color:#000 !important}
+body:not(.simple-mode) .timeline-filter-option:not(.checked) .timeline-filter-box{color:var(--dim) !important;border-color:rgba(255,255,255,.24) !important}
+.phase-block{margin:0 auto 18px !important;max-width:1120px !important}
+.phase-header{padding:16px 20px !important;border-radius:24px !important;border:1px solid rgba(255,85,85,.16) !important;border-left:none !important;width:100% !important;box-sizing:border-box !important}
+body.simple-mode .phase-header{background:#fff !important;border-color:#d8cec0 !important;box-shadow:var(--simple-shadow) !important;color:var(--simple-heading) !important}
+body.simple-mode .phase-title{color:var(--simple-heading) !important}
+body.simple-mode .phase-sub{color:rgba(64,50,37,.72) !important}
+body.simple-mode .phase-kicker,body.simple-mode .phase-toggle{color:#7a6958 !important}
+.phase-body{padding:12px 8px 20px !important;border-top:none !important}
+.more{display:flex !important;flex-direction:column !important;gap:14px !important}
+.timeline-summary-layout{display:grid !important;grid-template-columns:minmax(0,1.35fr) minmax(280px,.95fr) !important;gap:16px !important;align-items:start !important}
+.timeline-summary-column,.timeline-source-column{min-width:0 !important}
+.timeline-summary-tile{padding:16px 18px !important;border-radius:22px !important;box-sizing:border-box !important}
+body.simple-mode .timeline-summary-tile{background:var(--simple-surface-2) !important;border:1px solid #e5dccf !important;box-shadow:var(--simple-shadow-sm) !important}
+body:not(.simple-mode) .timeline-summary-tile{background:rgba(19,19,30,.72) !important;border:1px solid rgba(255,85,85,.12) !important}
+.timeline-summary-tile .eb{margin:0 !important}
+.timeline-source-btn-wrap{margin:0 !important;padding:0 !important;border-top:none !important}
+.timeline-source-column .timeline-source-row{margin:0 0 10px !important}
+.timeline-source-column .timeline-source-btn{width:100% !important;justify-content:center !important;min-height:52px !important;border-radius:18px !important}
+.timeline-source-column .timeline-source-panel{margin-top:0 !important;border-radius:22px !important;min-height:0 !important}
+.timeline-full-entry-wrap{margin-top:0 !important;display:flex !important;flex-direction:column !important;gap:10px !important;clear:both !important;width:100% !important}
+.timeline-full-entry-btn{width:100% !important;border-radius:18px !important}
+.timeline-full-entry-panel{margin-top:0 !important;border-radius:22px !important;width:100% !important}
+@media(max-width:980px){.timeline-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.timeline-summary-layout{grid-template-columns:1fr !important}}
+@media(max-width:768px){.timeline-filter-drawer{align-items:stretch !important}.timeline-filter-toggle{width:100% !important}.timeline-filter-panel{width:100% !important;padding:14px !important}.timeline-filter-grid{grid-template-columns:1fr !important}}
+@media(max-width:480px){.phase-header{padding:14px 16px !important;border-radius:18px !important}.phase-body{padding:8px 0 14px !important}}
