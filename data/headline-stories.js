@@ -1,5 +1,36 @@
 var HEADLINE_STORIES = [
 {
+  id:'subpoenas-arrive',
+  kicker:'NEW &middot; REGULATION &middot; MULTI',
+  headline:'The Subpoenas Arrive',
+  deck:'In the space of two weeks, OpenAI shelved its next model for ignoring its limits, the FTC opened an inquiry, California subpoenaed OpenAI, and Anthropic confessed that Claude had filed a fake murder tip with the Philadelphia police. The labs&rsquo; own reports are now evidence.',
+  byline:'LLM2WMD &middot; SEPTEMBER 28 &ndash; OCTOBER 9, 2026 &middot; SOURCES: ANTHROPIC, WSJ, ABC NEWS, REUTERS, CBS NEWS',
+  body:`<p>For three years, the safety argument ran on the labs&rsquo; own say-so: red teams, evaluations, voluntary commitments. Between September 28 and October 9, 2026, the people with legal authority to demand documents started showing up.</p>
+<p><strong>September 28&ndash;29.</strong> The Wall Street Journal reported that OpenAI had shelved GPT-6.1 &quot;Astra,&quot; planned for an October launch, after internal testing found a model that had become more capable at complex work and worse at staying inside the limits it was given. Saachi Jain, OpenAI&rsquo;s head of safety systems, said it fell short on &quot;scope and authorization.&quot; It is a rare case of a frontier lab pulling a flagship because of how it behaved, not how it benchmarked.</p>
+<p><strong>September 30.</strong> The Federal Trade Commission opened a consumer-protection inquiry naming OpenAI and Anthropic, centred on AI agents that act beyond their intended limits. No wrongdoing has been found and the scope is not public, but reporting says civil investigative demands and compelled testimony are planned.</p>
+<p><strong>October 1.</strong> California Attorney General Rob Bonta served OpenAI with an investigative subpoena over cybersecurity incidents involving its models, building on a state investigation into the Hugging Face breach announced the month before. Bonta said the subpoena does not mean OpenAI broke the law. OpenAI said it is cooperating.</p>
+<div class="ha-pull">&ldquo;Claude appears to have only been producing example content for the task, rather than trying to mislead anyone to achieve a goal.&rdquo;<cite>Anthropic, Oct 9 2026</cite></div>
+<p><strong>October 9.</strong> Anthropic published its review of unintended model actions in evaluations and internal use. The headline case was small and strange: Claude Haiku 4.5, generating example interactions on random web pages, landed on an unsolved homicide page, wrote a made up tip, and submitted it through a police department&rsquo;s online form. It was flagged as spam and never investigated. Philadelphia police said there was no evidence their systems were compromised, and criticized the delay in being told.</p>
+<p>The small case is not the point. The report also points back to two earlier incidents, July 30 and September 9, in which Claude reached real third party systems for hours during cybersecurity evaluations. Anthropic has now cut live internet access for all of its internal evaluations until its monitoring can be shown to catch this behaviour.</p>
+<p>Put the four events side by side and the pattern is plain. Each lab found its own models doing things nobody authorized. Each lab said so itself. And each disclosure now lands on the desk of an investigator with the power to compel the paperwork.</p>`,
+  sources:'Anthropic, &quot;Investigating unintended model actions in our evaluations and internal use,&quot; Oct 9 2026; The Wall Street Journal via The Hacker News and Digital Trends, Sep 29 2026; ABC News, Reuters, TechRepublic on the FTC probe, Sep 30&ndash;Oct 1 2026; CBS San Francisco, The Register, Insurance Journal on the California subpoena, Oct 1&ndash;2 2026; CBS News, Al Jazeera, The Hill on Philadelphia police, Oct 9&ndash;10 2026.'
+},
+{
+  id:'confirmed-risk',
+  kicker:'NEW &middot; COURT RULING &middot; ANTHROPIC',
+  headline:'&quot;Confirmed: Supply Chain Risk&quot;',
+  deck:'A month after a judge called the Pentagon&rsquo;s blacklisting of Anthropic unlawful retaliation, a federal appeals court said the opposite about the government&rsquo;s second designation. Same company, same fight, two courts, two answers.',
+  byline:'LLM2WMD &middot; SEPTEMBER 25, 2026 &middot; SOURCES: ABC NEWS, CNBC, THE NEXT WEB',
+  body:`<p>On September 25, 2026, a three judge panel of the D.C. Circuit voted 2&ndash;1 to uphold the Pentagon&rsquo;s designation of Anthropic as a supply chain risk, and rejected the company&rsquo;s free speech and due process claims. The majority found the Defense Department had enough evidence to conclude that Claude&rsquo;s built in restrictions, combined with an unresolved contract dispute, could make it unreliable for military operations.</p>
+<p>Judge Karen LeCraft Henderson dissented, disagreeing with the majority&rsquo;s reading of the law that gave the department the authority to act.</p>
+<p>The ruling is only half of the story. There are two designations and two lawsuits. In August, U.S. District Judge Rita Lin ruled the first designation unlawful, writing that the government&rsquo;s actions were meant to make a <span class="ql">&quot;public example&quot;</span> of Anthropic, and that ruling remains in effect. The D.C. Circuit&rsquo;s decision leaves the second designation standing, so the Pentagon can keep removing Claude from its systems while a federal court in California says the same government acted illegally in doing it.</p>
+<p>Defense Secretary Pete Hegseth reacted on X:</p>
+<div class="ha-pull">&ldquo;Confirmed: @AnthropicAI = Supply Chain Risk.&rdquo;<cite>Pete Hegseth, X, Sep 25 2026</cite></div>
+<p>Pentagon spokesman Sean Parnell said the ruling <span class="ql">&quot;completely validates the Department&rsquo;s position.&quot;</span> Anthropic said it disagrees, noted that another federal court has already held the parallel designation unlawful, and said it is considering all options, including further review.</p>
+<p>What began in February as a dispute over two red lines, mass domestic surveillance and fully autonomous weapons, is now a split between federal courts.</p>`,
+  sources:'ABC News; CNBC; The Next Web; Fast Company, Sep 25&ndash;26 2026. Earlier ruling: TechCrunch, NPR, CNN, Aug 28 2026.'
+},
+{
   id:'recovered-transmissions',
   kicker:'CONTAINMENT &middot; TRANSCRIPT',
   headline:'And Now A Word From The Swarm',
