@@ -45,4 +45,4 @@ The engine is one big closure (all parts share the same variables), so it can't 
 | `17-loop-and-input.js` | Main loop, pointer input, button wiring |
 | `18-launcher.js` | Opens/closes the game overlay, mounts it, briefing buttons |
 
-Note: the in-game list in `05-run-certificates.js` and the site list at the top of `game-certs.js` hold the same certificate IDs with **different titles, wording and banners**. Not merged yet because it would change what players see.
+Certificate names, tiers and wording live in one place: the list at the top of `game-certs.js`. `05-run-certificates.js` only keeps each cert's ID and the game's own banner colour key, and looks the wording up from `game-certs.js`. Change wording there, not in `05`.
