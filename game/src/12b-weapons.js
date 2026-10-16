@@ -1,27 +1,28 @@
-/* Weapon pickups: falling icons that must be shot. One weapon is active at a time and a new pickup replaces it.
+/* Weapon pickups: falling icons that must be shot. One weapon at a time, six shots each. A new pickup only falls
+   after the current weapon is used up, and then only after 4-10 more kills with the normal weapon.
    Laser = sweeping beam. Homing = curved smoke-trail missiles. Carpet = a line of bombs that chain-explode.
    Drawing lives in 16b-weapon-drawing.js. State lives on S (see defaults in 06). */
 const WEAPONS={
-  laser:{name:'SWEEPING LASER',hex:'#5fe0ff',rgb:'95,224,255',ms:22000,cd:850},
-  homing:{name:'HOMING MISSILES',hex:'#ff9a4a',rgb:'255,154,74',ms:22000,cd:700},
-  carpet:{name:'CARPET BOMBS',hex:'#ffcd5a',rgb:'255,205,90',ms:22000,cd:1300}
+  laser:{name:'SWEEPING LASER',hex:'#5fe0ff',rgb:'95,224,255',shots:6,cd:850},
+  homing:{name:'HOMING MISSILES',hex:'#ff9a4a',rgb:'255,154,74',shots:6,cd:700},
+  carpet:{name:'CARPET BOMBS',hex:'#ffcd5a',rgb:'255,205,90',shots:6,cd:1300}
 };
 const WEAPON_TYPES=['laser','homing','carpet'];
 const WEAPON_COPY={
   laser:{
     title:'Trustworthy CEO detected',
     text:'Investors think your CEO is very trustworthy. Extra compute has been delivered.',
-    explain:'SWEEPING LASER. Tap to sweep a beam across the sky from your base. It cuts through every hostile in its path and ignores civilians. Lasts 22 seconds or until a new pickup replaces it.'
+    explain:'SWEEPING LASER. Tap to sweep a beam across the sky from your base. It cuts through every hostile in its path and ignores civilians. Six shots, then it is gone.'
   },
   homing:{
     title:'IPO rumours resurface',
     text:'Word of your IPO has hit the headlines again, but civilian pension funds are safe. (Honest.)',
-    explain:'HOMING MISSILES. Tap to launch a salvo of three. Each one picks a hostile and curves after it, leaving smoke. The blast also clips anything nearby. Lasts 22 seconds or until a new pickup replaces it.'
+    explain:'HOMING MISSILES. Tap to launch a salvo of three. Each one picks a hostile and curves after it, leaving smoke. The blast also clips anything nearby. Six shots, then it is gone.'
   },
   carpet:{
     title:'Preferred supplier selected',
     text:'Procurement has delivered a very large order of very small bombs. The review will be held after deployment.',
-    explain:'CARPET BOMBS. Tap a spot. A line of bombs falls across it and goes off in a chain of small blasts. Civilians caught in them count as yours. Lasts 22 seconds or until a new pickup replaces it.'
+    explain:'CARPET BOMBS. Tap a spot. A line of bombs falls across it and goes off in a chain of small blasts. Civilians caught in them count as yours. Six shots, then it is gone.'
   }
 };
 
@@ -82,7 +83,7 @@ function showWeaponNotice(type){
   e.textContent=c.explain;
   e.classList.remove('hidden');
   btnB.style.display='none';
-  btnA.innerHTML='<span class="choiceTitle">continue</span><span class="choiceMeta">Tap to use it. Choose targets carefully.</span>';
+  btnA.innerHTML='<span class="choiceTitle">continue</span><span class="choiceMeta">Six shots. Make them count.</span>';
   S.paused=true;
   btnA.onclick=()=>{
     decisionOverlay.classList.add('hidden');
@@ -138,7 +139,7 @@ function collectPickup(p){
   playPowerupSound('gpu');
   const replaced=S.weapon&&S.weapon!==p.type;
   S.weapon=p.type;
-  S.weaponUntil=S.tick+w.ms;
+  S.weaponShots=w.shots;
   S.weaponCd=0;
   S.score+=60;
   if(!S.weaponSeen[p.type]&&!S.paused){
@@ -160,6 +161,7 @@ function fireWeapon(x,y){
   const type=S.weapon;
   const w=WEAPONS[type];
   S.weaponCd=S.tick+w.cd;
+  S.weaponShots-=1;
   const ox=W/2,oy=H-42;
   if(type==='laser'){
     let a=Math.atan2(y-oy,x-ox);
@@ -185,6 +187,11 @@ function fireWeapon(x,y){
     }
     playDroneDiveSound();
   }
+  if(S.weaponShots<=0){
+    S.weapon=null;
+    S.pickupAt=S.destroyed+4+Math.floor(Math.random()*7);
+    setStatus(w.name+' spent. Back to manual.');
+  }
   return true;
 }
 
@@ -201,20 +208,19 @@ function weaponBlast(x,y,radius,hex,primary){
 
 function updateWeapons(dt){
   const step=dt/16;
-  if(!S.pickupAt)S.pickupAt=S.tick+14000+Math.random()*9000;
-  if(S.tick>=S.pickupAt&&S.pickups.length===0){
+  /* next pickup: only when no weapon is held, none is falling, and 4-10 kills have passed */
+  if(!S.pickupAt)S.pickupAt=S.destroyed+4+Math.floor(Math.random()*7);
+  if(!S.weapon&&S.pickups.length===0&&S.destroyed>=S.pickupAt){
     spawnPickup();
-    S.pickupAt=S.tick+17000+Math.random()*16000;
   }
   for(let i=S.pickups.length-1;i>=0;i--){
     const p=S.pickups[i];
     p.y+=0.045*dt;
     p.x=p.baseX+Math.sin(S.tick*0.0016+p.phase)*18;
-    if(p.y>H-84)S.pickups.splice(i,1);
-  }
-  if(S.weapon&&S.tick>=S.weaponUntil){
-    S.weapon=null;
-    setStatus('Weapon expired. Back to manual.');
+    if(p.y>H-84){
+      S.pickups.splice(i,1);
+      S.pickupAt=S.destroyed+4+Math.floor(Math.random()*7);
+    }
   }
   // sweeping laser beams
   for(let i=S.beams.length-1;i>=0;i--){

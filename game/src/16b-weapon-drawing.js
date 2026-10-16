@@ -128,10 +128,10 @@ function drawBombs(){
 function drawWeaponBadge(){
   if(!S.weapon)return;
   const w=WEAPONS[S.weapon];
-  const left=Math.max(0,S.weaponUntil-S.tick);
-  const frac=Math.min(1,left/w.ms);
+  const shots=Math.max(0,S.weaponShots||0);
+  const frac=shots/w.shots;
   const x=16,y=16,bw=132,bh=24;
-  const warn=left<4000&&Math.floor(S.tick/250)%2===0;
+  const warn=shots===1&&Math.floor(S.tick/250)%2===0;
   ctx.save();
   ctx.fillStyle='rgba(6,12,10,0.82)';
   ctx.fillRect(x,y,bw,bh);
@@ -146,7 +146,7 @@ function drawWeaponBadge(){
   ctx.textBaseline='middle';
   ctx.fillText(w.name,x+7,y+10);
   ctx.textAlign='right';
-  ctx.fillText(Math.ceil(left/1000)+'s',x+bw-6,y+10);
+  ctx.fillText(shots+(shots===1?' SHOT':' SHOTS'),x+bw-6,y+10);
   ctx.restore();
 }
 
