@@ -38,10 +38,12 @@ The engine is one big closure (all parts share the same variables), so it can't 
 | `10-layout-and-spawning.js` | Resize, stats, start, enemy spawning |
 | `11-targeting-and-combat.js` | Locks, firing, bullets, hits, explosions, upgrades |
 | `12-drones.js` | Friendly and hostile drones, lasers |
+| `12b-weapons.js` | Weapon pickups (laser, homing missiles, carpet bombs): spawning, firing, popup copy and diagrams |
 | `13-hud-and-overlays.js` | HUD buttons, pause, drone and strike overlays |
 | `14-decisions-and-endgame.js` | Decisions, nuclear flash, end screen, game over, win check |
 | `15-update-loop.js` | Per-frame game logic |
 | `16-rendering.js` | Everything drawn on the canvas |
+| `16b-weapon-drawing.js` | Pickup icons, beams, missiles, bombs, active-weapon badge |
 | `17-loop-and-input.js` | Main loop, pointer input, button wiring |
 | `18-launcher.js` | Opens/closes the game overlay, mounts it, briefing buttons |
 

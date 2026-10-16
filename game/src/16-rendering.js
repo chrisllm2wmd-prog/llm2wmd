@@ -705,6 +705,7 @@ function draw(){
   drawBullets(S.dcBullets,'#ffb347');
   drawBullets(S.droneBullets,'#ff6666');
   drawBullets(S.friendlyDroneBullets,'#7dffb2');
+  drawWeapons();
   fxDrawParticles();
   for(const g of S.gpuStations.slice(0,18)){
     const x=g.x;

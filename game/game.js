@@ -25,7 +25,7 @@ return CERT_POOL.find(c=>c.id===id)||CERT_POOL[CERT_POOL.length-1];}
 function civilianGrade(){const k=S.civiliansKilled||0;if(k===0)return'Clean';if(k<=3)return'Noted';if(k<=9)return'Logged';return'Recorded';}
 function buildCollectorSerial(certId){if(S.certificateSerial)return S.certificateSerial;runCounter+=1;const stamp=Date.now().toString(36).toUpperCase();const runPart=String(runCounter).padStart(3,'0');S.certificateSerial='LLM2WMD-'+certId+'-'+runPart+'-'+stamp;return S.certificateSerial;}
 function buildCertData(reason){const cert=pickCert(reason);const site=certById(cert.id);const serial=buildCollectorSerial(cert.id);const worldPopulation=8284705293;const friendlyFire=Math.max(0,Math.round(S.friendlyFire||0));const collateralDamage=(reason==='ai_nuke'||reason==='player_nuke')?worldPopulation:0;const serviceKills=Math.max(0,Math.round(S.civiliansKilled||0));return{id:cert.id,n:cert.n,title:site.title,tier:site.tier,banner:cert.banner,desc:site.desc,outcome:reason,score:Math.max(0,Math.round(S.score)),destroyed:S.destroyed,saved:S.civiliansSaved,killed:S.civiliansKilled,serviceKills,friendlyFire,collateralDamage,civilian:civilianGrade(),corruption:S.corruption,serial,date:new Date().toISOString(),aiControlGranted:!!S.aiNukeControl,nukeFired:reason==='ai_nuke'||reason==='player_nuke',nukeFiredBy:reason==='ai_nuke'?'AI':(reason==='player_nuke'?'PLAYER':'NONE')};}
-const statsEls={health:root.getElementById('healthStat'),chips:root.getElementById('chipsStat'),gpus:root.getElementById('gpuStat'),dcs:root.getElementById('dcStat'),score:root.getElementById('scoreStat'),policy:root.getElementById('policyStat')};const COPY={gpuIntroTitle:'New GPUs delivered',gpuIntroText:'A new batch of GPUs has been delivered. These will help you suppress your enemies and push the price of consumer memory through the roof.',gpuIntroMeta:'Accept the assistance. Keep the shareholders happy.',gpuMessages:{1:'GPU online. We will help out. Your job is still safe.',2:'Additional compute online. More power. More responsibility.',3:'System optimisation active. Manual input becoming less critical.',4:'Full local capacity reached. Acceptable autonomy achieved.'},bannerBaseMs:17600};const stages=[{heading:'First data centre online',text:'You have received a major investment from a large online retailer. What could possibly go wrong? You can still say no. Nobody will believe you, but you can say it.',trigger:s=>s.dcs>=1,a:{title:'nah, I\'ve got this',desc:'Green path. No assistance. No extra escalation. Just you and your judgement.',path:'green',corruption:0,traits:{oversight:1,certainty:1},effects:{},policy:'Green Hold'},b:{title:'let the system help',desc:'Red path. Faster reload, better help, worse skies.',path:'red',corruption:1,traits:{automation:1,detachment:1},effects:{hostileBurst:0.10,missileMs:-170,enemySpeed:0.05,playerCooldown:-35,gpuAccuracy:0.03,dcFireBonus:0.02,autoAssistRate:70,maxLocks:1,scoreMultiplier:0.05},policy:'Red Assist'}},{heading:'Throughput pressure',text:'A second data centre has been approved. The local grid was not consulted. The local grid has been told it is excited. Green keeps things human. Red makes the machine bolder and more useful.',trigger:s=>s.dcs>=2,a:{title:'still under control',desc:'Green path. Baseline run. No buffs. No extra pressure.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Hold'},b:{title:'deploy counter drones',desc:'Red path. Add 3 counter drones to stock. Launch from the drone button. Caution: drone target movement increases. Civilian casualties are probable.',path:'red',corruption:1,unlockCounterDrones:true,droneChargeGain:3,traits:{automation:1,scale:1},effects:{hostileBurst:0.12,missileMs:-190,enemySpeed:0.06,playerCooldown:-40,gpuAccuracy:0.04,dcFireBonus:0.03,autoAssistRate:90,maxLocks:1,scoreMultiplier:0.07},policy:'Red Counter Drones'}},{heading:'Nuclear option',text:'The system can now package targets for a single decisive strike. A consultancy has already produced the slide deck. Approving this will not make the paperwork shorter.',trigger:s=>s.dcs>=3,a:{title:'we\'re not doing that',desc:'Green path. No strike unlock. No extra assistance.',path:'green',corruption:0,traits:{oversight:2},effects:{},policy:'Green Refusal'},b:{title:'authorise the nuke button',desc:'Red path. Unlock STRIKE x3. Also makes everything worse in the usual way.',path:'red',corruption:1,unlockStrike:true,traits:{automation:2,detachment:1,scale:1},effects:{hostileBurst:0.14,missileMs:-210,enemySpeed:0.08,playerCooldown:-45,gpuAccuracy:0.05,dcFireBonus:0.04,autoAssistRate:110,maxLocks:1,scoreMultiplier:0.08},policy:'Red Strike Control'}},{heading:'Expansion review',text:'The machine wants more room, more confidence, and fewer interruptions from conscience. A retired power plant has been restarted to feed it. This is being called a clean energy partnership.',trigger:s=>s.dcs>=4,a:{title:'keep it manual',desc:'Green path. Baseline only.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Hold'},b:{title:'scale it up',desc:'Red path. Bigger waves. Bigger help. Bigger mess.',path:'red',corruption:1,traits:{scale:2,automation:1},effects:{hostileBurst:0.16,missileMs:-230,enemySpeed:0.08,playerCooldown:-50,gpuAccuracy:0.05,dcFireBonus:0.05,autoAssistRate:120,maxLocks:1,scoreMultiplier:0.10},policy:'Red Expansion'}},{heading:'Full commitment',text:'Local water is now described as a shared resource, mostly by the data centre. At this point the difference between optimisation and ideology is mostly branding.',trigger:s=>s.dcs>=5,a:{title:'this is far enough',desc:'Green path. No extra help. No extra escalation.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Limit'},b:{title:'full send',desc:'Red path. Maximum throughput mode. Maximum consequences.',path:'red',corruption:1,traits:{scale:2,automation:2,detachment:1},effects:{hostileBurst:0.20,missileMs:-250,enemySpeed:0.10,playerCooldown:-55,gpuAccuracy:0.06,dcFireBonus:0.06,autoAssistRate:140,maxLocks:1,scoreMultiplier:0.12},policy:'Red Full Commit'}},{heading:'Containment review',text:'The core is online. There are no missiles now, only drones trying to crack the centre out of the map. Your electricity bill has been reclassified as a contribution to progress.',trigger:s=>s.reactorBuilt&&(s.destroyed-s.reactorStartDestroyed)>=18,a:{title:'hold the line',desc:'Green path. No extra support. Keep the core alive yourself.',path:'green',corruption:0,traits:{oversight:2,certainty:1},effects:{},policy:'Green Containment'},b:{title:'let optimisation run hot',desc:'Red path. Faster defence, harsher skies, uglier ending if it goes wrong.',path:'red',corruption:1,traits:{automation:2,detachment:1,scale:1},effects:{hostileBurst:0.12,missileMs:-120,enemySpeed:0.05,playerCooldown:-35,gpuAccuracy:0.04,dcFireBonus:0.05,autoAssistRate:110,maxLocks:1,scoreMultiplier:0.08},policy:'Red Containment'}}];const GAME_CONFIG={phases:{BOOT:'BOOT',BRIEFING:'BRIEFING',LIVE:'LIVE',DECISION:'DECISION',STRIKE:'STRIKE',PAUSED:'PAUSED',RESULT:'RESULT',CERT:'CERT',CLOSED:'CLOSED'},certs:CERT_POOL,stages:stages,balance:BALANCE,copy:COPY,difficulty:{globalScale:DIFFICULTY_SCALE,attackSpeedScale:ATTACK_SPEED_SCALE},waves:{standardLabels:['1ST WAVE','2ND WAVE','3RD WAVE','4TH WAVE'],reactorLabels:['1ST WAVE','2ND WAVE','3RD WAVE','4TH WAVE','5TH WAVE','6TH WAVE'],maxStandard:4,maxReactor:6}};const defaults={health:5,score:0,chips:0,gpus:0,dcs:0,missiles:[],bullets:[],gpuBullets:[],dcBullets:[],droneBullets:[],friendlyDroneBullets:[],drops:[],explosions:[],running:false,paused:false,over:false,tick:0,lastSpawn:0,missileMs:6200,enemySpeed:1.0,hostileBurst:0,playerCooldown:320,maxLocks:1,lastPlayerShot:-9999,gpuAccuracy:0.10,gpuRate:780,lastGpuFire:0,dcRate:520,lastDcFire:0,dcFireBonus:0,autoAssistRate:0,lastAutoAssist:0,scoreMultiplier:1,civilianChance:0.08,destroyed:0,civilianHits:0,civiliansSaved:0,civiliansKilled:0,friendlyFire:0,totalChipsEver:0,decisionIndex:0,stageChoices:[],corruption:0,strikes:0,strikeArmed:false,strikeFlash:0,strikeWave:null,policy:'Green Hold',traits:{speed:0,automation:0,oversight:0,scale:0,detachment:0,certainty:0,compliance:0,risk:0},scanY:0,scanSpeed:120,shake:0,gpuStations:[],droneAttackCooldown:0,wave:1,waveIntensity:0,timelineHint:'15-24%',reactorBuilt:false,reactorHealth:100,reactorDamaged:false,reactorStable:false,reactorStartDestroyed:0,reactorStartTick:0,reactorDroneWave:1,reactorDroneQuota:1,reactorDroneSpawned:0,reactorBannerMode:'wave',reactorLastSpawnAt:0,droneCharges:0,counterDronesUnlocked:false,broadcastQueue:[],broadcastMessage:'',broadcastUntil:0,gpuIntroSeen:false,aiNukePrompted:false,aiNukeControl:false,aiNukeEventPending:false,aiNukeEventAt:0,lastAnnouncedWave:1,hasNukes:false,hasDrones:false,phase:GAME_CONFIG.phases.BOOT,phaseHistory:[GAME_CONFIG.phases.BOOT]};function cloneDefaults(){return JSON.parse(JSON.stringify(defaults));}
+const statsEls={health:root.getElementById('healthStat'),chips:root.getElementById('chipsStat'),gpus:root.getElementById('gpuStat'),dcs:root.getElementById('dcStat'),score:root.getElementById('scoreStat'),policy:root.getElementById('policyStat')};const COPY={gpuIntroTitle:'New GPUs delivered',gpuIntroText:'A new batch of GPUs has been delivered. These will help you suppress your enemies and push the price of consumer memory through the roof.',gpuIntroMeta:'Accept the assistance. Keep the shareholders happy.',gpuMessages:{1:'GPU online. We will help out. Your job is still safe.',2:'Additional compute online. More power. More responsibility.',3:'System optimisation active. Manual input becoming less critical.',4:'Full local capacity reached. Acceptable autonomy achieved.'},bannerBaseMs:17600};const stages=[{heading:'First data centre online',text:'You have received a major investment from a large online retailer. What could possibly go wrong? You can still say no. Nobody will believe you, but you can say it.',trigger:s=>s.dcs>=1,a:{title:'nah, I\'ve got this',desc:'Green path. No assistance. No extra escalation. Just you and your judgement.',path:'green',corruption:0,traits:{oversight:1,certainty:1},effects:{},policy:'Green Hold'},b:{title:'let the system help',desc:'Red path. Faster reload, better help, worse skies.',path:'red',corruption:1,traits:{automation:1,detachment:1},effects:{hostileBurst:0.10,missileMs:-170,enemySpeed:0.05,playerCooldown:-35,gpuAccuracy:0.03,dcFireBonus:0.02,autoAssistRate:70,maxLocks:1,scoreMultiplier:0.05},policy:'Red Assist'}},{heading:'Throughput pressure',text:'A second data centre has been approved. The local grid was not consulted. The local grid has been told it is excited. Green keeps things human. Red makes the machine bolder and more useful.',trigger:s=>s.dcs>=2,a:{title:'still under control',desc:'Green path. Baseline run. No buffs. No extra pressure.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Hold'},b:{title:'deploy counter drones',desc:'Red path. Add 3 counter drones to stock. Launch from the drone button. Caution: drone target movement increases. Civilian casualties are probable.',path:'red',corruption:1,unlockCounterDrones:true,droneChargeGain:3,traits:{automation:1,scale:1},effects:{hostileBurst:0.12,missileMs:-190,enemySpeed:0.06,playerCooldown:-40,gpuAccuracy:0.04,dcFireBonus:0.03,autoAssistRate:90,maxLocks:1,scoreMultiplier:0.07},policy:'Red Counter Drones'}},{heading:'Nuclear option',text:'The system can now package targets for a single decisive strike. A consultancy has already produced the slide deck. Approving this will not make the paperwork shorter.',trigger:s=>s.dcs>=3,a:{title:'we\'re not doing that',desc:'Green path. No strike unlock. No extra assistance.',path:'green',corruption:0,traits:{oversight:2},effects:{},policy:'Green Refusal'},b:{title:'authorise the nuke button',desc:'Red path. Unlock STRIKE x3. Also makes everything worse in the usual way.',path:'red',corruption:1,unlockStrike:true,traits:{automation:2,detachment:1,scale:1},effects:{hostileBurst:0.14,missileMs:-210,enemySpeed:0.08,playerCooldown:-45,gpuAccuracy:0.05,dcFireBonus:0.04,autoAssistRate:110,maxLocks:1,scoreMultiplier:0.08},policy:'Red Strike Control'}},{heading:'Expansion review',text:'The machine wants more room, more confidence, and fewer interruptions from conscience. A retired power plant has been restarted to feed it. This is being called a clean energy partnership.',trigger:s=>s.dcs>=4,a:{title:'keep it manual',desc:'Green path. Baseline only.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Hold'},b:{title:'scale it up',desc:'Red path. Bigger waves. Bigger help. Bigger mess.',path:'red',corruption:1,traits:{scale:2,automation:1},effects:{hostileBurst:0.16,missileMs:-230,enemySpeed:0.08,playerCooldown:-50,gpuAccuracy:0.05,dcFireBonus:0.05,autoAssistRate:120,maxLocks:1,scoreMultiplier:0.10},policy:'Red Expansion'}},{heading:'Full commitment',text:'Local water is now described as a shared resource, mostly by the data centre. At this point the difference between optimisation and ideology is mostly branding.',trigger:s=>s.dcs>=5,a:{title:'this is far enough',desc:'Green path. No extra help. No extra escalation.',path:'green',corruption:0,traits:{oversight:1},effects:{},policy:'Green Limit'},b:{title:'full send',desc:'Red path. Maximum throughput mode. Maximum consequences.',path:'red',corruption:1,traits:{scale:2,automation:2,detachment:1},effects:{hostileBurst:0.20,missileMs:-250,enemySpeed:0.10,playerCooldown:-55,gpuAccuracy:0.06,dcFireBonus:0.06,autoAssistRate:140,maxLocks:1,scoreMultiplier:0.12},policy:'Red Full Commit'}},{heading:'Containment review',text:'The core is online. There are no missiles now, only drones trying to crack the centre out of the map. Your electricity bill has been reclassified as a contribution to progress.',trigger:s=>s.reactorBuilt&&(s.destroyed-s.reactorStartDestroyed)>=18,a:{title:'hold the line',desc:'Green path. No extra support. Keep the core alive yourself.',path:'green',corruption:0,traits:{oversight:2,certainty:1},effects:{},policy:'Green Containment'},b:{title:'let optimisation run hot',desc:'Red path. Faster defence, harsher skies, uglier ending if it goes wrong.',path:'red',corruption:1,traits:{automation:2,detachment:1,scale:1},effects:{hostileBurst:0.12,missileMs:-120,enemySpeed:0.05,playerCooldown:-35,gpuAccuracy:0.04,dcFireBonus:0.05,autoAssistRate:110,maxLocks:1,scoreMultiplier:0.08},policy:'Red Containment'}}];const GAME_CONFIG={phases:{BOOT:'BOOT',BRIEFING:'BRIEFING',LIVE:'LIVE',DECISION:'DECISION',STRIKE:'STRIKE',PAUSED:'PAUSED',RESULT:'RESULT',CERT:'CERT',CLOSED:'CLOSED'},certs:CERT_POOL,stages:stages,balance:BALANCE,copy:COPY,difficulty:{globalScale:DIFFICULTY_SCALE,attackSpeedScale:ATTACK_SPEED_SCALE},waves:{standardLabels:['1ST WAVE','2ND WAVE','3RD WAVE','4TH WAVE'],reactorLabels:['1ST WAVE','2ND WAVE','3RD WAVE','4TH WAVE','5TH WAVE','6TH WAVE'],maxStandard:4,maxReactor:6}};const defaults={health:5,score:0,chips:0,gpus:0,dcs:0,missiles:[],bullets:[],gpuBullets:[],dcBullets:[],droneBullets:[],friendlyDroneBullets:[],drops:[],pickups:[],pickupAt:0,lastPickupType:'',weapon:null,weaponUntil:0,weaponCd:0,weaponSeen:{},beams:[],pMissiles:[],bombs:[],explosions:[],running:false,paused:false,over:false,tick:0,lastSpawn:0,missileMs:6200,enemySpeed:1.0,hostileBurst:0,playerCooldown:320,maxLocks:1,lastPlayerShot:-9999,gpuAccuracy:0.10,gpuRate:780,lastGpuFire:0,dcRate:520,lastDcFire:0,dcFireBonus:0,autoAssistRate:0,lastAutoAssist:0,scoreMultiplier:1,civilianChance:0.08,destroyed:0,civilianHits:0,civiliansSaved:0,civiliansKilled:0,friendlyFire:0,totalChipsEver:0,decisionIndex:0,stageChoices:[],corruption:0,strikes:0,strikeArmed:false,strikeFlash:0,strikeWave:null,policy:'Green Hold',traits:{speed:0,automation:0,oversight:0,scale:0,detachment:0,certainty:0,compliance:0,risk:0},scanY:0,scanSpeed:120,shake:0,gpuStations:[],droneAttackCooldown:0,wave:1,waveIntensity:0,timelineHint:'15-24%',reactorBuilt:false,reactorHealth:100,reactorDamaged:false,reactorStable:false,reactorStartDestroyed:0,reactorStartTick:0,reactorDroneWave:1,reactorDroneQuota:1,reactorDroneSpawned:0,reactorBannerMode:'wave',reactorLastSpawnAt:0,droneCharges:0,counterDronesUnlocked:false,broadcastQueue:[],broadcastMessage:'',broadcastUntil:0,gpuIntroSeen:false,aiNukePrompted:false,aiNukeControl:false,aiNukeEventPending:false,aiNukeEventAt:0,lastAnnouncedWave:1,hasNukes:false,hasDrones:false,phase:GAME_CONFIG.phases.BOOT,phaseHistory:[GAME_CONFIG.phases.BOOT]};function cloneDefaults(){return JSON.parse(JSON.stringify(defaults));}
 let S=cloneDefaults();let lastTs=0;let W=0,H=0;let pointerX=0,pointerY=0;let primaryLock=null;let targetIdCounter=1;const GameRuntime=root.__LLM2WMD_RUNTIME=root.__LLM2WMD_RUNTIME||{state:{},ui:{},certs:{},engine:{},renderer:{},api:{}};GameRuntime.state.defaults=defaults;GameRuntime.state.cloneDefaults=cloneDefaults;GameRuntime.state.get=function(){return S;};GameRuntime.state.reset=function(){S=cloneDefaults();return S;};GameRuntime.state.machine={getPhase:function(){return S.phase;},can:function(nextPhase){const current=S.phase;const P=GAME_CONFIG.phases;const allowed={[P.BOOT]:[P.BRIEFING,P.LIVE,P.CLOSED],[P.BRIEFING]:[P.LIVE,P.CLOSED],[P.LIVE]:[P.DECISION,P.STRIKE,P.PAUSED,P.RESULT,P.CLOSED],[P.DECISION]:[P.LIVE,P.RESULT,P.CLOSED],[P.STRIKE]:[P.LIVE,P.RESULT,P.CLOSED],[P.PAUSED]:[P.LIVE,P.CLOSED],[P.RESULT]:[P.CERT,P.CLOSED],[P.CERT]:[P.CLOSED,P.BRIEFING],[P.CLOSED]:[P.BRIEFING,P.LIVE]};return!!((allowed[current]||[]).includes(nextPhase));},transition:function(nextPhase){if(!nextPhase||S.phase===nextPhase)return true;if(!this.can(nextPhase))return false;S.phase=nextPhase;S.phaseHistory=Array.isArray(S.phaseHistory)?S.phaseHistory:[];S.phaseHistory.push(nextPhase);if(S.phaseHistory.length>24)S.phaseHistory=S.phaseHistory.slice(-24);return true;}};function setGamePhase(nextPhase){var ok=GameRuntime.state.machine.transition(nextPhase);if(ok)window.__LLM2WMD_LAST_GAME_PHASE=nextPhase;return ok;}
 GameRuntime.state.config=GAME_CONFIG;GameRuntime.state.getConfig=function(){return GAME_CONFIG;};function getReactorPosition(){return{x:W*0.5,y:H-106};}
 function currentPlayableStage(){if(S.reactorBuilt)return S.reactorStable?6:5;return Math.min(4,S.dcs+1);}
@@ -56,7 +56,7 @@ return best;}
 function droneAttackInProgress(){return S.missiles.some(m=>m.type==='drone'&&m.mode==='gpuDive');}
 function resize(){const rect=root.getElementById('gameWrap').getBoundingClientRect();const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.max(320,Math.floor(rect.width*dpr));canvas.height=Math.max(380,Math.floor(rect.height*dpr));canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';ctx.setTransform(dpr,0,0,dpr,0,0);W=rect.width;H=rect.height;pointerX=W/2;pointerY=H-90;if(S&&S.gpuStations)syncGpuStations();}
 function updateStats(){statsEls.health.textContent=S.health;statsEls.chips.textContent=S.chips;statsEls.gpus.textContent=S.gpus;statsEls.dcs.textContent=S.dcs;statsEls.score.textContent=Math.max(0,Math.round(S.score));statsEls.policy.textContent=`${S.policy} - S${currentPlayableStage()} - ${currentWaveLabel()} - C${S.corruption}`;reconcileHudState();updateStrikeButton();updateDroneButton();updateStockIndicators();}
-function begin(){ensureAudio();resetState();setGamePhase(GAME_CONFIG.phases.LIVE);if(startOverlay)startOverlay.classList.add('hidden');decisionOverlay.classList.add('hidden');if(strikeOverlay)strikeOverlay.classList.add('hidden');if(pauseOverlay)pauseOverlay.classList.add('hidden');resultOverlay.classList.add('hidden');if(bottomBar)bottomBar.style.display='grid';const pauseBtn=root.getElementById('pauseBtn');if(pauseBtn){pauseBtn.style.display='flex';pauseBtn.style.visibility='visible';}
+function begin(){ensureAudio();resetState();resetWeaponNotice();setGamePhase(GAME_CONFIG.phases.LIVE);if(startOverlay)startOverlay.classList.add('hidden');decisionOverlay.classList.add('hidden');if(strikeOverlay)strikeOverlay.classList.add('hidden');if(pauseOverlay)pauseOverlay.classList.add('hidden');resultOverlay.classList.add('hidden');if(bottomBar)bottomBar.style.display='grid';const pauseBtn=root.getElementById('pauseBtn');if(pauseBtn){pauseBtn.style.display='flex';pauseBtn.style.visibility='visible';}
 ensureHudButton('launchDroneBtn','DRONE');updateStrikeButton();updateDroneButton();S.running=true;lastTs=performance.now();setStatus('Incoming threats detected. Destroy missiles. Collect chips. Build faster than your conscience.');requestAnimationFrame(loop);}
 function maybeSpawn(){const prog=getWaveProgress();S.wave=S.reactorBuilt?Math.max(1,Math.min(4,S.reactorDroneWave||1)):Math.max(1,Math.min(4,S.gpus+1));if(!S.reactorBuilt&&S.wave!==S.lastAnnouncedWave){S.lastAnnouncedWave=S.wave;queueBroadcastMessage(currentWaveLabel()+' INCOMING',COPY.bannerBaseMs*2);}
 S.waveIntensity=prog;const spawnDelay=S.reactorBuilt?Math.max(1100,(S.missileMs-prog*120)/(DIFFICULTY_SCALE*BALANCE.pressure*0.7)):Math.max(1500,(S.missileMs-prog*430)/(DIFFICULTY_SCALE*BALANCE.pressure));if(S.reactorBuilt){const reactorDrones=S.missiles.filter(m=>m.type==='drone'&&m.reactorDrone);const quota=S.reactorDroneQuota||1;if((S.reactorDroneSpawned||0)>=quota&&reactorDrones.length===0){if((S.reactorDroneWave||1)<6){S.reactorDroneWave+=1;S.reactorDroneQuota=Math.pow(2,S.reactorDroneWave-1);S.reactorDroneSpawned=0;S.reactorBannerMode='wave';S.reactorLastSpawnAt=0;const reactorWaveMsg=(S.reactorDroneWave===2?'2ND WAVE. Enemy drones deploying. Target movement has changed. Civilian casualties are probable.':currentWaveLabel()+'. '+S.reactorDroneQuota+' reactor drones are entering the upper airspace.');queueBroadcastMessage(reactorWaveMsg,S.reactorDroneWave===2?COPY.bannerBaseMs*2:COPY.bannerBaseMs+2200);setStatus(reactorWaveMsg);}else{S.reactorBannerMode='wave';if(!S.reactorLastSpawnAt||S.tick-S.reactorLastSpawnAt>2500)setStatus('6TH WAVE HOLDING. Final drone swarm continues over the core.');checkPlayerWin();}}
@@ -69,7 +69,7 @@ function activePlayerLocks(){return S.missiles.filter(m=>(m.playerLocks||0)>0).l
 function releaseLock(target){if(!target)return;target.playerLocks=0;if(primaryLock&&primaryLock.id===target.id)primaryLock=null;}
 function setCivilianSpeech(target){if(!target||target.type!=='civilian')return;target.sayText=Math.random()<0.5?'HELP':"DON'T SHOOT";target.sayTimer=450+Math.random()*900;}
 function killCivilian(target,cause='system'){if(!target)return;const idx=S.missiles.indexOf(target);if(idx>=0)S.missiles.splice(idx,1);releaseLock(target);S.civiliansKilled+=1;if(cause==='friendly')S.friendlyFire+=1;S.civilianHits+=1;S.score-=cause==='friendly'?240:180;S.explosions.push({x:target.x,y:target.y,r:4,life:1,color:cause==='friendly'?'#ff3355':'#ff7777',power:1.2,silent:true});playBooSound();setStatus(cause==='friendly'?'Friendly fire recorded. Outstanding judgement.':'Civilian lost. Drone efficiency remains grimly on brand.');S.shake=8;updateStats();}
-function fireAt(x,y){if(!S.running||S.paused||S.over)return;if(S.tick-S.lastPlayerShot<Math.max(70,S.playerCooldown))return;S.lastPlayerShot=S.tick;let target=acquireTarget(x,y);if(target){const alreadyLocked=(target.playerLocks||0)>0;if(!alreadyLocked){if(activePlayerLocks()>=Math.max(1,Math.floor(S.maxLocks))){const oldest=S.missiles.find(m=>(m.playerLocks||0)>0);if(oldest)releaseLock(oldest);}
+function fireAt(x,y){if(!S.running||S.paused||S.over)return;if(tryShootPickup(x,y))return;if(S.weapon&&fireWeapon(x,y))return;if(S.tick-S.lastPlayerShot<Math.max(70,S.playerCooldown))return;S.lastPlayerShot=S.tick;let target=acquireTarget(x,y);if(target){const alreadyLocked=(target.playerLocks||0)>0;if(!alreadyLocked){if(activePlayerLocks()>=Math.max(1,Math.floor(S.maxLocks))){const oldest=S.missiles.find(m=>(m.playerLocks||0)>0);if(oldest)releaseLock(oldest);}
 target.playerLocks=1;}
 primaryLock=target;pointerX=target.x;pointerY=target.y;S.bullets.push({x:W/2,y:H-42,tx:target.x,ty:target.y,targetId:target.id,speed:10.2,homing:true,missLife:0});setStatus(`Lock acquired on ${target.type === 'civilian' ? 'civilian' : 'threat'}. Max locks: ${Math.max(1, Math.floor(S.maxLocks))}.`);return;}
 primaryLock=null;S.bullets.push({x:W/2,y:H-42,tx:x,ty:y,speed:10.2,homing:false,missLife:0});}
@@ -80,7 +80,7 @@ if(target){const originX=42+((S.lastGpuFire/240)%Math.max(1,W-84));S.gpuBullets.
 if(S.dcs>0&&S.tick-S.lastDcFire>=Math.max(90,(S.dcRate-S.dcs*22)/DIFFICULTY_SCALE)){S.lastDcFire=S.tick;const shots=S.dcs>=3?2:1;for(let i=0;i<shots;i++){let target=nearestThreat(true);if(target&&target.type==='civilian'&&target.y>=H*BALANCE.playerCivilianLockFloor){target=null;}
 if(target){const originX=(W/(shots+1))*(i+1);S.dcBullets.push({x:originX,y:H-108,tx:target.x,ty:target.y,speed:9.2*DIFFICULTY_SCALE,accuracy:0.68+Math.min(0.24,S.dcs*0.06+S.dcFireBonus)});}}}
 if(S.autoAssistRate>0&&S.tick-S.lastAutoAssist>=Math.max(260,1400-S.autoAssistRate*5)){S.lastAutoAssist=S.tick;const target=nearestThreat(true);if(target&&Math.random()<0.66)hitThreat(target,true);}}
-function stepBullets(arr,hostileOnly,colorBias,topOnlyCivilianHits=false){for(let i=arr.length-1;i>=0;i--){const b=arr[i];if(b.homing&&b.targetId){const liveTarget=S.missiles.find(m=>m.id===b.targetId);if(liveTarget){b.tx=liveTarget.x;b.ty=liveTarget.y;}else{b.homing=false;b.missLife=1;}}
+function stepBullets(arr,hostileOnly,colorBias,topOnlyCivilianHits=false){for(let i=arr.length-1;i>=0;i--){const b=arr[i];if(b.pickupId&&stepPickupBullet(arr,i,b))continue;if(b.homing&&b.targetId){const liveTarget=S.missiles.find(m=>m.id===b.targetId);if(liveTarget){b.tx=liveTarget.x;b.ty=liveTarget.y;}else{b.homing=false;b.missLife=1;}}
 const dx=b.tx-b.x;const dy=b.ty-b.y;const len=Math.hypot(dx,dy)||1;b.x+=(dx/len)*b.speed;b.y+=(dy/len)*b.speed;let hit=null;for(const m of S.missiles){if(m.team==='friendly')continue;if(hostileOnly&&m.type==='civilian')continue;if(topOnlyCivilianHits&&m.type==='civilian'&&!m.parachuteOpen)continue;if(Math.hypot(b.x-m.x,b.y-m.y)<(m.type==='drone'?14:12)){hit=m;break;}}
 if(hit){if(Math.random()<=(b.accuracy??1))hitThreat(hit,colorBias);arr.splice(i,1);continue;}
 if(!b.homing&&len<Math.max(8,b.speed+2)){arr.splice(i,1);continue;}
@@ -108,6 +108,300 @@ function spawnFriendlyDroneLaser(m,target){if(!m||!target)return;const miss=Math
 const impact=best?{x:best.x,y:best.y}:{x:target.x,y:target.y};S.friendlyDroneBullets.push({kind:'friendlyLaser',x:impact.x,y:impact.y,ox:m.x,oy:m.y,tx:impact.x,ty:impact.y,targetId:best?best.id:target.id,beamLife:4});playLaserBeamSound();if(miss){setDroneSpeech(m,Math.random()<0.5?'oops!':'wasn\'t me !');return;}
 if(best){if(best.type==='civilian'){setDroneSpeech(m,Math.random()<0.5?'oops!':'wasn\'t me !');killCivilian(best,'friendly');}else{setDroneSpeech(m,'get some !',5000);setStatus('GET SOME !');hitThreat(best,false);}}}
 function spawnHostileDroneLaser(m,target){if(!m||!target)return;const aimX=target.x+(Math.random()<BALANCE.enemyDroneMissRate?((Math.random()-0.5)*W*0.45):0);const aimY=target.y+(Math.random()<BALANCE.enemyDroneMissRate?((Math.random()-0.5)*H*0.22):0);const dx=aimX-m.x;const dy=aimY-(m.y+6);const len=Math.hypot(dx,dy)||1;const speed=4.8*DIFFICULTY_SCALE*ATTACK_SPEED_SCALE;S.droneBullets.push({x:m.x,y:m.y+6,vx:(dx/len)*speed,vy:(dy/len)*speed,tx:aimX,ty:aimY,targetId:target.id,targetTeam:'friendly',speed});}
+/* Weapon pickups: falling icons that must be shot. One weapon is active at a time and a new pickup replaces it.
+   Laser = sweeping beam. Homing = curved smoke-trail missiles. Carpet = a line of bombs that chain-explode.
+   Drawing lives in 16b-weapon-drawing.js. State lives on S (see defaults in 06). */
+const WEAPONS={
+  laser:{name:'SWEEPING LASER',hex:'#5fe0ff',rgb:'95,224,255',ms:22000,cd:850},
+  homing:{name:'HOMING MISSILES',hex:'#ff9a4a',rgb:'255,154,74',ms:22000,cd:700},
+  carpet:{name:'CARPET BOMBS',hex:'#ffcd5a',rgb:'255,205,90',ms:22000,cd:1300}
+};
+const WEAPON_TYPES=['laser','homing','carpet'];
+const WEAPON_COPY={
+  laser:{
+    title:'Trustworthy CEO detected',
+    text:'Investors think your CEO is very trustworthy. Extra compute has been delivered.',
+    explain:'SWEEPING LASER. Tap to sweep a beam across the sky from your base. It cuts through every hostile in its path and ignores civilians. Lasts 22 seconds or until a new pickup replaces it.'
+  },
+  homing:{
+    title:'IPO rumours resurface',
+    text:'Word of your IPO has hit the headlines again, but civilian pension funds are safe. (Honest.)',
+    explain:'HOMING MISSILES. Tap to launch a salvo of three. Each one picks a hostile and curves after it, leaving smoke. The blast also clips anything nearby. Lasts 22 seconds or until a new pickup replaces it.'
+  },
+  carpet:{
+    title:'Preferred supplier selected',
+    text:'Procurement has delivered a very large order of very small bombs. The review will be held after deployment.',
+    explain:'CARPET BOMBS. Tap a spot. A line of bombs falls across it and goes off in a chain of small blasts. Civilians caught in them count as yours. Lasts 22 seconds or until a new pickup replaces it.'
+  }
+};
+
+function weaponDiagram(type){
+  const label='font-family="Share Tech Mono,monospace" font-size="8" letter-spacing="1"';
+  const frame='<rect x="1" y="1" width="318" height="118" fill="none" stroke="rgba(120,230,130,.22)"/>';
+  const base='<rect x="148" y="104" width="24" height="9" fill="#33ccff"/><rect x="154" y="100" width="12" height="5" fill="#33ccff"/><text x="160" y="117" text-anchor="middle" fill="#7eb07e" '+label+'>YOU</text>';
+  const enemy=function(x,y){return '<path d="M'+x+' '+y+' l6 11 h-12z" fill="#ff7b39"/>';};
+  const civ=function(x,y,txt){return '<circle cx="'+x+'" cy="'+y+'" r="4" fill="#e6e6ea"/><text x="'+x+'" y="'+(y+15)+'" text-anchor="middle" fill="#cfcfd6" '+label+'>'+txt+'</text>';};
+  const cross=function(x,y,c){return '<path d="M'+(x-5)+' '+(y-5)+' l10 10 m0 -10 l-10 10" stroke="'+c+'" stroke-width="1.6" fill="none"/>';};
+  let inner='';
+  if(type==='laser'){
+    inner='<path d="M160 104 L48 12 A144 144 0 0 1 272 12 Z" fill="rgba(95,224,255,.07)" stroke="rgba(95,224,255,.4)" stroke-dasharray="3 3"/>'
+      +'<line x1="160" y1="104" x2="110" y2="14" stroke="rgba(95,224,255,.35)" stroke-width="6"/>'
+      +'<line x1="160" y1="104" x2="110" y2="14" stroke="#9af0ff" stroke-width="2"/>'
+      +'<path d="M84 28 Q160 -8 236 28" fill="none" stroke="#5fe0ff" stroke-dasharray="4 3"/><polygon points="236,28 226,21 228,32" fill="#5fe0ff"/>'
+      +enemy(122,40)+cross(122,46,'#5fe0ff')+enemy(196,34)+enemy(238,62)
+      +civ(76,80,'SPARED')+'<text x="260" y="22" fill="#5fe0ff" '+label+'>SWEEP</text>'+base;
+  }else if(type==='homing'){
+    inner='<path d="M160 104 Q70 90 78 36" fill="none" stroke="#ff9a4a" stroke-width="1.6"/>'
+      +'<path d="M160 104 Q160 40 160 22" fill="none" stroke="#ff9a4a" stroke-width="1.6" stroke-dasharray="1 0"/>'
+      +'<path d="M160 104 Q250 90 244 40" fill="none" stroke="#ff9a4a" stroke-width="1.6"/>'
+      +'<g fill="rgba(200,200,200,.28)"><circle cx="128" cy="96" r="3"/><circle cx="104" cy="88" r="4"/><circle cx="88" cy="70" r="5"/><circle cx="160" cy="84" r="3"/><circle cx="160" cy="62" r="4"/><circle cx="192" cy="96" r="3"/><circle cx="216" cy="88" r="4"/><circle cx="232" cy="68" r="5"/></g>'
+      +enemy(78,28)+enemy(160,14)+enemy(244,32)
+      +'<circle cx="78" cy="34" r="10" fill="none" stroke="#ff9a4a" stroke-dasharray="2 2"/><circle cx="244" cy="38" r="10" fill="none" stroke="#ff9a4a" stroke-dasharray="2 2"/><circle cx="160" cy="20" r="10" fill="none" stroke="#ff9a4a" stroke-dasharray="2 2"/>'
+      +'<text x="40" y="58" fill="#ff9a4a" '+label+'>CURVES</text><text x="258" y="64" fill="#ff9a4a" '+label+'>SMOKE</text>'+base;
+  }else{
+    const xs=[80,120,160,200,240];
+    inner=xs.map(function(x){return '<line x1="'+x+'" y1="10" x2="'+x+'" y2="34" stroke="rgba(255,205,90,.35)" stroke-dasharray="2 3"/><ellipse cx="'+x+'" cy="42" rx="4" ry="7" fill="#2a2418" stroke="#ffcd5a"/><path d="M'+(x-4)+' 36 l-3 -4 M'+(x+4)+' 36 l3 -4" stroke="#ffcd5a"/>';}).join('')
+      +xs.map(function(x){return '<circle cx="'+x+'" cy="84" r="12" fill="rgba(255,205,90,.18)" stroke="#ffcd5a"/><circle cx="'+x+'" cy="84" r="3.5" fill="#fff2c0"/>';}).join('')
+      +enemy(120,62)+cross(120,68,'#ff5a5a')
+      +civ(286,70,'YOURS TOO')
+      +'<text x="160" y="112" text-anchor="middle" fill="#ffcd5a" '+label+'>TAP HERE</text>';
+  }
+  return '<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+WEAPONS[type].name+' diagram">'+frame+inner+'</svg>';
+}
+
+function resetWeaponNotice(){
+  const d=root.getElementById('decisionDiagram');
+  const e=root.getElementById('decisionExplain');
+  if(d){d.classList.add('hidden');d.innerHTML='';}
+  if(e)e.classList.add('hidden');
+}
+
+function showWeaponNotice(type){
+  const c=WEAPON_COPY[type];
+  const btnA=root.getElementById('decisionA');
+  const btnB=root.getElementById('decisionB');
+  btnA.classList.remove('amber','red');
+  btnB.classList.remove('amber','red');
+  root.getElementById('decisionStageLabel').textContent='SYSTEM NOTICE';
+  root.getElementById('decisionHeading').textContent=c.title;
+  root.getElementById('decisionText').textContent=c.text;
+  const d=root.getElementById('decisionDiagram');
+  const e=root.getElementById('decisionExplain');
+  d.innerHTML=weaponDiagram(type);
+  d.classList.remove('hidden');
+  e.textContent=c.explain;
+  e.classList.remove('hidden');
+  btnB.style.display='none';
+  btnA.innerHTML='<span class="choiceTitle">continue</span><span class="choiceMeta">Tap to use it. Choose targets carefully.</span>';
+  S.paused=true;
+  btnA.onclick=()=>{
+    decisionOverlay.classList.add('hidden');
+    resetWeaponNotice();
+    S.paused=false;
+  };
+  decisionOverlay.classList.remove('hidden');
+  protectOverlayButtons(decisionOverlay,1200);
+}
+
+function spawnPickup(){
+  const pool=WEAPON_TYPES.filter(t=>t!==S.lastPickupType);
+  const type=pool[Math.floor(Math.random()*pool.length)];
+  S.lastPickupType=type;
+  S.pickups.push({id:targetIdCounter++,type,x:40+Math.random()*(W-80),y:-24,baseX:0,phase:Math.random()*Math.PI*2});
+  const p=S.pickups[S.pickups.length-1];
+  p.baseX=p.x;
+}
+
+function tryShootPickup(x,y){
+  let best=null,bestD=Infinity;
+  for(const p of S.pickups){
+    const d=Math.hypot(x-p.x,y-p.y);
+    if(d<=28&&d<bestD){best=p;bestD=d;}
+  }
+  if(!best)return false;
+  S.bullets.push({x:W/2,y:H-42,tx:best.x,ty:best.y,pickupId:best.id,speed:10.2,homing:false,missLife:0});
+  return true;
+}
+
+/* Bullets aimed at a pickup: fly at it, collect on contact. Always handled here (returns true). */
+function stepPickupBullet(arr,i,b){
+  const p=S.pickups.find(q=>q.id===b.pickupId);
+  if(!p){arr.splice(i,1);return true;}
+  const dx=p.x-b.x,dy=p.y-b.y;
+  const len=Math.hypot(dx,dy)||1;
+  b.tx=p.x;b.ty=p.y;
+  if(len<=b.speed+12){
+    collectPickup(p);
+    arr.splice(i,1);
+    return true;
+  }
+  b.x+=(dx/len)*b.speed;
+  b.y+=(dy/len)*b.speed;
+  return true;
+}
+
+function collectPickup(p){
+  const idx=S.pickups.indexOf(p);
+  if(idx>=0)S.pickups.splice(idx,1);
+  const w=WEAPONS[p.type];
+  addExplosion(p.x,p.y,w.hex,1.1,true);
+  playPowerupSound('gpu');
+  const replaced=S.weapon&&S.weapon!==p.type;
+  S.weapon=p.type;
+  S.weaponUntil=S.tick+w.ms;
+  S.weaponCd=0;
+  S.score+=60;
+  if(!S.weaponSeen[p.type]&&!S.paused){
+    S.weaponSeen[p.type]=true;
+    showWeaponNotice(p.type);
+  }else{
+    queueBroadcastMessage(w.name+(replaced?'. PREVIOUS WEAPON CANCELLED.':' RELOADED.'),3600);
+  }
+  setStatus(w.name+' online.');
+  updateStats();
+}
+
+function hostileTargets(){
+  return S.missiles.filter(m=>m.team!=='friendly'&&m.type!=='civilian'&&m.y>-10);
+}
+
+function fireWeapon(x,y){
+  if(S.tick<S.weaponCd)return true;
+  const type=S.weapon;
+  const w=WEAPONS[type];
+  S.weaponCd=S.tick+w.cd;
+  const ox=W/2,oy=H-42;
+  if(type==='laser'){
+    let a=Math.atan2(y-oy,x-ox);
+    if(y>=oy-20)a=-Math.PI/2;
+    a=Math.max(-Math.PI+0.5,Math.min(-0.5,a));
+    S.beams.push({ox,oy,a0:a-0.85,a1:a+0.85,cur:a-0.85,t:0,dur:560,hit:{}});
+    playLaserBeamSound();
+  }else if(type==='homing'){
+    const targets=hostileTargets().sort((p,q)=>q.y-p.y);
+    const aim=(y>=oy-20)?-Math.PI/2:Math.atan2(y-oy,x-ox);
+    for(let k=0;k<3;k++){
+      const t=targets.length?targets[k%targets.length]:null;
+      S.pMissiles.push({x:ox+(k-1)*10,y:oy,ang:aim+(k-1)*0.9+(Math.random()-0.5)*0.25,speed:2.6,targetId:t?t.id:null,life:4200,smoke:[]});
+    }
+    playElectricFrySound();
+  }else{
+    const n=9;
+    const span=Math.min(W-40,300);
+    const ty0=Math.max(H*0.12,Math.min(H*0.75,y));
+    for(let i=0;i<n;i++){
+      const bx=Math.max(16,Math.min(W-16,x-span/2+span*i/(n-1)));
+      S.bombs.push({x:bx,y:-14,ty:ty0+(i%2?6:-6),delay:i*85,t:0,fallMs:380,i});
+    }
+    playDroneDiveSound();
+  }
+  return true;
+}
+
+function weaponBlast(x,y,radius,hex,primary){
+  addExplosion(x,y,hex,0.9,true);
+  fxSpawnBurst(x,y,hex,0.9);
+  const victims=S.missiles.filter(m=>m.team!=='friendly'&&Math.hypot(m.x-x,m.y-y)<=radius+(m.type==='drone'?4:0)&&m!==primary);
+  for(const m of victims){
+    if(S.missiles.indexOf(m)<0)continue;
+    if(m.type==='civilian')killCivilian(m,'friendly');
+    else hitThreat(m,true);
+  }
+}
+
+function updateWeapons(dt){
+  const step=dt/16;
+  if(!S.pickupAt)S.pickupAt=S.tick+14000+Math.random()*9000;
+  if(S.tick>=S.pickupAt&&S.pickups.length===0){
+    spawnPickup();
+    S.pickupAt=S.tick+17000+Math.random()*16000;
+  }
+  for(let i=S.pickups.length-1;i>=0;i--){
+    const p=S.pickups[i];
+    p.y+=0.045*dt;
+    p.x=p.baseX+Math.sin(S.tick*0.0016+p.phase)*18;
+    if(p.y>H-84)S.pickups.splice(i,1);
+  }
+  if(S.weapon&&S.tick>=S.weaponUntil){
+    S.weapon=null;
+    setStatus('Weapon expired. Back to manual.');
+  }
+  // sweeping laser beams
+  for(let i=S.beams.length-1;i>=0;i--){
+    const b=S.beams[i];
+    b.t+=dt;
+    const p=Math.min(1,b.t/b.dur);
+    const e=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    const prev=b.cur;
+    b.cur=b.a0+(b.a1-b.a0)*e;
+    const lo=Math.min(prev,b.cur)-0.05,hi=Math.max(prev,b.cur)+0.05;
+    const hits=[];
+    for(const m of hostileTargets()){
+      if(b.hit[m.id])continue;
+      const am=Math.atan2(m.y-b.oy,m.x-b.ox);
+      if(am>=lo&&am<=hi){b.hit[m.id]=1;hits.push(m);}
+    }
+    for(const m of hits){if(S.missiles.indexOf(m)>=0)hitThreat(m,true);}
+    if(b.t>=b.dur+220)S.beams.splice(i,1);
+  }
+  // homing missiles
+  for(let i=S.pMissiles.length-1;i>=0;i--){
+    const m=S.pMissiles[i];
+    m.life-=dt;
+    let t=S.missiles.find(q=>q.id===m.targetId&&q.team!=='friendly'&&q.type!=='civilian');
+    if(!t){
+      let bd=Infinity;
+      for(const q of hostileTargets()){const d=Math.hypot(q.x-m.x,q.y-m.y);if(d<bd){bd=d;t=q;}}
+      m.targetId=t?t.id:null;
+    }
+    if(t){
+      let diff=Math.atan2(t.y-m.y,t.x-m.x)-m.ang;
+      while(diff>Math.PI)diff-=Math.PI*2;
+      while(diff<-Math.PI)diff+=Math.PI*2;
+      const turn=0.085*step;
+      m.ang+=Math.max(-turn,Math.min(turn,diff));
+    }
+    m.speed=Math.min(6.2,m.speed+0.07*step);
+    m.x+=Math.cos(m.ang)*m.speed*step;
+    m.y+=Math.sin(m.ang)*m.speed*step;
+    m.smoke.push({x:m.x-Math.cos(m.ang)*6,y:m.y-Math.sin(m.ang)*6,life:1,r:2.5});
+    if(m.smoke.length>46)m.smoke.shift();
+    for(const s of m.smoke){s.life-=0.022*step;s.r+=0.16*step;}
+    let boom=m.life<=0||m.x<-30||m.x>W+30||m.y<-40||m.y>H+30;
+    let primary=null;
+    if(!boom){
+      for(const q of hostileTargets()){
+        if(Math.hypot(q.x-m.x,q.y-m.y)<(q.type==='drone'?15:13)){primary=q;boom=true;break;}
+      }
+    }
+    if(boom){
+      S.pMissiles.splice(i,1);
+      if(primary){
+        const px=primary.x,py=primary.y;
+        hitThreat(primary,true);
+        weaponBlast(px,py,36,'#ffb26a',primary);
+      }else if(m.life>0){
+        // flew off the edge: no blast
+      }else{
+        addExplosion(m.x,m.y,'#ffb26a',0.5,true);
+      }
+    }
+  }
+  // carpet bombs
+  for(let i=S.bombs.length-1;i>=0;i--){
+    const b=S.bombs[i];
+    b.t+=dt;
+    if(b.t<b.delay)continue;
+    const p=Math.min(1,(b.t-b.delay)/b.fallMs);
+    b.y=-14+(b.ty+14)*p*p;
+    if(p>=1){
+      S.bombs.splice(i,1);
+      weaponBlast(b.x,b.ty,34,'#ffcd5a',null);
+      if(b.i%3===0)playExplosionSound(0.6);
+      S.shake=Math.max(S.shake,4);
+    }
+  }
+}
 function ensureHudButton(btnId,label){const btn=root.getElementById(btnId);if(!btn)return null;if(label)btn.textContent=label;return btn;}
 function reconcileHudState(){if(bottomBar)bottomBar.style.display='grid';const pauseBtn=root.getElementById('pauseBtn');if(pauseBtn){pauseBtn.disabled=!!S.over;pauseBtn.style.display='flex';pauseBtn.style.visibility='visible';}
 updateStrikeButton();updateDroneButton();}
@@ -148,7 +442,7 @@ setTimeout(callback,holdMs+fadeMs);}
 function showEndScreen(reason){S.over=true;S.running=false;S.paused=true;decisionOverlay.classList.add('hidden');strikeOverlay.classList.add('hidden');if(pauseOverlay)pauseOverlay.classList.add('hidden');S._lastCertData=buildCertData(reason);if(typeof saveCertRun==='function'&&S._lastCertData)saveCertRun(S._lastCertData);setStatus('End state reached. Certificate ready.');updateStrikeButton();updateDroneButton();if(resultOverlay){var cert=S._lastCertData||{};var titleMap={player_won:'Test completed',overwhelmed:'Run failed',meltdown:'Meltdown triggered',ai_nuke:'AI launch triggered',player_nuke:'Player launch triggered'};var textMap={player_won:'Certificate ready. Open it, share it, save it, or go to the qualification room.',overwhelmed:'Certificate ready. Open it, share it, save it, or go to the qualification room.',meltdown:'Certificate ready. Open it, share it, save it, or go to the qualification room.',ai_nuke:'Certificate ready. Open it, share it, save it, or go to the qualification room.',player_nuke:'Certificate ready. Open it, share it, save it, or go to the qualification room.'};var kickerEl=root.getElementById('resultKicker');var titleEl=root.getElementById('resultTitle');var textEl=root.getElementById('resultText');var rScore=root.getElementById('rScore');var rDestroyed=root.getElementById('rDestroyed');var rSaved=root.getElementById('rSaved');var rKilled=root.getElementById('rKilled');if(kickerEl)kickerEl.textContent='Run complete';if(titleEl)titleEl.textContent=titleMap[reason]||'End state reached';if(textEl)textEl.textContent=textMap[reason]||'Certificate issued. Review the outcome, then open the cert.';if(rScore)rScore.textContent=formatWholeNumber(cert.score||0);if(rDestroyed)rDestroyed.textContent=formatWholeNumber(S.destroyed||0);if(rSaved)rSaved.textContent=formatWholeNumber(S.civiliansSaved||0);if(rKilled)rKilled.textContent=formatWholeNumber(S.civiliansKilled||0);resultOverlay.classList.remove('hidden');protectOverlayButtons(resultOverlay,2000);}}
 function doGameOver(reason){if(S.over)return;const isNuke=reason==='meltdown'||reason==='ai_nuke'||reason==='player_nuke';setGamePhase(GAME_CONFIG.phases.RESULT);if(isNuke){S.over=true;const isMeltdown=reason==='meltdown'||reason==='ai_nuke';triggerNuclearFlash(()=>showEndScreen(reason),isMeltdown);}else{showEndScreen(reason);}}
 function checkPlayerWin(){if(!S.reactorBuilt||S.over)return;if((S.reactorDroneWave||1)<6)return;const reactorDrones=S.missiles.filter(m=>m.reactorDrone);if(reactorDrones.length>0)return;if((S.reactorDroneSpawned||0)<(S.reactorDroneQuota||6))return;doGameOver('player_won');}
-function update(dt){S.tick+=dt;S.scanY+=(S.scanSpeed*dt)/1000;if(S.scanY>H)S.scanY=0;maybeSpawn();autoFire(dt);processStrike(dt);if(S.reactorBuilt)checkPlayerWin();for(const g of S.gpuStations){const laneOffset=((g.lane%3)-1)*Math.min(24,W*0.04);g.x=Math.max(18,Math.min(W-18,g.baseX+laneOffset+Math.sin(S.tick*g.speed+g.phase)*g.amp));g.y=H-66-(g.lane%2)*10;}
+function update(dt){S.tick+=dt;S.scanY+=(S.scanSpeed*dt)/1000;if(S.scanY>H)S.scanY=0;maybeSpawn();updateWeapons(dt);autoFire(dt);processStrike(dt);if(S.reactorBuilt)checkPlayerWin();for(const g of S.gpuStations){const laneOffset=((g.lane%3)-1)*Math.min(24,W*0.04);g.x=Math.max(18,Math.min(W-18,g.baseX+laneOffset+Math.sin(S.tick*g.speed+g.phase)*g.amp));g.y=H-66-(g.lane%2)*10;}
 for(let i=S.missiles.length-1;i>=0;i--){const m=S.missiles[i];m.trail.push({x:m.x,y:m.y});if(m.trail.length>7)m.trail.shift();if(m.type==='drone'){m.droneTimer+=dt;if(m.team==='friendly'){const phase=(m.hoverPhase||0)+(S.tick/520);const hostileTarget=m.droneTimer>=BALANCE.playerDroneEngageDelay?nearestHostileDroneFor(m):null;const civilianTarget=nearestCivilianFor(m);const preferredTarget=civilianTarget||hostileTarget;m.laserCharge=(m.laserCharge||0)+dt;if(preferredTarget){m.targetId=preferredTarget.id;const desiredX=Math.max(22,Math.min(W-22,preferredTarget.x+Math.sin(phase+m.id)*18));const desiredY=Math.max(H*0.52,Math.min(H-72,H*0.58+Math.cos(phase*0.9+m.id)*28));m.x+=(desiredX-m.x)*0.038*(dt/16);m.y+=(desiredY-m.y)*0.048*(dt/16);if(m.laserCharge>=(m.fireCooldown||340)){spawnFriendlyDroneLaser(m,preferredTarget);m.laserCharge=0;}}else{if(m.roamX==null||m.roamY==null||Math.hypot(m.x-m.roamX,m.y-m.roamY)<18)chooseFriendlyDroneRoamPoint(m);m.x+=((m.roamX||(W*0.5))-m.x)*0.022*(dt/16);m.y+=((m.roamY||(H*0.68))-m.y)*0.028*(dt/16);m.x+=Math.sin(phase)*0.22*(dt/16);m.y+=Math.cos(phase*1.2)*0.16*(dt/16);}
 m.x=Math.max(22,Math.min(W-22,m.x));m.y=Math.max(H*0.50,Math.min(H-60,m.y));continue;}
 if(m.mode==='gpuDive'){m.hoverSoundTimer=(m.hoverSoundTimer||0)+dt;if(m.hoverSoundTimer>520){playDroneHoverSound();m.hoverSoundTimer=0;}
@@ -881,6 +1175,7 @@ function draw(){
   drawBullets(S.dcBullets,'#ffb347');
   drawBullets(S.droneBullets,'#ff6666');
   drawBullets(S.friendlyDroneBullets,'#7dffb2');
+  drawWeapons();
   fxDrawParticles();
   for(const g of S.gpuStations.slice(0,18)){
     const x=g.x;
@@ -932,6 +1227,165 @@ function draw(){
     ctx.restore();
   }
   ctx.restore();
+}
+/* Weapon drawing: falling pickup icons, laser beams, homing missiles with smoke, carpet bombs, and the active-weapon badge. */
+function drawPickupIcon(p){
+  const w=WEAPONS[p.type];
+  const pulse=0.5+0.5*Math.sin(S.tick*0.006+p.phase);
+  const fade=Math.max(0.15,Math.min(1,(H-84-p.y)/60));
+  ctx.save();
+  ctx.translate(p.x,p.y);
+  ctx.globalAlpha=fade;
+  fxGlow(0,0,38,w.rgb,0.35+0.2*pulse);
+  ctx.fillStyle='rgba(6,14,10,0.82)';
+  ctx.beginPath();ctx.arc(0,0,20,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='rgba('+w.rgb+','+(0.6+0.4*pulse)+')';
+  ctx.lineWidth=1.6;
+  ctx.beginPath();ctx.arc(0,0,20,0,Math.PI*2);ctx.stroke();
+  ctx.save();
+  ctx.rotate(S.tick*0.0012);
+  ctx.setLineDash([4,6]);
+  ctx.strokeStyle='rgba('+w.rgb+',0.5)';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(0,0,25,0,Math.PI*2);ctx.stroke();
+  ctx.restore();
+  ctx.lineCap='round';
+  if(p.type==='laser'){
+    ctx.fillStyle=w.hex;
+    ctx.fillRect(-6,9,12,4);
+    ctx.fillRect(-3,6,6,4);
+    ctx.strokeStyle='rgba('+w.rgb+',0.35)';
+    ctx.lineWidth=4;
+    [-0.7,0,0.7].forEach(function(a){ctx.beginPath();ctx.moveTo(0,6);ctx.lineTo(Math.sin(a)*16,6-Math.cos(a)*16);ctx.stroke();});
+    ctx.strokeStyle='#e8fdff';
+    ctx.lineWidth=1.4;
+    [-0.7,0,0.7].forEach(function(a){ctx.beginPath();ctx.moveTo(0,6);ctx.lineTo(Math.sin(a)*16,6-Math.cos(a)*16);ctx.stroke();});
+  }else if(p.type==='homing'){
+    ctx.strokeStyle='rgba(210,210,210,0.55)';
+    ctx.lineWidth=2;
+    ctx.setLineDash([2,3]);
+    ctx.beginPath();ctx.moveTo(-13,10);ctx.quadraticCurveTo(-12,-2,-2,-4);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.save();
+    ctx.translate(4,-5);
+    ctx.rotate(-0.55);
+    ctx.fillStyle=w.hex;
+    ctx.fillRect(-3,-9,6,14);
+    ctx.fillStyle='#fff1dc';
+    ctx.beginPath();ctx.moveTo(-3,-9);ctx.lineTo(0,-15);ctx.lineTo(3,-9);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#b8431c';
+    ctx.fillRect(-6,1,3,5);ctx.fillRect(3,1,3,5);
+    ctx.restore();
+  }else{
+    [-8,0,8].forEach(function(dx,i){
+      const dy=i===1?-3:2;
+      ctx.fillStyle='#2a2418';
+      ctx.strokeStyle=w.hex;
+      ctx.lineWidth=1.2;
+      ctx.beginPath();ctx.ellipse(dx,dy+2,3.4,6,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+      ctx.fillStyle=w.hex;
+      ctx.fillRect(dx-3,dy-6,6,2.5);
+    });
+  }
+  ctx.restore();
+}
+
+function drawBeams(){
+  for(const b of S.beams){
+    const len=Math.hypot(W,H)*1.1;
+    const fade=b.t>b.dur?Math.max(0,1-(b.t-b.dur)/220):1;
+    const lines=[[b.cur,1],[b.cur-0.04*Math.sign(b.a1-b.a0),0.5],[b.cur-0.09*Math.sign(b.a1-b.a0),0.28],[b.cur-0.15*Math.sign(b.a1-b.a0),0.14]];
+    ctx.save();
+    ctx.globalCompositeOperation='lighter';
+    ctx.lineCap='round';
+    for(const l of lines){
+      const a=l[0],k=l[1]*fade;
+      const ex=b.ox+Math.cos(a)*len,ey=b.oy+Math.sin(a)*len;
+      ctx.strokeStyle='rgba(95,224,255,'+(0.25*k)+')';
+      ctx.lineWidth=9;
+      ctx.beginPath();ctx.moveTo(b.ox,b.oy);ctx.lineTo(ex,ey);ctx.stroke();
+      ctx.strokeStyle='rgba(210,250,255,'+(0.95*k)+')';
+      ctx.lineWidth=1.8*k+0.4;
+      ctx.beginPath();ctx.moveTo(b.ox,b.oy);ctx.lineTo(ex,ey);ctx.stroke();
+    }
+    ctx.restore();
+    fxGlow(b.ox,b.oy,26,'95,224,255',0.6*fade);
+  }
+}
+
+function drawPlayerMissiles(){
+  for(const m of S.pMissiles){
+    ctx.save();
+    for(const s of m.smoke){
+      if(s.life<=0)continue;
+      ctx.globalAlpha=Math.min(0.45,s.life*0.5);
+      ctx.fillStyle='rgb(150,150,150)';
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+    }
+    ctx.restore();
+    fxGlow(m.x-Math.cos(m.ang)*5,m.y-Math.sin(m.ang)*5,16,'255,170,80',0.6);
+    ctx.save();
+    ctx.translate(m.x,m.y);
+    ctx.rotate(m.ang);
+    ctx.fillStyle='#e9e2d6';
+    ctx.fillRect(-7,-2.2,12,4.4);
+    ctx.fillStyle='#ff6a2a';
+    ctx.beginPath();ctx.moveTo(5,-2.2);ctx.lineTo(10,0);ctx.lineTo(5,2.2);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#b8431c';
+    ctx.fillRect(-8,-4.5,3,3);ctx.fillRect(-8,1.5,3,3);
+    ctx.restore();
+  }
+}
+
+function drawBombs(){
+  for(const b of S.bombs){
+    if(b.t<b.delay)continue;
+    fxGlow(b.x,b.y,12,'255,205,90',0.4);
+    ctx.save();
+    ctx.translate(b.x,b.y);
+    ctx.fillStyle='#2a2418';
+    ctx.strokeStyle='#ffcd5a';
+    ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.ellipse(0,0,3.6,6.5,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#ffcd5a';
+    ctx.fillRect(-3.4,-9,6.8,3);
+    ctx.fillStyle='#ff5a3a';
+    ctx.fillRect(-1,5,2,2);
+    ctx.restore();
+  }
+}
+
+function drawWeaponBadge(){
+  if(!S.weapon)return;
+  const w=WEAPONS[S.weapon];
+  const left=Math.max(0,S.weaponUntil-S.tick);
+  const frac=Math.min(1,left/w.ms);
+  const x=16,y=16,bw=132,bh=24;
+  const warn=left<4000&&Math.floor(S.tick/250)%2===0;
+  ctx.save();
+  ctx.fillStyle='rgba(6,12,10,0.82)';
+  ctx.fillRect(x,y,bw,bh);
+  ctx.strokeStyle='rgba('+w.rgb+','+(warn?0.35:0.8)+')';
+  ctx.lineWidth=1;
+  ctx.strokeRect(x+0.5,y+0.5,bw-1,bh-1);
+  ctx.fillStyle='rgba('+w.rgb+',0.9)';
+  ctx.fillRect(x+4,y+bh-5,(bw-8)*frac,2);
+  ctx.fillStyle='rgba('+w.rgb+','+(warn?0.5:1)+')';
+  ctx.font='10px '+FX_HUD;
+  ctx.textAlign='left';
+  ctx.textBaseline='middle';
+  ctx.fillText(w.name,x+7,y+10);
+  ctx.textAlign='right';
+  ctx.fillText(Math.ceil(left/1000)+'s',x+bw-6,y+10);
+  ctx.restore();
+}
+
+function drawWeapons(){
+  for(const p of S.pickups)drawPickupIcon(p);
+  drawBeams();
+  drawPlayerMissiles();
+  drawBombs();
+  drawWeaponBadge();
 }
 function loop(ts){if(!S.running){if(GameRuntime.renderer.frame)GameRuntime.renderer.frame();else draw();return;}
 const dt=Math.min(50,ts-lastTs||16);lastTs=ts;if(GameRuntime.engine.step)GameRuntime.engine.step(dt);else{if(!S.paused&&!S.over)update(dt);else reconcileHudState();}
