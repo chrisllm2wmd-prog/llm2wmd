@@ -14,7 +14,7 @@ It is built and run by one person, Chris. Chris does not write code. Claude make
 - `data/headline-stories.js` — Headline Mode stories. **New stories go at the START of the array** so they show first.
 - `data/system-stories.js` — System Analysis pieces.
 - `data/shop-products.js` — product images, names, prices, sizes.
-- `game/` — Today's Game (`game.js` engine, `game-styles.js`, `game-markup.js`, `game-overlay.css`).
+- `game/` — Today's Game. **Edit the small parts in `game/src/`, never `game/game.js`** (it is generated). Then run `python tools/build-game.py` and commit both. `game-certs.js` is the certificate / Qualification Room code, `game-styles.js` and `game-markup.js` are the game's CSS/HTML, `game-overlay.css` is the popup frame. Full part list is in `README.md`.
 - `images/` — product photos and swatches. Product images belong in `images/products/`.
 
 The order of `<link>` and `<script>` tags in `index.html` matters. Add new files next to related ones; never reorder existing tags. Do not merge scripts together — some define functions with the same names on purpose, and load order decides which wins.
@@ -29,7 +29,7 @@ The order of `<link>` and `<script>` tags in `index.html` matters. Add new files
 - Don't show Chris code as the answer. Make the change in the files and tell him plainly what changed.
 
 ## Before committing
-1. Syntax-check any JS you touched (`node --check file.js`).
+1. Syntax-check any JS you touched (`node --check file.js` if node is installed; otherwise parse it in the browser pane). If you touched `game/src/`, run `python tools/build-game.py`, then `python tools/build-game.py --check` must say it is up to date.
 2. Load the site locally (e.g. `python -m http.server`) and check the pages you changed, on desktop and mobile widths, in both the Dark and Simple themes. Use a headless browser with real clicks if one is available. Confirm there are no console errors.
 3. Check nothing has ended up in a nested folder (e.g. `images/images/`, `css/css/`).
 4. Commit with a clear message.

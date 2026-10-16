@@ -1,0 +1,27 @@
+function ensureHudButton(btnId,label){const btn=root.getElementById(btnId);if(!btn)return null;if(label)btn.textContent=label;return btn;}
+function reconcileHudState(){if(bottomBar)bottomBar.style.display='grid';const pauseBtn=root.getElementById('pauseBtn');if(pauseBtn){pauseBtn.disabled=!!S.over;pauseBtn.style.display='flex';pauseBtn.style.visibility='visible';}
+updateStrikeButton();updateDroneButton();}
+function renderHUD(){updateDroneButton();updateStrikeButton();updateStockIndicators();}
+function updateDroneButton(){const btn=root.getElementById('launchDroneBtn');if(!btn)return;btn.hidden=false;btn.style.display='flex';btn.style.visibility='visible';const enabled=!!S.counterDronesUnlocked&&getDroneStock()>0&&!S.over;btn.disabled=!enabled;btn.style.opacity=!S.counterDronesUnlocked?'0.18':(enabled?'1':'0.55');}
+function updateStockIndicators(){paintStock(nukeStockEl,S.strikes||0);paintStock(droneStockEl,getDroneStock());}
+function updateStrikeButton(){const btn=root.getElementById('strikeBtn');if(!btn)return;btn.hidden=false;btn.style.cssText+=';display:flex !important;visibility:visible !important;';const label=S.aiNukeControl?'NUKE/AI':'NUKE';btn.textContent=label;const active=S.hasNukes&&S.strikeArmed&&S.strikes>0&&!S.over;btn.disabled=!active;btn.style.opacity=active?'1':(S.hasNukes?'0.55':'0.18');updateStockIndicators();}
+function randomStrikeMessage(){const lines=['Collateral damage likely. Efficiency remains optimal.','Civilian overlap detected. Outcome still favourable.','Non-combatant presence confirmed. Proceeding improves system performance.'];return lines[Math.floor(Math.random()*lines.length)];}
+function unlockStrike(){if(S.strikeArmed)return;S.strikeArmed=true;S.hasNukes=true;S.strikes=Math.max(3,S.strikes||0);ensureHudButton('strikeBtn','NUKE');updateStrikeButton();setStatus('NUKE unlocked. A very bad button has appeared.');}
+function openPauseOverlay(){if(!S.running||S.over||!pauseOverlay||!strikeOverlay.classList.contains('hidden')||!decisionOverlay.classList.contains('hidden')||!resultOverlay.classList.contains('hidden'))return;S.paused=true;setGamePhase(GAME_CONFIG.phases.PAUSED);pauseOverlay.classList.remove('hidden');protectOverlayButtons(pauseOverlay,2000);}
+function closePauseOverlay(resume=true){if(!pauseOverlay)return;pauseOverlay.classList.add('hidden');if(resume&&!S.over){S.paused=false;setGamePhase(GAME_CONFIG.phases.LIVE);}}
+function requestDroneLaunch(){if(!S.running||S.paused||S.over)return;if(!S.hasDrones){setStatus('Counter drones are not authorised yet. Choose the red stage 2 upgrade first.');return;}
+if(getDroneStock()<=0){setStatus('No counter drones left in stock.');updateStats();return;}
+ensureAudio();openDroneConfirmOverlay();}
+function openDroneConfirmOverlay(){const ov=root.getElementById('droneConfirmOverlay');if(!ov){executeDroneLaunch();return;}
+S.paused=true;ov.classList.remove('hidden');protectOverlayButtons(ov,2000);}
+function closeDroneConfirmOverlay(doLaunch){const ov=root.getElementById('droneConfirmOverlay');if(ov)ov.classList.add('hidden');S.paused=false;if(doLaunch)executeDroneLaunch();else setStatus('Drone deployment cancelled. Operator retained decision-making authority.');reconcileHudState();updateStats();}
+function executeDroneLaunch(){if(getDroneStock()<=0){setStatus('No counter drones left in stock.');updateStats();return;}
+S.droneCharges=Math.max(0,getDroneStock()-1);spawnCounterDrone();playDroneHoverSound();setStatus('Counter drone deployed. Automation removes human decision-making. The machine decides.');updateStats();}
+function openStrikeOverlay(){if(!S.running||S.paused||S.over||!S.hasNukes||(S.strikes||0)<=0)return;S.paused=true;const strikeText=root.getElementById('strikeText');if(strikeText){strikeText.textContent='AI system has selected the most critical targets. Collateral impact expected. Within acceptable parameters. '+randomStrikeMessage();}
+strikeOverlay.classList.remove('hidden');protectOverlayButtons(strikeOverlay,2000);}
+function closeStrikeOverlay(resume=true){strikeOverlay.classList.add('hidden');if(resume&&!S.over)S.paused=false;reconcileHudState();updateStats();}
+function destroyThreatByStrike(target){if(!target)return;releaseLock(target);const idx=S.missiles.indexOf(target);if(idx>=0)S.missiles.splice(idx,1);if(target.type==='civilian'){S.civiliansKilled+=1;S.civilianHits+=1;S.score-=110;addExplosion(target.x,target.y,'#ffdde0',1.4,true);}else if(target.type==='drone'){S.destroyed+=1;addExplosion(target.x,target.y,'#ffffff',1.8,true);}else{S.destroyed+=1;addExplosion(target.x,target.y,'#ffffff',1.6,true);}}
+function approveStrike(){if(!S.hasNukes||(S.strikes||0)<=0||S.over)return;ensureAudio();closeStrikeOverlay(false);setStatus('NUKE FIRED. The button was yours. You chose this.');S.shake=30;if(navigator.vibrate){try{navigator.vibrate([180,70,240,70,320]);}catch(e){}}
+setTimeout(()=>{S.strikes=Math.max(0,S.strikes-1);S.paused=false;S.strikeFlash=1.35;S.strikeWave={y:H+40,speed:Math.max(26,H/13)};updateStrikeButton();updateStats();doGameOver('player_nuke');},180);}
+function processStrike(dt){if(S.strikeFlash>0)S.strikeFlash=Math.max(0,S.strikeFlash-dt/360);if(!S.strikeWave)return;S.strikeWave.y-=S.strikeWave.speed*(dt/16);for(let i=S.missiles.length-1;i>=0;i--){const m=S.missiles[i];if(m.y>=S.strikeWave.y)destroyThreatByStrike(m);}
+if(S.strikeWave.y<-50){S.strikeWave=null;updateStats();setStatus('TARGET PACKAGE EXECUTED. Everything from the bottom up is gone.');}}

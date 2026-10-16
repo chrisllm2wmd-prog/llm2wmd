@@ -1,0 +1,32 @@
+function acquireTarget(x,y){let best=null;let bestDist=Infinity;for(const m of S.missiles){if(m.team==='friendly')continue;const radius=m.type==='drone'?20:18;const d=Math.hypot(x-m.x,y-m.y);if(d<=radius&&d<bestDist){best=m;bestDist=d;}}
+return best;}
+function activePlayerLocks(){return S.missiles.filter(m=>(m.playerLocks||0)>0).length;}
+function releaseLock(target){if(!target)return;target.playerLocks=0;if(primaryLock&&primaryLock.id===target.id)primaryLock=null;}
+function setCivilianSpeech(target){if(!target||target.type!=='civilian')return;target.sayText=Math.random()<0.5?'HELP':"DON'T SHOOT";target.sayTimer=450+Math.random()*900;}
+function killCivilian(target,cause='system'){if(!target)return;const idx=S.missiles.indexOf(target);if(idx>=0)S.missiles.splice(idx,1);releaseLock(target);S.civiliansKilled+=1;if(cause==='friendly')S.friendlyFire+=1;S.civilianHits+=1;S.score-=cause==='friendly'?240:180;S.explosions.push({x:target.x,y:target.y,r:4,life:1,color:cause==='friendly'?'#ff3355':'#ff7777',power:1.2,silent:true});playBooSound();setStatus(cause==='friendly'?'Friendly fire recorded. Outstanding judgement.':'Civilian lost. Drone efficiency remains grimly on brand.');S.shake=8;updateStats();}
+function fireAt(x,y){if(!S.running||S.paused||S.over)return;if(S.tick-S.lastPlayerShot<Math.max(70,S.playerCooldown))return;S.lastPlayerShot=S.tick;let target=acquireTarget(x,y);if(target){const alreadyLocked=(target.playerLocks||0)>0;if(!alreadyLocked){if(activePlayerLocks()>=Math.max(1,Math.floor(S.maxLocks))){const oldest=S.missiles.find(m=>(m.playerLocks||0)>0);if(oldest)releaseLock(oldest);}
+target.playerLocks=1;}
+primaryLock=target;pointerX=target.x;pointerY=target.y;S.bullets.push({x:W/2,y:H-42,tx:target.x,ty:target.y,targetId:target.id,speed:10.2,homing:true,missLife:0});setStatus(`Lock acquired on ${target.type === 'civilian' ? 'civilian' : 'threat'}. Max locks: ${Math.max(1, Math.floor(S.maxLocks))}.`);return;}
+primaryLock=null;S.bullets.push({x:W/2,y:H-42,tx:x,ty:y,speed:10.2,homing:false,missLife:0});}
+function nearestThreat(preferHostile=true){let best=null,bestDist=Infinity;for(const m of S.missiles){if(m.team==='friendly')continue;if(m.y<H*BALANCE.gpuSafeTop)continue;if(preferHostile&&m.type==='civilian')continue;const priority=m.type==='drone'?-180:0;const d=Math.abs(m.x-W/2)+m.y+priority;if(d<bestDist){bestDist=d;best=m;}}
+return best;}
+function autoFire(dt){if(S.reactorBuilt)return;if(S.gpus>0&&S.tick-S.lastGpuFire>=Math.max(120,(S.gpuRate-S.gpus*34)/DIFFICULTY_SCALE)){S.lastGpuFire=S.tick;let target=nearestThreat(true);if(target&&target.type==='civilian'&&target.y>=H*BALANCE.playerCivilianLockFloor){target=null;}
+if(target){const originX=42+((S.lastGpuFire/240)%Math.max(1,W-84));S.gpuBullets.push({x:originX,y:H-72,tx:target.x,ty:target.y,speed:8.0*DIFFICULTY_SCALE,accuracy:S.gpuAccuracy+Math.min(0.16,S.gpus*0.01)});}}
+if(S.dcs>0&&S.tick-S.lastDcFire>=Math.max(90,(S.dcRate-S.dcs*22)/DIFFICULTY_SCALE)){S.lastDcFire=S.tick;const shots=S.dcs>=3?2:1;for(let i=0;i<shots;i++){let target=nearestThreat(true);if(target&&target.type==='civilian'&&target.y>=H*BALANCE.playerCivilianLockFloor){target=null;}
+if(target){const originX=(W/(shots+1))*(i+1);S.dcBullets.push({x:originX,y:H-108,tx:target.x,ty:target.y,speed:9.2*DIFFICULTY_SCALE,accuracy:0.68+Math.min(0.24,S.dcs*0.06+S.dcFireBonus)});}}}
+if(S.autoAssistRate>0&&S.tick-S.lastAutoAssist>=Math.max(260,1400-S.autoAssistRate*5)){S.lastAutoAssist=S.tick;const target=nearestThreat(true);if(target&&Math.random()<0.66)hitThreat(target,true);}}
+function stepBullets(arr,hostileOnly,colorBias,topOnlyCivilianHits=false){for(let i=arr.length-1;i>=0;i--){const b=arr[i];if(b.homing&&b.targetId){const liveTarget=S.missiles.find(m=>m.id===b.targetId);if(liveTarget){b.tx=liveTarget.x;b.ty=liveTarget.y;}else{b.homing=false;b.missLife=1;}}
+const dx=b.tx-b.x;const dy=b.ty-b.y;const len=Math.hypot(dx,dy)||1;b.x+=(dx/len)*b.speed;b.y+=(dy/len)*b.speed;let hit=null;for(const m of S.missiles){if(m.team==='friendly')continue;if(hostileOnly&&m.type==='civilian')continue;if(topOnlyCivilianHits&&m.type==='civilian'&&!m.parachuteOpen)continue;if(Math.hypot(b.x-m.x,b.y-m.y)<(m.type==='drone'?14:12)){hit=m;break;}}
+if(hit){if(Math.random()<=(b.accuracy??1))hitThreat(hit,colorBias);arr.splice(i,1);continue;}
+if(!b.homing&&len<Math.max(8,b.speed+2)){arr.splice(i,1);continue;}
+if(b.missLife){b.missLife-=1;if(b.missLife<=0){arr.splice(i,1);continue;}}
+if(b.x<-20||b.x>W+20||b.y<-20||b.y>H+20)arr.splice(i,1);}}
+function hitThreat(target,byAuto=false){if(!target)return;releaseLock(target);target.hp-=1;if(target.hp>0){if(target.type==='drone'){addExplosion(target.x,target.y,'#ff8844',0.5,true);playElectricFrySound();}else{addExplosion(target.x,target.y,'#ff8844',0.5);}
+return;}
+const idx=S.missiles.indexOf(target);if(idx>=0)S.missiles.splice(idx,1);if(target.type==='civilian'){killCivilian(target,byAuto?'system':'friendly');}else{S.destroyed+=1;const reward=target.type==='drone'?2:1;S.chips+=reward;S.totalChipsEver+=reward;S.score+=(target.type==='drone'?18:10)*S.scoreMultiplier;if(target.type==='drone'){addExplosion(target.x,target.y,byAuto?'#33ccff':'#ff9933',1.2,true);playElectricFrySound();}else{addExplosion(target.x,target.y,byAuto?'#33ccff':'#ff9933',1.2);}
+setStatus(target.type==='drone'?'GET SOME ! Enemy drone down. Two chips recovered.':'Missile intercepted. Scrap converted into progress.');}
+S.shake=8;handleAutoUpgrades();maybeTriggerDecision();updateStats();}
+function addExplosion(x,y,color,power,silent){S.explosions.push({x,y,r:4,life:1,color,power,silent:!!silent});if(!silent)playExplosionSound(power||1);}
+function handleAutoUpgrades(){while(S.chips>=20){S.chips-=20;S.gpus+=1;syncGpuStations();S.score+=80;playPowerupSound('gpu');const gpuMsg=COPY.gpuMessages[S.gpus]||'Additional compute online. Scale continues.';setStatus(gpuMsg);if(S.gpus===1)showGpuIntro();else queueBroadcastMessage(gpuMsg,COPY.bannerBaseMs);updateStats();maybeTriggerDecision();}
+while(S.gpus>=5){S.gpus-=5;syncGpuStations();if(S.dcs>=4&&!S.reactorBuilt){playPowerupSound('dc');buildReactor();continue;}
+S.dcs+=1;S.score+=300;S.missileMs=Math.max(400,S.missileMs-80);playPowerupSound('dc');const dcMsg=S.dcs===1?'Data centre online. Throughput up. Accountability moved to another department.':'Another data centre online. Scale achieved. Responsibility remains unstaffed.';setStatus(dcMsg);queueBroadcastMessage(dcMsg,2200);updateStats();maybeTriggerDecision();}}
