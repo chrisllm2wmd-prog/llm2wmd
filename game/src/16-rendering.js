@@ -91,46 +91,155 @@ function wrapBannerLines(msg,font,maxWidth,maxLines){
   return lines;
 }
 
+/* Banner animation. Each banner (wave label / broadcast message) runs a timeline:
+   1. fly-in: letters streak in from the sides and settle
+   2. warning blink: flashing red with hazard bars
+   3. wave label only: once attacks start (or after a hold) it sinks to the background, dim and pulsing */
+const fxBanner={wave:{key:'',t:0,bgOn:false,bg:0},cast:{key:'',t:0,bgOn:false,bg:0}};
+let fxFrameDt=16;
+function fxClamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function fxEaseOutBack(p){const q=p-1;return 1+2.70158*q*q*q+1.70158*q*q;}
+function fxHostileCount(){let n=0;for(const m of S.missiles){if(m.team!=='friendly'&&m.type!=='civilian')n++;}return n;}
+
+function drawBannerLine(line,cx,y,startIdx,t,alpha,rgb,sc){
+  const sp=2;
+  const widths=[];
+  let total=0;
+  for(const ch of line){const w=ctx.measureText(ch).width;widths.push(w);total+=w+sp;}
+  total-=sp;
+  const fit=Math.min(1,(W*0.8)/Math.max(1,total))*sc;
+  let x=-total/2;
+  let i=0;
+  for(const ch of line){
+    const g=startIdx+i;
+    const p=fxClamp((t-g*30)/600,0,1);
+    const e=fxEaseOutBack(p);
+    const dir=g%2?1:-1;
+    const fromX=dir*(W*0.55+(g*13)%60);
+    const fromY=((g*37)%90)-45;
+    const ox=fromX*(1-e);
+    const oy=fromY*(1-e);
+    const s=(1+1.4*(1-e))*fit;
+    const rot=dir*0.6*(1-e);
+    const a=alpha*fxClamp(p*2.5,0,1);
+    if(a>0.01){
+      ctx.save();
+      ctx.translate(cx+(x+widths[i]/2)*fit+ox,y+oy);
+      ctx.rotate(rot);
+      ctx.scale(s,s);
+      if(p<1){
+        for(let k=3;k>=1;k--){
+          ctx.fillStyle='rgba('+rgb+','+(a*0.14)+')';
+          ctx.fillText(ch,-widths[i]/2+dir*k*9*(1-e),0);
+        }
+      }
+      ctx.fillStyle='rgba(255,60,50,'+(a*0.3)+')';
+      ctx.fillText(ch,-widths[i]/2+1.5,1.5);
+      ctx.fillStyle='rgba('+rgb+','+a+')';
+      ctx.fillText(ch,-widths[i]/2,0);
+      ctx.restore();
+    }
+    x+=widths[i]+sp;
+    i++;
+  }
+}
+
+function drawHazardBar(cx,y,w,t,alpha){
+  if(alpha<=0.01)return;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(cx-w/2,y,w,5);
+  ctx.clip();
+  ctx.fillStyle='rgba(255,70,60,'+alpha+')';
+  const off=(t*0.04)%16;
+  for(let x=-16;x<w+16;x+=16){
+    ctx.beginPath();
+    ctx.moveTo(cx-w/2+x+off,y+5);
+    ctx.lineTo(cx-w/2+x+off+8,y+5);
+    ctx.lineTo(cx-w/2+x+off+13,y);
+    ctx.lineTo(cx-w/2+x+off+5,y);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
 function drawWaveBanner(){
-  const pulse=0.08+((Math.sin(S.tick*0.0042)+1)*0.30);
   const broadcast=getBroadcastMessage();
   const title=broadcast||currentWaveLabel();
+  const isCast=!!broadcast;
+  const b=fxBanner[isCast?'cast':'wave'];
+  if(b.key!==title){b.key=title;b.t=0;b.bgOn=false;b.bg=0;}
+  b.t+=fxFrameDt;
   const stageLine=S.reactorBuilt?'NUCLEAR DEFENCE STAGE '+currentPlayableStage():'STAGE '+currentPlayableStage();
-  const subtitle=broadcast?(S.reactorBuilt?stageLine:stageLine+' / '+currentWaveLabel()):stageLine;
-  const titleSize=broadcast?Math.max(20,Math.min(30,W*0.058)):(S.reactorBuilt?34:30);
+  const subtitle=isCast?(S.reactorBuilt?stageLine:stageLine+' / '+currentWaveLabel()):stageLine;
+  const titleSize=isCast?Math.max(20,Math.min(30,W*0.058)):(S.reactorBuilt?34:30);
   const titleFont='700 '+titleSize+'px '+FX_TITLE;
-  const subFont='12px '+FX_HUD;
   const maxWidth=W*0.78;
-  const lines=broadcast?wrapBannerLines(title,titleFont,maxWidth,3):[title];
+  ctx.save();
+  ctx.font=titleFont;
+  if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+  const lines=isCast?wrapBannerLines(title,titleFont,maxWidth,3):[title];
   const lineHeight=Math.round(titleSize*1.08);
   const titleY=H*0.16;
   const blockHeight=lineHeight*lines.length;
-  const alpha=broadcast?Math.min(0.95,0.3+pulse):Math.min(0.9,0.3+pulse*0.8);
-  ctx.save();
-  ctx.textAlign='center';
+  const chars=lines.join('').length;
+  const flyEnd=chars*30+600;
+  const blinkDur=isCast?900:1800;
+  const blinkEnd=flyEnd+blinkDur;
+  const t=b.t;
+  let alpha=1;
+  let blink=1;
+  if(t>flyEnd&&t<blinkEnd){
+    const bt=(t-flyEnd)/230;
+    blink=0.3+0.7*fxClamp(0.5+1.2*Math.sin(bt*Math.PI),0,1);
+  }
+  alpha=0.92*(t>=flyEnd&&t<blinkEnd?blink:1);
+  if(!isCast){
+    if(!b.bgOn&&t>blinkEnd&&(fxHostileCount()>0||t>blinkEnd+3000))b.bgOn=true;
+    if(b.bgOn)b.bg=Math.min(1,b.bg+fxFrameDt/1400);
+  }
+  const bgE=b.bg*b.bg*(3-2*b.bg);
+  const bgAlpha=0.15+0.07*Math.sin(S.tick*0.0026);
+  alpha=alpha+(bgAlpha-alpha)*bgE;
+  const grow=1+0.12*bgE;
+  const rgb=bgE>0.5?'200,110,100':'255,105,90';
+  ctx.textAlign='left';
   ctx.textBaseline='middle';
-  ctx.font=titleFont;
-  if('letterSpacing' in ctx)ctx.letterSpacing='2px';
-  lines.forEach((line,idx)=>{
-    const y=titleY+idx*lineHeight;
-    ctx.fillStyle='rgba(255,70,60,'+(alpha*0.28)+')';
-    ctx.fillText(line,W/2+1.5,y+1.5,maxWidth);
-    ctx.fillStyle='rgba(255,120,100,'+alpha+')';
-    ctx.fillText(line,W/2,y,maxWidth);
+  if(t>flyEnd-150&&t<blinkEnd+400){
+    const glowA=(t<blinkEnd?blink:fxClamp(1-(t-blinkEnd)/400,0,1))*0.3;
+    ctx.save();
+    ctx.translate(W/2,titleY+blockHeight/2-lineHeight/2);
+    ctx.scale(2.6,0.55);
+    fxGlow(0,0,Math.min(maxWidth,W)*0.32,'255,60,50',glowA);
+    ctx.restore();
+  }
+  let idx=0;
+  lines.forEach(function(line,li){
+    drawBannerLine(line,W/2,titleY+li*lineHeight,idx,t,alpha,rgb,grow);
+    idx+=line.length;
   });
+  const subIn=fxClamp((t-flyEnd+250)/450,0,1);
+  const subAlpha=subIn*(0.78*(1-bgE)+0.2*bgE)*(t>=flyEnd&&t<blinkEnd?0.55+0.45*blink:1);
+  const subY=titleY+blockHeight+(isCast?8:2);
   if('letterSpacing' in ctx)ctx.letterSpacing='3px';
-  ctx.font=subFont;
-  ctx.fillStyle=S.reactorBuilt?'rgba(255,200,170,0.75)':'rgba(170,255,185,0.7)';
-  const subY=titleY+blockHeight+(broadcast?8:2);
+  ctx.textAlign='center';
+  ctx.font='12px '+FX_HUD;
+  ctx.fillStyle=(S.reactorBuilt?'rgba(255,200,170,':'rgba(170,255,185,')+subAlpha+')';
   ctx.fillText(subtitle,W/2,subY,maxWidth);
-  const ruleW=Math.min(120,W*0.3);
-  const ruleY=subY+13;
+  const ruleW=Math.min(120,W*0.3)*subIn;
   const rule=ctx.createLinearGradient(W/2-ruleW,0,W/2+ruleW,0);
   rule.addColorStop(0,'rgba(255,110,90,0)');
-  rule.addColorStop(0.5,'rgba(255,110,90,0.55)');
+  rule.addColorStop(0.5,'rgba(255,110,90,'+(0.55*(1-bgE*0.7))+')');
   rule.addColorStop(1,'rgba(255,110,90,0)');
   ctx.fillStyle=rule;
-  ctx.fillRect(W/2-ruleW,ruleY,ruleW*2,1);
+  ctx.fillRect(W/2-ruleW,subY+13,ruleW*2,1);
+  if(t>flyEnd-100&&t<blinkEnd+300){
+    const barA=0.75*(t<blinkEnd?blink:fxClamp(1-(t-blinkEnd)/300,0,1));
+    const barW=Math.min(maxWidth,W*0.7);
+    drawHazardBar(W/2,titleY-lineHeight*0.95,barW,t,barA);
+    drawHazardBar(W/2,subY+22,barW,t,barA);
+  }
   ctx.restore();
 }
 
@@ -544,6 +653,7 @@ function draw(){
   const now=performance.now();
   const frameDt=fxLastT?Math.min(50,now-fxLastT):16;
   fxLastT=now;
+  fxFrameDt=S.paused?0:frameDt;
   if(!S.paused)fxStepParticles(frameDt);
   ctx.save();
   if(S.shake>0){

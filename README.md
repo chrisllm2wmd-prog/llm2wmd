@@ -11,7 +11,7 @@ so add new files near the related ones rather than moving existing tags.
 | `js/`    | One script per feature (`core.js` is the main site logic; `shop.js`, `cart.js`, `headlines-mode.js`…). |
 | `data/`  | Content kept as data: `headline-stories.js` (Headline Mode), `system-stories.js` (System Analysis), `shop-products.js` (product images, names, prices, sizes). |
 | `game/`  | Today's Game. `game.js` is **generated** from the parts in `game/src/` (see below). `game-certs.js` (certificates + Qualification Room, loads before `game.js`), `game-styles.js` (its CSS), `game-markup.js` (its HTML), `game-overlay.css` (the popup frame). The game's CSS/HTML are stored as JS strings because the game injects them into its own sandboxed shadow DOM. |
-| `tools/` | `build-game.py` — joins `game/src/*.js` into `game/game.js`. |
+| `tools/` | `build-game.py` — joins `game/src/*.js` into `game/game.js`. `dev-server.py` — local R&D server (http://localhost:8123): rebuilds the game on refresh, no caching, nothing is pushed. |
 | `icons/` | App / home-screen icons, referenced by `site.webmanifest`. |
 | `images/`| Product photos and swatches (unchanged). |
 
