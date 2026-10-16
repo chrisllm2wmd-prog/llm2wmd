@@ -97,6 +97,7 @@ function wrapBannerLines(msg,font,maxWidth,maxLines){
    3. wave label only: once attacks start (or after a hold) it sinks to the background, dim and pulsing */
 const fxBanner={wave:{key:'',t:0,bgOn:false,bg:0},cast:{key:'',t:0,bgOn:false,bg:0}};
 let fxFrameDt=16;
+let fxStep=30;
 function fxClamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function fxEaseOutBack(p){const q=p-1;return 1+2.70158*q*q*q+1.70158*q*q;}
 function fxHostileCount(){let n=0;for(const m of S.missiles){if(m.team!=='friendly'&&m.type!=='civilian')n++;}return n;}
@@ -112,7 +113,7 @@ function drawBannerLine(line,cx,y,startIdx,t,alpha,rgb,sc){
   let i=0;
   for(const ch of line){
     const g=startIdx+i;
-    const p=fxClamp((t-g*30)/600,0,1);
+    const p=fxClamp((t-g*fxStep)/600,0,1);
     const e=fxEaseOutBack(p);
     const dir=g%2?1:-1;
     const fromX=dir*(W*0.55+(g*13)%60);
@@ -173,18 +174,29 @@ function drawWaveBanner(){
   b.t+=fxFrameDt;
   const stageLine=S.reactorBuilt?'NUCLEAR DEFENCE STAGE '+currentPlayableStage():'STAGE '+currentPlayableStage();
   const subtitle=isCast?(S.reactorBuilt?stageLine:stageLine+' / '+currentWaveLabel()):stageLine;
-  const titleSize=isCast?Math.max(20,Math.min(30,W*0.058)):(S.reactorBuilt?34:30);
-  const titleFont='700 '+titleSize+'px '+FX_TITLE;
   const maxWidth=W*0.78;
+  let titleSize=isCast?Math.max(20,Math.min(30,W*0.058)):(S.reactorBuilt?34:30);
+  let titleFont='700 '+titleSize+'px '+FX_TITLE;
   ctx.save();
   ctx.font=titleFont;
   if('letterSpacing' in ctx)ctx.letterSpacing='0px';
-  const lines=isCast?wrapBannerLines(title,titleFont,maxWidth,3):[title];
+  let lines=[title];
+  if(isCast){
+    /* long notices: shrink the type until the whole message fits in 4 lines */
+    for(;;){
+      titleFont='700 '+titleSize+'px '+FX_TITLE;
+      lines=wrapBannerLines(title,titleFont,maxWidth,6);
+      if(lines.length<=4||titleSize<=15)break;
+      titleSize-=1;
+    }
+    ctx.font=titleFont;
+  }
   const lineHeight=Math.round(titleSize*1.08);
   const titleY=H*0.16;
   const blockHeight=lineHeight*lines.length;
   const chars=lines.join('').length;
-  const flyEnd=chars*30+600;
+  fxStep=Math.min(30,1100/Math.max(1,chars));
+  const flyEnd=chars*fxStep+600;
   const blinkDur=isCast?900:1800;
   const blinkEnd=flyEnd+blinkDur;
   const t=b.t;
